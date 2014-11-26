@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head> <script src="jquery.min.js"></script>
+  	<script>
+    $(document).ready(function(){
+      $("button").click(function(){
+        $("#div1").load("jquery_test.txt");
+      });
+    });
+  </script>
+  </head>
+  <body>
+    <div id="div1"><h2>Let Something do another thing</h2></div>
+    <button>Get External Content</button>
+  </body>
+</html>

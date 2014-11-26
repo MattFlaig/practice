@@ -1,0 +1,26 @@
+<!DOCTYPE html><!-- doctype ist node type nr.9 -->
+<html>
+<!-- jeder tag als Element ist node type Nr.1 -->
+  <head>
+    <title>DOM</title>
+    <script type="text/javascript">
+    alert("Typ:" + document.firstChild.nodeType + „\n“+
+    	    "Tag": + document.firstChild.nodeName);
+    alert("Typ:" + document.lastChild.nodeType + „\n“+
+    	    "Tag": + document.lastChild.nodeName);
+    alert("Typ:" + document.childNodes[1].childNodes[0].nodeType + „\n“+
+    	    "Tag": + document.childNodes[1].childNodes[0].nodeName);
+    </script>
+  </head>
+  <body color="green"><!-- color als Attribut ist node type nr.2 -->
+<!--  Kommentare sind node type nr.8 -->
+  	<div>
+  		<h1>DOM Knoten</h1>
+  		<p>Ein <!-- Text ist node type nr.3 -->
+  			<strong>
+  				<em>kurzes</em>
+  			</strong>Beispiel
+  		</p>
+  	</div>
+  </body>
+</html>

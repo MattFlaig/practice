@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<ul id="myList1"><li>Coffee</li><li>Tea</li></ul>
+<ul id="myList2"><li>Water</li><li>Milk</li><li>Molk</li><li>Malk</li><li>Melk</li><li>Mulk</li><li>Moooolk</li><li>Miiiiiilk</li></ul>
+
+<p>Click the button to copy all items from one list to another.</p>
+
+<button onclick="myFunction()">Try it</button>
+
+
+<script>
+function myFunction() {
+    var itm = document.getElementById("myList2");
+    for(var i = 0; i < itm.children.length; ++i){
+    	var drink = itm.children[i];
+    	var cln = drink.cloneNode(true);
+        document.getElementById("myList1").appendChild(cln);
+    }
+}
+</script>
+
+</body>
+</html>
