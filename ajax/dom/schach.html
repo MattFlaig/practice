@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  	
+  	<style>
+		table
+			{
+			  border: 2px solid #666;
+			  border-collapse:collapse;
+			  margin-left: auto;
+			  margin-right: auto;
+			  margin-top: 50px;
+			  margin-bottom: 50px;
+			  width: 600px;
+			  height: 600px;
+			}
+
+		table tr td
+		{
+		    border: 1px solid #666;
+		    border-collapse:collapse;
+		    text-align: center;
+		    font-size: 30px
+		}
+
+		table td
+		{
+		    width:50px;
+		    height:50px;
+		}
+
+    </style>
+  </head>
+  <body onload="createBoard();">
+  	<div id="board">
+  	</div>
+  	<script>
+  	  
+  	  function createBoard(){
+			  var table = document.createElement('table');
+			  var rowLength = 8;
+			  var columnLength = 8;
+			  
+			  for(var i=0;i<rowLength;++i){
+			  	var row = document.createElement('tr');
+			  	
+			    for(var j=0;j<columnLength;++j){
+	          var cell = document.createElement('td');
+	          if (j%2==0 && i%2==0){
+	          	cell.style.setProperty("background-color","black");
+	          }
+	          else if(j%2!=0 && i%2!=0){
+	          	cell.style.setProperty("background-color","black");
+	          }
+	          row.appendChild(cell);
+			    }
+			    table.appendChild(row);
+			  }
+			  var board = document.getElementById('board');
+        board.appendChild(table);
+		  }
+
+  	</script>
+  </body>
+</html>
