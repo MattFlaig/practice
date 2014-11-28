@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  	<script src="chessboard.js">
+
+  	</script>
+  	
+  	<style>
+		table
+			{
+			  border: 2px solid #666;
+			  border-collapse:collapse;
+			  margin-left: auto;
+			  margin-right: auto;
+			  margin-top: 50px;
+			  width: 600px;
+			  height: 600px;
+			}
+
+		table tr td
+		{
+		    border: 1px solid #666;
+		    border-collapse:collapse;
+		    text-align: center;
+		}
+
+		table td
+		{
+		    width:50px;
+		    height:50px;
+		}
+
+    </style>
+  </head>
+  <body onload="">
+  	<div id="board">
+  	</div>
+  	<script>
+      chess = new Chessboard(8,8);
+  	</script>
+  </body>
+</html>
