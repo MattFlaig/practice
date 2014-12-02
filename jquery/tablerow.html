@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="jquery.min.js"></script>
+<style>
+table, td {
+    border: 1px solid black;
+}
+</style>
+</head>
+<body>
+
+<p>Click the buttons to delete row(s) for the table.</p>
+
+<table id="myTable">
+  <tr>
+    <td>Row1 cell1</td>
+    <td>Row1 cell2</td>
+  </tr>
+  <tr>
+    <td>Row2 cell1</td>
+    <td>Row2 cell2</td>
+  </tr>
+  <tr>
+    <td>Row3 cell1</td>
+    <td>Row3 cell2</td>
+  </tr>
+  <tr>
+    <td>Row4 cell1</td>
+    <td>Row4 cell2</td>
+  </tr>
+  <tr>
+    <td>Row5 cell1</td>
+    <td>Row5 cell2</td>
+  </tr>
+  <tr>
+    <td>Row6 cell1</td>
+    <td>Row6 cell2</td>
+  </tr>
+</table>
+<br>
+
+<!-- <button onclick="myCreateFunction()">Create row</button></br> -->
+<p>
+  Please specify the rows you want to delete
+</p>
+<p>
+  <label>From</label>
+  <input type='text' name='first' id="first" />
+
+  <label>To</label>
+  <input type='text' name='second' id="second" />
+</p>
+<button onclick="myDeleteFunction()">Delete row</button>
+<button id="reset" >Reset</button>
+
+<script>
+
+
+// function myCreateFunction() {
+//     var table = document.getElementById("myTable");
+//     var row = table.insertRow(0);
+//     var cell1 = row.insertCell(0);
+//     var cell2 = row.insertCell(1);
+//     cell1.innerHTML = "NEW CELL1";
+//     cell2.innerHTML = "NEW CELL2";
+// }
+
+function myDeleteFunction() {
+  var first = document.getElementById("first").value;
+  var deleter = parseInt(first) - 1;
+  var second = document.getElementById("second").value;
+  var row_number = parseInt(second)-parseInt(first);
+  while (row_number >= 0){
+    document.getElementById("myTable").deleteRow(deleter);
+    row_number -= 1;
+  }
+}
+
+$(document).ready(function enableResetTable(){
+  var resetState = $("#myTable").html();
+  $("#reset").click(function() {
+    $("#myTable").html(resetState);
+  });
+});
+
+</script>
+
+</body>
+</html>
