@@ -1,0 +1,297 @@
+/* GLOBAL */
+body
+{
+        border-top:10px solid navy;
+        background:#fff;
+        font-family: 'Comfortaa', cursive;
+        color:black;
+}
+
+
+/* HEADER */
+
+header
+{
+        position:relative;
+        width:auto;
+        max-width:900px;
+        margin: 0 auto 20px auto;
+}
+
+header h1
+{
+        margin:35px 0 0 0;
+        font-size:55px;
+        color: navy;
+        font-family: 'Comfortaa', cursive;
+        font-weight: bold;
+}
+
+header p
+{
+        font-family: 'Comfortaa', cursive;
+        font-size:16px;
+        color: black;
+        margin-left:132px;
+}
+
+nav
+{
+        position:absolute;
+        right:0;
+        bottom:0;
+}
+
+nav ul
+{
+        list-style:none;
+}
+
+nav ul li
+{
+        display:block;
+        float:left;
+        padding:3px 15px;
+}
+
+nav ul li a
+{
+        font-family: 'Comfortaa', cursive;
+        text-transform:uppercase;
+        color: black;
+        text-decoration: none;
+        /*transition: all .25s ease;*/
+}
+
+nav ul li a:hover
+{
+        color: navy;
+}
+
+
+/* MAINIMAGE */
+
+#spacer
+{
+        height: 350px;
+        background: navy;
+}
+
+#spacer img
+{
+        width:100%;
+        height: 300px;
+}
+
+
+
+/* BOXCONTENT */
+
+#boxcontent
+{
+        width:auto;
+        max-width:900px;
+        margin:0 auto;
+        padding:70px 0 45px 0;
+
+}
+
+#boxcontent article
+{
+        float:left;
+        width:250px;
+        margin-right:45px;
+        font-size:16px;
+}
+
+#boxcontent article h3
+{
+        font-family: 'Comfortaa', cursive;
+        font-size:22px;
+        margin-bottom:10px;
+        margin-left:75px;
+}
+
+#boxcontent article img
+{
+        float:left;
+        margin-right:20px;
+}
+
+
+
+
+/* FORM */
+
+#form 
+{
+    margin-top:100px;
+    margin-left:auto;
+    margin-right:auto;
+
+    max-width: 680px;
+    background: #fff;
+    padding: 0px 30px 20px 30px;
+    font: 12px 'Comfortaa', cursive;
+    color: black;
+    border:1px solid navy;
+    border-radius: 5px;
+    border-top:20px solid navy;
+    
+}
+#form h1 
+{
+    font: 25px 'Comfortaa', cursive;
+    padding: 0px 0px 10px 40px;
+    display: block;
+    border-bottom: 1px solid navy;
+    margin: -10px -30px 30px -30px;
+    color: #fff;
+    background-color: navy;
+}
+#form h1>span 
+{
+    display: block;
+    font-size: 11px;
+}
+#form label 
+{
+    display: block;
+    margin: 0px 0px 5px;
+}
+#form label>span 
+{
+    float: left;
+    width: 20%;
+    text-align: right;
+    padding-right: 10px;
+    margin-top: 10px;
+    color: black;
+    font-family: 'Comfortaa', cursive;
+    font-weight: bold;
+}
+#form input[type="text"], #form input[type="email"],#form input[type="tel"]
+{
+    border: 1px solid navy;
+    color: black;
+    height: 20px;
+    line-height:15px;
+    margin-bottom: 16px;
+    margin-right: 6px;
+    margin-top: 2px;
+    outline: 0 none;
+    padding: 5px 0px 5px 5px;
+    width: 70%;
+    border-radius: 4px;
+}
+
+#form textarea
+{
+    height:100px;
+    padding: 5px 0px 0px 5px;
+    width: 70%;
+}
+#form .button 
+{
+    background: navy;
+    border: 1px solid navy;
+    padding: 10px 25px 10px 25px;
+    color: #fff;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+#form .button:hover 
+{
+    color: #fff;
+    background-color: black;
+    border-color: navy;
+}
+
+
+
+/*FORM OUTPUT*/
+
+.output_table
+{
+    margin-top:100px;
+    margin-left:auto;
+    margin-right:auto;
+
+    max-width: 680px;
+    background: #FFF;
+    padding: 20px 30px 20px 30px;
+    font: 15px 'Comfortaa', cursive;
+    color: black;
+    /*text-transform:capitalize;*/
+    border:1px solid navy;
+    border-radius: 5px;
+}
+
+.output_table table tr td
+{
+    width:100px;
+}
+
+/*CHANGE STYLE*/
+.changebutton
+{
+    margin-left: 300px;
+    margin-top: 100px;
+    background: navy;
+    border: 1px solid navy;
+    font-size: 20px;
+    font-family: 'Comfortaa', cursive;
+    padding: 40px 100px 40px 100px;
+    color: #fff;
+    border-radius: 4px;
+}
+.changebutton:hover 
+{
+    color: #fff;
+    background-color: black;
+    border-color: navy;
+}
+
+
+/* FOOTER */
+
+footer
+{
+        position:relative;
+        clear:both;
+        width:auto;
+        height:175px;
+        background:#333333;
+        margin-top:150px;
+}
+
+footer .wrapper
+{
+        line-height:25px;
+        margin: 0 auto;
+        padding-top:30px;
+        width:auto;
+        max-width:900px;
+        font-size:14px;
+}
+
+#copyright
+{
+        background: #1D1D1D;
+        height:70px;
+        position:absolute;
+        bottom:0;
+        left:0;
+        width:100%;
+}
+#copyright .wrapper
+{
+        font-family: 'Comfortaa', cursive;
+        padding-top:25px;
+        color: #5e5e5e;
+        font-size:14px;
+        position:relative;
+}
+
+
+
