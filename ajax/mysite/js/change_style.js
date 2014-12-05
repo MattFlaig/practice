@@ -3,10 +3,9 @@
 
     $('#loadstyling').click(function(event){
       event.preventDefault();
-      $('#boxcontent').children().remove();
+      clearOldContent();
       
-      
-      var stylingContent = "<button class='changebutton' id='change_css'>Change Styling!</button>";
+      var stylingContent = getStylingContent();
       $('#boxcontent').html(stylingContent);
       var styleNumber = 2;
 
@@ -26,6 +25,22 @@
           }
         });
       }
+
+      function getStylingContent(){
+        var button = $('<div/>',{
+          'class' : 'big_button',
+          'id' : 'change_css',
+          'text' : 'Change Styling!'
+        });
+        return button;
+      };
+
+      function clearOldContent(){
+        $('#boxcontent').children().remove();
+        $('#output').children().remove();
+        $('#output').removeClass('output_table');
+        $('#output').removeClass('output_contact');
+      };
     });
   });
 }($));

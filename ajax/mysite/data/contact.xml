@@ -1,0 +1,10 @@
+<contact>
+  <name>
+    <firstname>Matthias</firstname>
+    <lastname>Flaig</lastname>
+  </name>
+  <street>Matthiasstraße 99</street>
+  <city>12345 Matthiasstadt</city>
+  <email>matthias@matthias.com</email>
+  <phone>012/3456789</phone>
+</contact>

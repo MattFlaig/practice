@@ -6,21 +6,41 @@
     if($('#boxcontent').children().length == 0){
 	    $('#boxcontent').html(indexContent);
     }
+
   	$('#loadindex').click(function(event){
   		event.preventDefault();
-  		$('#boxcontent').children().remove();
+      clearOldContent();
       $('#boxcontent').html(indexContent);
   	});
 
     function getIndexContent(){
-    	var indexContent = "<article><img src='img/clipboard-icon.png'alt='Clipboard'/><h3>Form</h3>" + 
-      "<p>Fill in the form and see your inputs appearing in a table.</p></article>"+
-      "<article><img src='img/contacts-icon.png' alt='Contacts'/><h3>Address Book</h3>" +
-      "<p>Perform CRUD actions on your addresses.</p></article>"+
-      "<article><img src='img/art-icon.png' alt='Styling'/><h3>Styling</h3>" + 
-      "<p>Change the page's styling and enjoy different visuals.</p></article><br class='clear'/>";
-     
-      return indexContent;
+      var first = getArticle('clipboard', 'Form', 'Fill in the form and see your inputs appearing in a table.');
+      var second = getArticle('contacts', 'Address Book', 'Perform CRUD actions on your addresses.');
+      var third = getArticle('art', 'Styling', "Change the page's styling and enjoy different visuals.");
+      return [first, second, third];
+    }
+
+    function getArticle(icon, headline, text){
+      var article = $('<article/>');
+      $('<img/>', {
+        'src':'img/' + icon + '-icon.png',
+        'alt': icon
+      }).appendTo(article);
+      $('<h3/>',{
+        'text': headline
+      }).appendTo(article);
+      $('<p/>',{
+      'text': text
+      }).appendTo(article);
+
+      return article;
+    }
+
+    function clearOldContent(){
+      $('#boxcontent').children().remove();
+      $('#output').children().remove();
+      $('#output').removeClass('output_table');
+      $('#output').removeClass('output_contact');
     }
 	});
 
