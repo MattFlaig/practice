@@ -119,12 +119,13 @@ nav ul li a:hover
         margin-right:20px;
 }
 
-/* FORM */
 
+
+/* FORM */
 
 #form 
 {
-    margin-top:50px;
+    margin-top: 30px;
     margin-left:auto;
     margin-right:auto;
 
@@ -144,7 +145,7 @@ nav ul li a:hover
     padding: 0px 0px 10px 40px;
     display: block;
     border-bottom: 1px solid teal;
-    margin: -10px -30px 30px -30px;
+    margin: -10px -30px 50px -30px;
     color: black;
     background-color: teal;
 }
@@ -197,6 +198,7 @@ nav ul li a:hover
     padding: 10px 25px 10px 25px;
     color: black;
     border-radius: 4px;
+    margin-top: 30px;
     margin-right: 10px;
 }
 #form .button:hover 

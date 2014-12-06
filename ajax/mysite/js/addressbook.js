@@ -1,25 +1,54 @@
 (function($){
   $(document).ready(function(){
 
+    // Event Handler for Addressbook link in Header
     $('#addressbook').click(function(event){
-      event.preventDefault();
+      event.preventDefault();//prevent redirect
+
+      // calling function for deleting old template content
       clearOldContent();
-      
-      var addressContent = "<form id='form' action='#'><h1>Your addressbook</h1><br/>"+
-      "<p><label for='firstname'>First Name:</label><input type='text'"+
-      "name='firstname' id='firstname'></input></p><p><label for='lastname'>"+
-      "Last Name:</label><input type='text' name='lastname' id='lastname'>" +
-      "</input></p><p><label for='email'>Email Address:</label><input type='email'" +
-      " name='email' id='email'></input></p><p><label for='phone'>Phone Number: </label>" + 
-      "<input type='tel' name='phone' id='phone'></input></p><br/><p><input type='submit'"+
-      "class='button' id='show' value='Show'><input type='submit' class='button' id='next'"+
-      "value='Next'><input type='submit' class='button' id='back' value='Back'>" + 
-      "<input type='submit' class='button' id='new' value='New'>" + 
-      "<input type='submit' class='button' id='edit' value='Edit'></p></form>";
 
+      // calling functions to create the form and filling the template 
+      var addressContent = getForm();
       $('#boxcontent').html(addressContent);
+      
+      //Creating form with jquery
+      function getForm(){
+        var form = $('<form/>', {'id':'form','action':'#'});
+        $('<h1/>',{'text':'Your addressbook'}).appendTo(form);
+
+        var firstParagraph = $(getFormParagraph('firstname', 'First Name', 'text')).appendTo(form);
+        var secondParagraph = $(getFormParagraph('lastname', 'Last Name', 'text')).appendTo(form);
+        var thirdParagraph = $(getFormParagraph('email', 'Email Address', 'email')).appendTo(form);
+        var fourthParagraph = $(getFormParagraph('phone', 'Phone Number', 'tel')).appendTo(form);
+        
+        var submitParagraph = $(getSubmitParagraph()).appendTo(form);
+
+        return form;
+      }
+
+      //function for creating addressbook form paragraphs
+      function getFormParagraph(element, elementText, elementType){
+        var paragraph = $('<p/>');
+        $('<label/>', {'for':element, 'text':elementText}).appendTo(paragraph);
+        $('<input/>', {'type':elementType, 'name':element, 'id':element}).appendTo(paragraph);
+        return paragraph;
+      }
+
+      //function for creating submit paragraph
+      function getSubmitParagraph(){
+        var submitParagraph = $('<p/>');
+        $('<input/>', {'type':'submit', 'class':'button','id':'show', 'value':'Show'}).appendTo(submitParagraph);
+        $('<input/>', {'type':'submit', 'class':'button','id':'next', 'value':'Next'}).appendTo(submitParagraph);
+        $('<input/>', {'type':'submit', 'class':'button','id':'back', 'value':'Back'}).appendTo(submitParagraph);
+        $('<input/>', {'type':'submit', 'class':'button','id':'new', 'value':'New'}).appendTo(submitParagraph);
+        $('<input/>', {'type':'submit', 'class':'button','id':'edit', 'value':'Edit'}).appendTo(submitParagraph);
+        return submitParagraph;
+      }
 
 
+      //AJAX Functions to show, browse, create, update and delete addressbook content
+      //index variable to enable browsing through json array of crud.json file
       var index = 0;
 
       $('#show').click(function(event){
@@ -66,6 +95,7 @@
         })
       }); 
 
+      //Creating xmlHttpRequestObject 
       function getAjaxRequest(){
           var request = $.ajax({
               type: "GET",
@@ -75,6 +105,7 @@
           return request;
       };
 
+      //removing old content from template
       function clearOldContent(){
         $('#boxcontent').children().remove();
         $('#output').children().remove();

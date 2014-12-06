@@ -1,16 +1,23 @@
 (function($){
   $(document).ready(function(){
 
+    // Event Handler for Contact link in Header
     $('#loadcontact').click(function(event){
       event.preventDefault();
+
+      // calling function for deleting old template content
       clearOldContent();
       
+      // calling functions to create the contact content and fill the template 
       var contactContent = getContactContent();
       $('#boxcontent').html(contactContent);
 
+      //add event handler and initialize AJAX for external XML content
       $('#contact_info').click(function(event){
         event.preventDefault();
         var request = getAjaxRequest();
+
+        //remove the contact button and add contact data from XML instead
         $('#boxcontent').children().remove();
 
         request.done(function(){
@@ -29,7 +36,7 @@
         
       });
 
-
+      //creating contact button
       function getContactContent(){
         var button = $('<div/>',{
           'class' : 'big_button',
@@ -39,6 +46,7 @@
         return button;
       };
 
+      //remove old content from template
       function clearOldContent(){
         $('#boxcontent').children().remove();
         $('#output').children().remove();
@@ -46,6 +54,7 @@
         $('#output').removeClass('output_contact');
       };
 
+      //create AJAX request for external XML
       function getAjaxRequest(){
         var request = $.ajax({
             type: "GET",

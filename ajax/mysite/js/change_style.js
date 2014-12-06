@@ -1,18 +1,28 @@
 (function($){
   $(document).ready(function(){
 
+    // Event Handler for Styling link in Header
     $('#loadstyling').click(function(event){
-      event.preventDefault();
+      event.preventDefault();//prevent redirect
+
+      // calling function for deleting old template content
       clearOldContent();
       
+      // calling functions to create the styling content and fill the template 
       var stylingContent = getStylingContent();
       $('#boxcontent').html(stylingContent);
+
+      //number of stylesheet to chose next, has to be outside of #change_css-eventhandler 
       var styleNumber = 2;
 
+      //if id of styling button which was just created is present, add eventhandler to it
       if($('#change_css').length > 0){
         $('#change_css').click(function(){
 
+          //finding last stylesheet in header and change its href attribute dynamically
           $('link[rel=stylesheet]:last').attr('href','css/mysite_' + styleNumber + '.css');
+
+          //depending on the stylesheet, change main image in spacer
           if(styleNumber == 1){
             var image ="<img src='img/muster.jpg' alt='blue_waves'/> ";
             $('#spacer').html(image);
@@ -26,6 +36,7 @@
         });
       }
 
+      //creating the style button with jquery
       function getStylingContent(){
         var button = $('<div/>',{
           'class' : 'big_button',
@@ -35,6 +46,7 @@
         return button;
       };
 
+      //removing old content from template
       function clearOldContent(){
         $('#boxcontent').children().remove();
         $('#output').children().remove();
