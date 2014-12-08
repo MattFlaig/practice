@@ -3,7 +3,7 @@
 
     // Event Handler for Contact link in Header
     $('#loadcontact').click(function(event){
-      event.preventDefault();
+      event.preventDefault();//prevent redirect
 
       // calling function for deleting old template content
       clearOldContent();
