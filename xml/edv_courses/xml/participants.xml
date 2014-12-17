@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="edv_2.xsl" ?>
+
+<edv_participants>
+  <participant>
+    <firstname>Alfred</firstname>
+    <lastname>Abraham</lastname>
+    <email>alf@alf.de</email>
+    <course>HTML</course>
+    <reduction>Yes</reduction>
+  </participant>  
+  <participant>
+    <firstname>Beatrice</firstname>
+    <lastname>Burger</lastname>
+    <email>burg@burg.com</email>
+    <course>Javascript</course>
+    <reduction>No</reduction>
+  </participant> 
+  <participant>
+    <firstname>Carl</firstname>
+    <lastname>Cornerstone</lastname>
+    <email>carl@carl.org</email>
+    <course>PHP 1</course>
+    <reduction>No</reduction>
+  </participant> 
+  <participant>
+    <firstname>Dario</firstname>
+    <lastname>Dogetti</lastname>
+    <email>dario@dario.it</email>
+    <course>PHP 2</course>
+    <reduction>No</reduction>
+  </participant> 
+  <participant>
+    <firstname>Edna</firstname>
+    <lastname>Engström</lastname>
+    <email>edna@edna.se</email>
+    <course>CSS</course>
+    <reduction>Yes</reduction>
+  </participant> 
+</edv_participants>

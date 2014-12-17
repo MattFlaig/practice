@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE edv_courses SYSTEM "courses.dtd">
+<?xml-stylesheet type="text/xsl" href="courses.xsl" ?>
+
+
+<edv_courses>
+	<course>
+		<name>PHP 1</name>
+		<price>600</price>
+		<duration>6 Weeks</duration>
+		<description>
+		Your start with PHP, the most used server-side scripting language
+		</description>
+		<teacher>Mr. Yoda</teacher>
+		
+	</course>
+	<course>
+		<name>PHP 2</name>
+		<price>800</price>
+		<duration>6 Weeks</duration>
+		<description>
+		Advanced PHP, covering object-oriented programming and MVC
+		</description>
+		<teacher>Mr. Yoda</teacher>
+		
+	</course>
+	<course>
+		<name>Javascript</name>
+		<price>500</price>
+		<duration>3 Weeks</duration>
+		<description>
+		Learn client side scripting in this beginner friendly course
+		</description>
+		<teacher>Mr. Palpatine</teacher>
+		
+	</course>
+	<course>
+		<name>HTML</name>
+		<price>400</price>
+		<duration>5 Weeks</duration>
+		<description>
+		The entry into webdesign 
+		</description>
+		<teacher>Ms. Leia</teacher>
+		
+	</course>
+	<course>
+		<name>CSS</name>
+		<price>400</price>
+		<duration>5 Weeks</duration>
+		<description>
+		Learn basic design in this wonderful course!
+		</description>
+		<teacher>Mr. Luke</teacher>
+		
+	</course>
+</edv_courses>

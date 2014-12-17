@@ -1,0 +1,7 @@
+<!ELEMENT edv_courses (course+)>
+<!ELEMENT course (name,price,duration,description,teacher)>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT price (#PCDATA)>
+<!ELEMENT duration (#PCDATA)>
+<!ELEMENT description (#PCDATA)>
+<!ELEMENT teacher (#PCDATA)> 
