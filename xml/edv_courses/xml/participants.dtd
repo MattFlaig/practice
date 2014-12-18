@@ -1,0 +1,7 @@
+<!ELEMENT edv_participants (participant+)>
+<!ELEMENT participant (firstname,lastname,email,course,reduction)>
+<!ELEMENT firstname (#PCDATA)>
+<!ELEMENT lastname (#PCDATA)>
+<!ELEMENT email (#PCDATA)>
+<!ELEMENT course (#PCDATA)>
+<!ELEMENT reduction (#PCDATA)> 

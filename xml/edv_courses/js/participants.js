@@ -5,35 +5,35 @@
     function initialize(){
       clearOldContent();
       if($('#boxcontent').children().length == 0){
-        getCourseContent();
+        getParticipantContent();
       }
 
-      $('#courses').click(function(event){
+      $('#participants').click(function(event){
         event.preventDefault();
         clearOldContent();
-        getCourseContent();
+        getParticipantContent();
       });
     };
 
-    function getCourseContent(){  
-      var request = getAjaxRequest("courses.xml");
-      var xsl = getAjaxRequest("courses.xsl")
+    function getParticipantContent(){  
+      var request = getAjaxRequest("participants.xml");
+      var xsl = getAjaxRequest("participants.xsl")
 
       request.done(function(){
         var xmlObject = $.parseXML(request.responseText);
         var output = "";
         output += "<div class='output_courses'><table>"+
-                  "<tr><th>Name</th><th>Price</th><th>Duration</th><th>"+ 
-                  "Description</th><th>Teacher</th></tr>";
-        $(xmlObject).find('edv_courses').children().each(function(){
-          var name = $(this).find(':nth-child(1)').text();
-          var price = $(this).find(':nth-child(2)').text();
-          var duration = $(this).find(':nth-child(3)').text();
-          var description = $(this).find(':nth-child(4)').text();
-          var teacher = $(this).find(':nth-child(5)').text();
-          output += "<tr><td>" + name + "</td><td>" + price + 
-                    "</td><td>" + duration + "</td><td>" + description + 
-                    "</td><td>" + teacher + "</td></tr>";
+                  "<tr><th>First Name</th><th>Last Name</th><th>Email</th><th>"+ 
+                  "Course</th><th>Reduction</th></tr>";
+        $(xmlObject).find('edv_participants').children().each(function(){
+          var firstname = $(this).find(':nth-child(1)').text();
+          var lastname = $(this).find(':nth-child(2)').text();
+          var email = $(this).find(':nth-child(3)').text();
+          var course = $(this).find(':nth-child(4)').text();
+          var reduction = $(this).find(':nth-child(5)').text();
+          output += "<tr><td>" + firstname + "</td><td>" + lastname + 
+                    "</td><td>" + email + "</td><td>" + course + 
+                    "</td><td>" + reduction + "</td></tr>";
         });
         output += "</table></div>";
         $('#boxcontent').html(output);
@@ -44,10 +44,10 @@
 
       $('#style_table').click(function(event){
         event.preventDefault();
-        xml = getAjaxRequest("courses.xml");
+        xml = getAjaxRequest("participants.xml");
         xml.done(function(){
           var xmlObject = $.parseXML(xml.responseText);
-          xsl = getAjaxRequest("courses.xsl");
+          xsl = getAjaxRequest("participants.xsl");
           xsl.done(function(){
             var xslObject = $.parseXML(xsl.responseText);
             if (document.implementation && document.implementation.createDocument){
