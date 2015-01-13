@@ -16,7 +16,8 @@
 
   <body>
 
-  <header>
+  <!-- Header with navigation -->
+    <header>
       <h1>SQL Screenshots</h1>
       <p>Learn SQL with the command line</p>
       <nav>
@@ -29,43 +30,94 @@
       </nav>
     </header>
 
+    <!-- Spacer for SVG random colour image -->
     <section id="spacer">
     </section>
 
+    <!-- Main Section -->
     <section id="main">
-      <h1>Datenbank erzeugen</h1>
-      <p>
-        <img src="sql/video1.PNG" alt="erzeuge_datenbank">
-      </p>
+      <h1>Creating databases and tables</h1>
+      <figure>
+        <img src="screenshots/sql/video1.png" alt="erzeuge_datenbank">
+        <figcaption>Create database "videothek"</figcaption>
+      </figure>
       </br>
-      <h1>Filme</h1>
-      <p>
-        <img src="sql/video2.PNG" alt="erzeuge tabelle für filme">
-      </p>
+      <figure>
+        <img src="screenshots/sql/video2.png" alt="erzeuge tabelle für filme"><figcaption>Create table "filme"</figcaption>
+      </figure>
       </br>
-      <h1>Kunden</h1>
-      <p>
-        <img src="sql/video3.PNG" alt="erzeuge tabelle für kunden">
-      </p>
+      <figure>
+        <img src="screenshots/sql/video3.png" alt="erzeuge tabelle für kunden"><figcaption>Create table "kunden"</figcaption>
+      </figure>
       </br>
-      <h1>Leihen und Kategorien</h1>
-      <p>
-        <img src="sql/video4.PNG" alt="erzeuge tabelle für leihen und kategorien">
-      </p>
+      <figure>
+        <img src="screenshots/sql/video4.png" alt="erzeuge tabelle für leihen und kategorien"><figcaption>Create tables "leihen" and "kategorien"</figcaption>
+      </figure>
+      </br>
+
+      <h1>Creating table contents with scripts</h1>
+      <figure>
+        <img src="screenshots/sql/dateneingabe_filme.png" alt="erzeuge_filme_inhalt"><figcaption>Create Contents for "filme"</figcaption>
+      </figure>
+      </br>
+      <figure>
+        <img src="screenshots/sql/dateneingabe_filme_tabelle.png" alt="zeige_filme_inhalt"><figcaption>Show Contents for "filme" (selection)</figcaption>
+      </figure>
+      </br>
+      <figure>
+        <img src="screenshots/sql/dateneingabe_kunden.png" alt="kunden_inhalt"><figcaption>Create Contents for "kunden"</figcaption>
+      </figure>
+      </br>
+      <figure>
+        <img src="screenshots/sql/dateneingabe_kunden_tabelle.png" alt="kunden_inhalt"><figcaption>Show Contents for "kunden"</figcaption>
+      </figure>
+      </br>
+
+      <h1>Creating table contents in the sql client</h1>
+      <figure>
+        <img src="screenshots/sql/dateneingabe_leihen_kategorien.png" alt="leihen_kategorien_inhalt"><figcaption>Create Contents for "leihen" and "kategorien"</figcaption>
+      </figure>
+      </br>
+
+      <h1>Alter table contents</h1>
+      <figure>
+        <img src="screenshots/sql/alter_table.png" alt="leihen_kategorien_inhalt"><figcaption>Add column "Rueckgabedatum" to table "leihen"</figcaption>
+      </figure>
+      </br>
+
+      <h1>Example SQL queries</h1>
+      <figure>
+        <img src="screenshots/sql/spieldauer.png" alt="spieldauer"><figcaption>Show every record from "filme" with more than 130 minutes of length</figcaption>
+      </figure>
+      </br>
+      <figure>
+        <img src="screenshots/sql/regisseur.png" alt="regisseur"><figcaption>Show title, director and main actor of every film whose regisseur's name is similar to 'Chris'</figcaption>
+      </figure>
+      </br>
+      <figure>
+        <img src="screenshots/sql/nicht_ausgeliehen.png" alt="nicht_ausgeliehen"><figcaption>Show every film which is not lent</figcaption>
+      </figure>
+      </br>
+      <figure>
+        <img src="screenshots/sql/kategorien.png" alt="kategorien"><figcaption>Show the title and respective category name of each film (using a JOIN query) </figcaption>
+      </figure>
+      </br>
+      <figure>
+        <img src="screenshots/sql/ausleihen_join.png" alt="ausleihdatum"><figcaption>Show the title, customer name and lending date of every lent film (using an INNER JOIN query) </figcaption>
+      </figure>
+      </br>
     </section>
 
     
-
+    <!-- Footer with navigation and Copyright -->
     <footer>
       <section class="wrapper">
-        
         <ul>
           <li><a href="index.html" >Home</a></li>
           <li><a href="dia.html" >DIA</a></li>
           <li><a href="sql.html">SQL</a></li>
           <li><a href="contact.html">Contact</a></li>
         </ul>
-        
       </section>
 
       <section id="copyright">
