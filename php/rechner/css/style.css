@@ -1,34 +1,40 @@
 @import url(http://fonts.googleapis.com/css?family=Orbitron);
 
 section{
-    border: 1px solid black;
+    border: 1px solid #ccc;
     border-radius:10px;
-    height: 380px;
+    height: 450px;
     width: 270px;
-    background: #333;
+    background:#036;
+    margin: 100px auto;
 }
 
 table{
-	padding: 20px;
-	/*border: 1px solid black;*/
+	padding: 30px;
 	max-width: 270px;
 	font-family: 'Orbitron', sans-serif;
 }
 
 table tr td {
 	border-radius:10px;
-	border: 1px solid #ddd;
-	height: 50px;
-	width: 50px;
+	border: 1px solid #ccc;
+	height: 30px;
+	width: 30px;
 	padding: 10px;
 	text-align: center;
 	font-family: 'Orbitron', sans-serif;
-	color: #ddd;
+	color: #ccc;
+	background: #147;
 }
 input[type="text"]{
-	height: 50px;
-	width: 250px;
+	height: 30px;
+	width: 205px;
 	padding: 10px;
-	margin: 10px;
-	font-family: 'Orbitron', sans-serif;
+	margin: 30px 20px 10px 20px;
+	font: 20px 'Orbitron' sans-serif;
+	background: #147;
+	border: 1px solid #ccc;
+	border-radius:10px;
+	color: #ccc;
+
 }

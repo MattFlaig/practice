@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
     <head>
     	<link href='http://fonts.googleapis.com/css?family=Orbitron' rel='stylesheet' type='text/css'>
@@ -8,14 +9,36 @@
 	<body>
 		<section>
 			<form action="php/rechner.php" method="post">
-
 				<table>
-				  <input type="text" id="calc_input" name="calc_input">
-				  <tr><td id="eins">1</td><td id="zwei">2</td><td id="drei">3</td><td id="plus">+</td></tr>
-				  <tr><td id="vier">4</td><td id="fuenf">5</td><td id="sechs">6</td><td id="minus">-</td></tr>
-				  <tr><td id="sieben">7</td><td id="acht">8</td><td id="neun">9</td><td id="mal">x</td></tr>
-				  <tr><td id="null">0</td><td id="komma">.</td><td id="modulo">%</td><td id="geteilt">:</td></tr>
-				  <tr><td id="loesche">CC</td><td id="zurueck">del</td><td type="submit" id="submit" colspan = "2">=</td></tr>
+				  <input type="text" id="calc_input" name="calc_input" readonly/>
+				  <tr>
+				  	<td class="button" name="1">1</td>
+				  	<td class="button" name="2">2</td>
+				  	<td class="button" name="3">3</td>
+				  	<td class="button" name="+">+</td>
+				  </tr>
+				  <tr>
+				  	<td class="button" name="4" >4</td>
+				  	<td class="button" name="5">5</td>
+				  	<td class="button" name="6">6</td>
+				  	<td class="button" name="-">-</td>
+				  </tr>
+				  <tr>
+				  	<td class="button" name="7">7</td>
+				  	<td class="button" name="8">8</td>
+				  	<td class="button" name="9">9</td>
+				  	<td class="button" name="*">*</td>
+				  </tr>
+				  <tr>
+				  	<td class="button" name="0">0</td>
+				  	<td id="comma">.</td>
+				  	<td class="button" name="%">%</td>
+				  	<td class="button" name="/">/</td>
+				  </tr>
+				  <tr>
+				  	<td id="loesche" colspan="2">C</td>
+				  	<td type="submit" id="submit" colspan="2">=</td>
+				  </tr>
 				</table>
 			</form>
 	    </section>
