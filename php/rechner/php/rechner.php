@@ -51,25 +51,16 @@
 					$index++;
 					$arr = $parsed_array;
 				} 
-
-				return $parsed_array;
-
-			    // $multiplied = parse($arr, '*');
-			    // $divided = parse($multiplied, '/');
-			    // $moduloed = parse($divided, '%');
-			    // $subtracted = parse($moduloed, '-');
-			    // $added = parse($subtracted, '+');
-	      //       return $added;
 			}
 
 			evaluate($arr, $sum);
-			echo round($sum, 2);
+			echo $sum;
 			
 		}
 
 	}
 	else{
-		echo "";
+		echo "ERROR";
 	}
 
 

@@ -40,7 +40,13 @@
 
                   request.done(function(){
                         var response = request.responseText;
-                        calc_string = parseFloat(response).toFixed(2);
+                        
+                        if (response=="ERROR"){
+                              calc_string = "ERROR";
+                        }
+                        else{
+                            calc_string = parseFloat(response).toFixed(2);  
+                        }
                         $('#calc_input').val(calc_string);
                         removeCommaEvent();
 
