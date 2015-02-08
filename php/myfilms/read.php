@@ -84,8 +84,8 @@
             <td><?php echo $row['actors']; ?> </td>
             <td><?php echo $row['categories']; ?> </td>
             <td>
-              <a href="edit.php?id=<?php echo $row['film_id'] ?>">Edit</a>
-              <a href="delete.php?id=<?php echo $row['film_id'] ?>">Delete</a>
+              <a href="edit.php?film_id=<?php echo $row['film_id'] ?>">Edit</a>
+              <a href="delete.php?film_id=<?php echo $row['film_id'] ?>">Delete</a>
             </td>
           </tr>
       <?php endforeach ?>
