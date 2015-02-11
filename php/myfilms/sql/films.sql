@@ -43,7 +43,7 @@ CREATE TABLE categories_films
 	film_id INTEGER NOT NULL,
 	FOREIGN KEY (category_id) REFERENCES categories (category_id),
 	FOREIGN KEY (film_id) REFERENCES films (film_id),
-	PRIMARY KEY (category_id, film_id)
+	PRIMARY KEY (category_id, film_id) 
 );
 
 
