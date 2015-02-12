@@ -4,8 +4,8 @@
     session_start();
 
     empty($_REQUEST['film_id']) && render404();
-    $db = new PDO("mysql:host=$servername;port=$port;dbname=$dbname", $username, $password, $options);
 
+    #selct films and directors
     $stmt = $db->prepare("SELECT * FROM films, directors WHERE film_id = ? AND films.director_id = directors.director_id");
     $stmt->execute(array($_REQUEST['film_id']));
     $film = $stmt->fetch();
@@ -13,6 +13,7 @@
 
     $film || render404();
 
+    #select actors and respective join table
     $stmt = $db->prepare("SELECT actor_name FROM actors_films, actors WHERE film_id = ? AND actors_films.actor_id = actors.actor_id");
     $stmt->execute(array($film['film_id']));
     $actors = $stmt->fetchAll();
@@ -20,6 +21,7 @@
 
     $film || render404();
 
+    #select categories and respective join table
     $stmt = $db->prepare("SELECT category_name FROM categories_films, categories WHERE film_id = ? AND categories_films.category_id = categories.category_id");
     $stmt->execute(array($film['film_id']));
     $categories = $stmt->fetchAll();
@@ -36,6 +38,9 @@
         
         <link rel="stylesheet" href="../css/reset.css" type="text/css" media="screen" />
         <link rel="stylesheet" href="../css/myfilm.css" type="text/css" media="screen" />
+
+        <script src="../js/jquery.min.js"></script>
+        <script src="../js/spacer.js"></script>
     </head>
 
     <body>
@@ -45,7 +50,7 @@
         <h1>MyFilms</h1>
         <nav>
             <ul>
-                <form id="search" action="search.php" method="get">
+                <form id="search" action=' <?php echo htmlspecialchars("search.php");?>' method="get">
                     <input type="text" id="search_input" name="search" value="Search for films"/>
                     <input type="submit" id="search_button" value="SEARCH"/>
                 </form>
@@ -53,7 +58,7 @@
                 <li><a href="films.php" >Films</a></li>
                 <?php if(logged_in()) : ?>
                     <li><a href="../admin/create.php" >New</a></li>
-                    <li><a href="../admin/logout.php" >Logout</a></li>
+                    <li><a href="../admin/logout.php?logout=true" >Logout</a></li>
                 <?php endif; ?>
             </ul>
         </nav>

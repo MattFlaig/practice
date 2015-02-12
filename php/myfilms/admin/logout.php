@@ -1,5 +1,5 @@
 <?php
-	require_once '../lib/database.php';
+    require_once '../lib/database.php';
 
     if (isset($_GET['logout'])){
         session_start();

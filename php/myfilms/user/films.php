@@ -3,29 +3,23 @@
 
     session_start();
 
-    try {
-        $sql = "SELECT *, director_name,
-            GROUP_CONCAT(DISTINCT actor_name ORDER BY actor_name) AS actors, 
-            GROUP_CONCAT(DISTINCT category_name ORDER BY category_name) AS categories 
-            FROM films f, directors d, actors_films af, actors a, categories_films cf, categories c 
-            WHERE f.director_id = d.director_id
-            AND f.film_id = af.film_id 
-            AND a.actor_id = af.actor_id
-            AND f.film_id = cf.film_id 
-            AND c.category_id = cf.category_id
-            GROUP BY f.film_id";
+    #Sql join to select all info from db
+    $sql = "SELECT *, director_name,
+        GROUP_CONCAT(DISTINCT actor_name ORDER BY actor_name) AS actors, 
+        GROUP_CONCAT(DISTINCT category_name ORDER BY category_name) AS categories 
+        FROM films f, directors d, actors_films af, actors a, categories_films cf, categories c 
+        WHERE f.director_id = d.director_id
+        AND f.film_id = af.film_id 
+        AND a.actor_id = af.actor_id
+        AND f.film_id = cf.film_id 
+        AND c.category_id = cf.category_id
+        GROUP BY f.film_id";
 
-        $stmt = $db->query($sql);
-        $result = $stmt->fetchAll();
-    }
-    catch(PDOException $e){
-        echo $sql . "<br>" . $e->getMessage();
-    }
+    $stmt = $db->query($sql);
+    $result = $stmt->fetchAll();
+    
 
-    $db = null;
 ?>
-
-
 
 
 
@@ -37,6 +31,9 @@
 
         <link rel="stylesheet" href="../css/reset.css" type="text/css" media="screen" />
         <link rel="stylesheet" href="../css/myfilm.css" type="text/css" media="screen" />
+
+        <script src="../js/jquery.min.js"></script>
+        <script src="../js/spacer.js"></script>
     </head>
 
     <body>
@@ -46,7 +43,7 @@
             <h1>MyFilms</h1>
             <nav>
                 <ul>
-                    <form id="search" action="search.php" method="get">
+                    <form id="search" action=' <?php echo htmlspecialchars("search.php");?>' method="get">
                         <input type="text" id="search_input" name="search" value="Search for films"/>
                         <input type="submit" id="search_button" value="SEARCH"/>
                     </form>
@@ -54,7 +51,7 @@
                     <li><a href="films.php" >Films</a></li>
                     <?php if(logged_in()) : ?>
                         <li><a href="../admin/create.php" >New</a></li>
-                        <li><a href="../admin/logout.php" >Logout</a></li>
+                        <li><a href="../admin/logout.php?logout=true" >Logout</a></li>
                     <?php endif; ?>
                 </ul>
             </nav>
@@ -114,6 +111,6 @@
                 </div>
             </section>
         </footer>
-	
+    
     <body>
 </html>

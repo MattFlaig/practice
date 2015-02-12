@@ -7,10 +7,12 @@
         $username = $_POST["username"];
         $password = $_POST["password"];
 
+        #put admin in the session
         if ($username == "admin" && $password == "admin"){
             $_SESSION["admin"] = true;
             redirect("../index.php");
         }
+        
     }
 
 ?>
@@ -24,6 +26,9 @@
         <link rel="stylesheet" href="../css/reset.css" type="text/css" media="screen" />
         <link rel="stylesheet" href="../css/myfilm.css" type="text/css" media="screen" />
 
+        <script src="../js/jquery.min.js"></script>
+        <script src="../js/spacer.js"></script>
+
     </head>
 
     <body>
@@ -33,7 +38,7 @@
             <h1>MyFilms</h1>
             <nav>
                 <ul>
-                    <form id="search" action="../user/search.php" method="get">
+                    <form id="search" action=' <?php echo htmlspecialchars("../user/search.php");?>' method="get">
                         <input type="text" id="search_input" name="search" value="Search for films"/>
                         <input type="submit" id="search_button" value="SEARCH"/>
                     </form>
@@ -41,7 +46,7 @@
                     <li><a href="../user/films.php" >Films</a></li>
                     <?php if(logged_in()) : ?>
                         <li><a href="create.php" >New</a></li>
-                        <li><a href="logout.php" >Logout</a></li>
+                        <li><a href="logout.php?logout=true" >Logout</a></li>
                     <?php endif; ?>
                 </ul>
             </nav>
@@ -51,13 +56,19 @@
         <section id="spacer">
         </section>
 
+        
+
+
 
         <!-- Main Section -->
         <section id="main">
-            
+            <section id ="message">
+            </section>
+
+            <h1>Login</h1>
             <section id="container">
-                <form action="login.php" method="post">
-                    <h1>Login</h1>
+                <form action=' <?php echo htmlspecialchars("login.php");?>' method="post">
+                    
                     <table>
                         <tr>
                             <td><label>Username:</label></td><td> <input type="text" name="username" /></td><br />
