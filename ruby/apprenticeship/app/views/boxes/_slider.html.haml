@@ -1,0 +1,18 @@
+%section.carousel.slide#foody-carousel{ data: { ride: 'carousel' } }
+  %ol.carousel-indicators
+    %li{ data: { target: '#foody-carousel', slide_to: '0', class: 'active' } }
+    %li{ data: { target: '#foody-carousel', slide_to: '1' } }
+    %li{ data: { target: '#foody-carousel', slide_to: '2' } }
+  %section.carousel-inner{ role: 'listbox' }
+    %section.item.active
+      = image_tag 'Foto 13.JPG'
+    %section.item
+      = image_tag 'Foto 5.JPG'
+  %a.left.carousel-control{ href: '#foody-carousel', role: 'button', data: { slide: 'prev' } }
+    %span.glyphicon.glyphicon-chevron-left{ aria_hidden: 'true' }
+    %span.sr-only
+      Previous
+  %a.right.carousel-control{ href: '#foody-carousel', role: 'button', data: { slide: 'next' } }
+    %span.glyphicon.glyphicon-chevron-right{ aria_hidden: 'true' }
+    %span.sr-only
+      Next

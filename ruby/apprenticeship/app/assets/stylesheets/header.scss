@@ -1,0 +1,8 @@
+$border-color: #ccc;
+$topline-color: #fff;
+
+#topline {
+  //border-bottom: 1px solid $border-color;
+  background-color: $topline-color;
+  height: 2rem;
+}

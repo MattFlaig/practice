@@ -1,0 +1,10 @@
+$border-color: #ccc;
+
+#menu {
+  border-bottom: 1px solid $border-color;
+  height: 800px;
+}
+
+.borderless tbody tr td, .borderless tbody tr th, .borderless thead tr th {
+    border: none;
+}

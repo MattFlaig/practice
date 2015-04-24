@@ -1,0 +1,91 @@
+%section#menu
+  Menu
+  %section
+    .row
+      .col-sm-10.col-sm-offset-1
+        %h3 Speisekarte
+        %br
+        %ul.nav.nav-pills
+          %li.active
+            %a{ href:'#pizza', data: { toggle: 'pill' } } Pizza
+          %li
+            %a{ href: '#main_course', data: { toggle: 'pill' } } Nudelgerichte
+          %li
+            %a{ href: '#salad', data: { toggle: 'pill' } } Salate
+          %li
+            %a{ href: '#dessert', data: { toggle: 'pill' } } Desserts
+          %li
+            %a{ href: '#drink', data: { toggle: 'pill' } } Getränke
+        %br
+        .tab-content
+          %section.tab-pane.active#pizza
+            .table-responsive
+              %table.table.borderless
+                %thead
+                  %tr
+                    %th Nummer
+                    %th Name
+                    %th Beschreibung
+                %tbody
+                  - @categories[0].each do |pizza|
+                    %tr
+                      %td= pizza.order_id
+                      %td= pizza.name
+                      %td= pizza.description
+          %section.tab-pane#main_course
+            .table-responsive
+              %table.table.borderless
+                %thead
+                  %tr
+                    %th Nummer
+                    %th Name
+                    %th Beschreibung
+                %tbody
+                  - @categories[1].each do |main_course|
+                    %tr
+                      %td= main_course.order_id
+                      %td= main_course.name
+                      %td= main_course.description
+          %section.tab-pane#salad
+            .table-responsive
+              %table.table.borderless
+                %thead
+                  %tr
+                    %th Nummer
+                    %th Name
+                    %th Beschreibung
+                %tbody
+                  - @categories[2].each do |salad|
+                    %tr
+                      %td= salad.order_id
+                      %td= salad.name
+                      %td= salad.description
+          %section.tab-pane#dessert
+            .table-responsive
+              %table.table.borderless
+                %thead
+                  %tr
+                    %th Nummer
+                    %th Name
+                    %th Beschreibung
+                %tbody
+                  - @categories[3].each do |dessert|
+                    %tr
+                      %td= dessert.order_id
+                      %td= dessert.name
+                      %td= dessert.description
+          %section.tab-pane#drink
+            .table-responsive
+              %table.table.borderless
+                %thead
+                  %tr
+                    %th Nummer
+                    %th Name
+                    %th Beschreibung
+                %tbody
+                  - @categories[4].each do |drink|
+                    %tr
+                      %td= drink.order_id
+                      %td= drink.name
+                      %td= drink.description
+               

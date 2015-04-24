@@ -1,0 +1,11 @@
+$background-color: #eee;
+
+body {
+  background-color: $background-color;
+  padding-top: 4rem;
+}
+
+.jump-anchor {
+  position: relative;
+  top: -4rem;
+}
