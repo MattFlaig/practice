@@ -11,12 +11,7 @@
   %body
     %header
       = render partial: 'shared/navigation'
-      = render partial: 'boxes/slider'
-    %section.container
-      - %i(welcome address menu checkout contact).each do |boxname|
-        %a.jump-anchor{ id: "#{boxname}_anchor" }
-          &nbsp;
-        = render partial: "boxes/#{boxname}"
+    %section
       = yield
     %footer
       = render partial: 'shared/footer'

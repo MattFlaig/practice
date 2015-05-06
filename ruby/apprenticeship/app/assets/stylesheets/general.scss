@@ -1,4 +1,4 @@
-$background-color: #eee;
+@import 'variables';
 
 body {
   background-color: $background-color;
@@ -7,5 +7,5 @@ body {
 
 .jump-anchor {
   position: relative;
-  top: -4rem;
+  top: -7rem;
 }

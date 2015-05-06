@@ -1,0 +1,7 @@
+%section
+  = render partial: 'boxes/slider'
+%section.container
+  - %i(welcome address menu contact).each do |boxname|
+    %a.jump-anchor{ id: "#{boxname}_anchor" }
+      &nbsp;
+    = render partial: "boxes/#{boxname}"

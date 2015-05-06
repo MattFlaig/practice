@@ -1,0 +1,13 @@
+.table-responsive
+  %table.table.borderless
+    %thead
+      %tr
+        %th Nummer
+        %th Name
+        %th Beschreibung
+    %tbody
+      - category.each do |cat|
+        %tr
+          %td= cat.order_id
+          %td= cat.name
+          %td= cat.description

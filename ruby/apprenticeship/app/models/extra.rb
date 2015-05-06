@@ -1,3 +1,4 @@
 class Extra < ActiveRecord::Base
-	has_many :prices, as: :pricable
+  validates :name, presence: true, uniqueness: true
+  has_many :prices, as: :pricable
 end

@@ -1,8 +1,11 @@
-$border-color: #ccc;
-$topline-color: #fff;
+@import 'variables';
 
 #topline {
-  //border-bottom: 1px solid $border-color;
   background-color: $topline-color;
-  height: 2rem;
+  padding-bottom: .5rem;
+  padding-top: .5rem;
+}
+
+.nav .nopadding {
+  padding-left: 0;
 }

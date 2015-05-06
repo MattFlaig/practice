@@ -1,6 +1,6 @@
-$border-color: #ccc;
+@import 'variables';
 
 #contact {
   border-bottom: 1px solid $border-color;
-  height: 500px;
+  padding-bottom: 5rem;
 }

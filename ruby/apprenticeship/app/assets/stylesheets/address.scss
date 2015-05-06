@@ -1,6 +1,6 @@
-$border-color: #ccc;
+@import 'variables';
 
 #address {
   border-bottom: 1px solid $border-color;
-  height: 40rem;
+  padding-bottom: 5rem;
 }

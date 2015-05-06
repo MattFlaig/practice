@@ -1,8 +1,9 @@
-$border-color: #ccc;
+@import 'variables';
 
 #welcome {
   border-bottom: 1px solid $border-color;
-  height: 40rem;
+  // height: 40rem;
+  padding-bottom: 5rem;
 }
 
 article {
