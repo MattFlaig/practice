@@ -5,7 +5,6 @@ class ApplicationController < ActionController::Base
 
   private
 
-
   def food_categories(foods)
     foods.each_with_object({}) do |food, hash|
       (hash[food[:category]] ||= []) << food

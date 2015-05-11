@@ -1,0 +1,44 @@
+.table-responsive
+  %table.table.borderless
+    %thead
+      %tr
+        %th Nummer
+        %th Name
+        %th Beschreibung
+    %tbody
+      - category.each do |cat|
+        %tr
+          %td= cat.order_number
+          %td= cat.name
+          %td
+            = cat.description
+            
+            %section.prices
+            %br
+              .form-inline
+                - if cat.prices.count > 1
+                  .row
+                    .col-sm-3
+                      %label Größe:
+                    .col-sm-9
+                      - cat.prices.each do |price|
+                        .col-sm-3
+                          .radio-inline
+                            %label
+                              %input{ type: 'radio', name: 'prices' }
+                              = price.size
+                            
+                .row
+                  .col-sm-3  
+                    %label Anzahl:
+                    %input{ type: 'number', value: '1', min: '1', max: '30' }
+                  .col-sm-3
+                    %label Preis:
+                    %section#total_price
+                %br
+                %button.btn.btn-info.btn-lg{ type: 'submit' }
+                  .row
+                    .col-sm-1
+                      %i.fa.fa-cart-plus 
+                    .col-sm-8
+                      In den Warenkorb

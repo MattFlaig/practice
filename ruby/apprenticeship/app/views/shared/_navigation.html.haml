@@ -30,8 +30,9 @@
           .col-sm-5
             .collapse.navbar-collapse#foody-navbar-collapse
               %ul.nav.navbar-nav
-                %li= link_to 'Welcome', '#welcome_anchor', class: 'nopadding'
-                %li= link_to 'Address', '#address_anchor'
-                %li= link_to 'Menu', '#menu_anchor'
+                %li= link_to 'Welcome', "#{root_path}#welcome_anchor", class: 'nopadding'
+                %li= link_to 'Address', "#{root_path}#address_anchor"
+                %li= link_to 'Menu', "#{root_path}#menu_anchor"
+                %li= link_to 'Contact', "#{root_path}#contact_anchor"
                 %li= link_to 'Checkout', orders_path
-                %li= link_to 'Contact', '#contact_anchor'
+                
