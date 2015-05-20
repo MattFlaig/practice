@@ -2,18 +2,16 @@
 
 #order {
   border-bottom: 1px solid $border-color;
-  padding-bottom: 5rem;
   margin-top: 5rem;
-}
-
-.borderless {
-  tbody tr td, 
-  thead tr th {
-    border: 0;
-  }
+  padding-bottom: 5rem;
+  padding-top: 3rem;
 }
 
 
-input[type='number'] {
-	width: 3rem;
+.quantity {
+  width: 3rem;
+}
+
+.well {
+	padding: 2rem;
 }

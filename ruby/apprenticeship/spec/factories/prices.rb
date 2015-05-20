@@ -1,5 +1,4 @@
 FactoryGirl.define do
-
   factory :price do
     value { Faker::Number.number(3) }
     pricable_type 'Food'

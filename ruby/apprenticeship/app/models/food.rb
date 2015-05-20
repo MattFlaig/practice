@@ -3,4 +3,5 @@ class Food < ActiveRecord::Base
   validates :order_number, :name, :description, :category, presence: true
   validates :name, :order_number, uniqueness: true
   has_many :prices, as: :pricable
+  has_many :order_items
 end

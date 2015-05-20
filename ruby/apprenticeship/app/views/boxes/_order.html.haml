@@ -1,17 +1,10 @@
 %section#order
   Order
-  %section
-    .row
-      .col-sm-7.col-sm-offset-1
-        / .col-sm-8
+  .row
+    .col-sm-7.col-sm-offset-1
+      %section#menu_details
         %h3 Speisekarte
-      .col-sm-3
-        %h3 Warenkorb
-        / .col-sm-2
-        / = link_to 'Bestellen', orders_path, class: 'btn btn-lg btn-default pull-right'
-    %br
-    .row
-      .col-sm-7.col-sm-offset-1
+        %br
         %ul.nav.nav-pills.well
           %li.active
             %a{ href: '#pizza', data: { toggle: 'pill' } } Pizza
@@ -25,15 +18,20 @@
             %a{ href: '#drink', data: { toggle: 'pill' } } Getränke
         .tab-content.well
           %section.tab-pane.active#pizza
-            = render partial: 'shared/order_category', locals: { category: @categories[0] }
+            = render partial: 'shared/order_category', locals: { category: @categories[0], order_item: @order_item }
           %section.tab-pane#main_course
-            = render partial: 'shared/order_category', locals: { category: @categories[1] }
+            = render partial: 'shared/order_category', locals: { category: @categories[1], order_item: @order_item }
           %section.tab-pane#salad
-            = render partial: 'shared/order_category', locals: { category: @categories[2] }
+            = render partial: 'shared/order_category', locals: { category: @categories[2], order_item: @order_item }
           %section.tab-pane#dessert
-            = render partial: 'shared/order_category', locals: { category: @categories[3] }
+            = render partial: 'shared/order_category', locals: { category: @categories[3], order_item: @order_item }
           %section.tab-pane#drink
-            = render partial: 'shared/order_category', locals: { category: @categories[4] }
-      .col-sm-3
-        %section#shopping-cart.well
-          
+            = render partial: 'shared/order_category', locals: { category: @categories[4], order_item: @order_item }
+    .col-sm-3
+      %section#shopping-cart
+        %h3
+          Warenkorb
+          = "(#{current_order.order_items.count})"
+        %br
+        %section.well
+          #cart-text

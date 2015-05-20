@@ -1,0 +1,14 @@
+%table.table.borderless
+  %tbody
+  - @order.order_items.each do |item|
+    %tr
+      %td
+        Name:
+        = item.food.name
+      %td
+        Anzahl:
+        = item.quantity
+      %td
+        Preis:
+
+    //= item.price
