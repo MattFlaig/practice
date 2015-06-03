@@ -28,10 +28,12 @@
           %section.tab-pane#drink
             = render partial: 'shared/order_category', locals: { category: @categories[4], order_item: @order_item }
     .col-sm-3
-      %section#shopping-cart
+      %section
         %h3
           Warenkorb
-          = "(#{current_order.order_items.count})"
+          %span#cart_items_count
+            = "(#{@order.order_items.count})"
         %br
         %section.well
-          #cart-text
+          %section#cart_text
+            = render partial: 'order_items/cart_text', locals: { order: @order }

@@ -1,14 +1,23 @@
-%table.table.borderless
-  %tbody
-  - @order.order_items.each do |item|
-    %tr
-      %td
-        Name:
-        = item.food.name
-      %td
-        Anzahl:
-        = item.quantity
-      %td
-        Preis:
-
-    //= item.price
+- order.order_items.order(created_at: :asc).each do |item|
+  .row.cart_row
+    .col-sm-3
+      = "#{item.name}" + "(#{item.size})"
+    .col-sm-3
+      = select_tag :quantity, options_for_select((1..20).step(1).to_a.map{|s| ["#{s}x", s]}, selected: item.quantity), {class: 'cart_quantity', id: item.id}
+    .col-sm-4
+      = (item.subtotal_price.to_f / 100).to_s.concat(" €")
+    .col-sm-2.delete_item
+      = link_to order_item_path(item), method: :delete, remote: true, data: {confirm: 'Do you really want to delete this Item from your cart?'} do
+        %i.fa.fa-trash-o.btn.btn-danger.btn-xs
+%br
+%section#total_price
+  .row
+    .col-sm-6
+      %label Gesamtpreis:
+    .col-sm-6.text-right{ data: { total: true } }
+      = order.total_price.to_f / 100
+      €
+%br
+%section#order_button
+  .btn.btn-success.btn-lg.pull-right
+    Bestellen

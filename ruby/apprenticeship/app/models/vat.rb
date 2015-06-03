@@ -1,5 +1,8 @@
 class Vat < ActiveRecord::Base
-  enum category: { standard: 0, delivery: 1}
+  enum sales_type: { inhouse: 0, takeout: 1 }
   belongs_to :price
-  validates :value, :category, presence: true
+  validates :value, presence: true
+  validates :category, presence: true
+  validates :sales_type, presence: true
+  validates :sales_type, uniqueness: { scope: :category }
 end

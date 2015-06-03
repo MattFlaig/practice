@@ -1,10 +1,16 @@
 class OrderItem < ActiveRecord::Base
-  belongs_to :food
   belongs_to :order
-  has_one :price, as: :pricable
+  belongs_to :order_itemable, polymorphic: true
   validates :quantity, presence: true
+  validates :price, presence: true
+  validates :size, presence: true
+  #validates :vat, presence: true, if: proc { order.status != 'booking' }
+  validates :order_number, presence: true
+  validates :name, presence: true
+  validates :category, presence: true
+  validates :size, uniqueness: { scope: [:name, :order] }
 
   def subtotal_price
-    price.value * quantity
+    price * quantity
   end
 end

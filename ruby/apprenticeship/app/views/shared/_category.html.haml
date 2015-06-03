@@ -5,8 +5,9 @@
       %th Name
       %th Beschreibung
   %tbody
-    - category.each do |cat|
-      %tr
-        %td= cat.order_number
-        %td= cat.name
-        %td= cat.description
+    - unless category.nil?
+      - category.each do |food|
+        %tr
+          %td= food.order_number
+          %td= food.name
+          %td= food.description

@@ -5,6 +5,7 @@
       %th Name
       %th Beschreibung
   %tbody
+  - unless category.nil?
     - category.each do |food|
       %tr
         %td= food.order_number
@@ -13,16 +14,16 @@
           = food.description
           %section.prices
           %br
-            = form_for order_item, class: 'form-inline', remote: true, html: { id: "order_item_form_#{food.id}" } do |f|
-              = f.hidden_field :food_id, :value => food.id
-              //- if food.prices.length > 1
-              //  .row
-              //    .col-sm-2
-              //      %label Größe:
-              //    .col-sm-8
-              //      - food.prices.each do |price|
-              //        = f.radio_button :price, price.size, 'data-price-value' => price.value, :checked => true
-              //        = f.label :price, price.size
+            = form_for OrderItem.new, class: 'form-inline', remote: true, html: { id: "order_item_form_#{food.id}" } do |f|
+              = hidden_field_tag :food_id, food.id
+
+              .row
+                .col-sm-2
+                  %label Größe:
+                .col-sm-8
+                  - food.prices.each do |price|
+                    = radio_button_tag 'price_id', price.id, true, 'data-price-value' => price.value
+                    = label_tag :price_id, price.size
               .row
                 .col-sm-2
                   %label Anzahl:
@@ -30,7 +31,8 @@
                   = f.number_field :quantity, value: 1, class: 'quantity', min: 1
                 .col-sm-1
                   %label Preis:
-                .col-sm-1{ data: { subtotal_price: true } }
+                .col-sm-2{ data: { subtotal: true } }
                   = food.prices.last.value / 100.to_f
+                  €
               %br
               = f.submit 'In den Warenkorb', class: 'btn btn-info'
