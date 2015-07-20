@@ -1,0 +1,16 @@
+.row
+  .col-sm-6
+    %h5 
+      %b Lieferadresse
+    .fields#delivery_address
+      = f.fields_for :delivery_address do |daf|
+        = render 'default_address_fields', f: daf, with_contact: true
+  .col-sm-6
+    %h5 
+      %b Rechnungsadresse
+    #toggle_invoice_address
+      - ['Wie Lieferadresse', 'abweichend'].each do |radio|
+        = f.radio_button :invoice_address_same_as_delivery, (radio == 'abweichend' ? 0 : 1), label: radio
+    .fields#invoice_address
+      = f.fields_for :invoice_address do |iaf|
+        = render 'default_address_fields', f: iaf

@@ -5,13 +5,13 @@
     %meta{ name: 'viewport', content: 'width=device-width, initial-scale=1.0' }
     %title Foody
     = stylesheet_link_tag 'application'
-    = javascript_include_tag 'vendor/modernizr'
     = javascript_include_tag 'application'
     = csrf_meta_tags
-  %body
+  %body{ data: { spy: :scroll, target: '#top-navigation' } }
     %header
       = render partial: 'shared/navigation'
     %section
       = yield
     %footer
       = render partial: 'shared/footer'
+    .modal#show_postal_modal{ tabindex: '-1', role: 'dialog', aria: { hidden: 'true' } }

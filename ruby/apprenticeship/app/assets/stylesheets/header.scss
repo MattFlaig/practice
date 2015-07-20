@@ -1,11 +1,107 @@
 @import 'variables';
 
 #topline {
-  background-color: $topline-color;
+  background-color: $background-color;
   padding-bottom: .5rem;
   padding-top: .5rem;
 }
 
-.nav .nopadding {
-  padding-left: 0;
+#navigation {
+  background-color: #fff;
 }
+
+.container.narrow {
+  max-width: 950px;
+}
+
+.navbar-custom {
+  background-color: #fff;
+  border-bottom: 1px solid #f9f9f9;
+  border-radius:0;
+  color: #000;
+  height: auto;
+  margin-bottom: 0;
+  max-width: 100%;
+  padding-bottom: 2rem;
+  padding-top: 2rem;
+}
+
+.navbar-custom .navbar-nav > li > a {
+    color:#eee;
+    font-size: 1.5rem;
+}
+
+.navbar-custom .navbar-nav li a,
+.navbar-nav li a:hover,
+.navbar-nav li a:focus,
+.navbar-nav li a:link {
+    color: #000;//#f8f8f8;
+    font-size: 1.5rem;
+    text-decoration: none;
+    background-color: #fff;
+}
+
+.navbar-custom .navbar-nav li.active a {
+  color: #C13030;
+}
+
+.navbar-nav li a:hover,
+.navbar-nav li a:focus {
+  color: #C13030;
+}
+
+.navbar-custom .navbar-brand {
+    font-weight: bold;
+    color: #C13030;
+    font-size: 3rem;
+    line-height: 3rem;
+    margin-top: -0.4rem;
+    margin-bottom: 1rem;
+}
+
+.nav-button {
+  margin-top: 0.8rem;
+  //margin-left: 10.5rem;
+}
+
+.nav-button a {
+  color: white;
+  text-decoration: none;
+}
+
+.navbar-custom .navbar-toggle {
+  background-color: #C13030;
+}
+
+.navbar-custom .navbar-toggle .icon-bar {
+  background-color: #fff;
+}
+
+@media (max-width: $screen-xs-max) {
+  body {
+    margin-top: 0;
+  }
+
+  .navbar-fixed-top{
+    position: relative;
+  }
+
+  .text-left-xs {
+    text-align: left;
+  }
+
+  .pull-left-xs {
+    float: left !important;
+  }
+
+  .navbar-brand {
+    height: auto;
+    margin-right: 7.5rem;
+  }
+
+  .navbar-toggle {
+    position: absolute;
+    right: 0;
+  }
+}
+

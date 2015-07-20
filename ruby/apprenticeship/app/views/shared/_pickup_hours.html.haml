@@ -1,0 +1,8 @@
+Wann möchte Sie Ihre Ware abholen (bitte auswählen)?
+= f.select :requested_delivery_at do
+  = content_tag(:option, 'So schnell wie möglich', value: nil) unless hour_type == 'no_order'
+  - delivery_values.each_with_index do |val, index|
+    - if hour_type == 'no_order'
+      = content_tag(:option, val.strftime('%H:%M') + ' - ' + delivery_values[index+1].strftime('%H:%M'), value: delivery_values[index]) unless val == delivery_values.last || val.strftime('%H:%M') == '15:00'
+    - else
+      = content_tag(:option, val.strftime('%H:%M') + ' - ' + delivery_values[index+1].strftime('%H:%M'), value: delivery_values[index]) unless val == delivery_values.last  || val == delivery_values.first || val.strftime('%H:%M') == '15:00'

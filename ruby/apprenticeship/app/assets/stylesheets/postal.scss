@@ -1,0 +1,71 @@
+label[for='order_delivery_address_attributes_postal']{
+  display: none;
+}
+
+label[for='order_requested_delivery_at']{
+  display: none;
+}
+
+.green{
+  color: green; 
+}
+
+.fa-check{
+  display: none;
+}
+
+.set_to_grey{
+  background: #f9f9f9;
+  color: #ccc;
+  select{
+    color: #ccc;
+  }
+}
+
+.set_active{
+  position: relative;
+  max-width: 29.7rem;
+}
+
+#show_postal_modal .modal-body{
+  padding: 0;
+  padding-right: 0;
+}
+
+#pickup_button{
+  width: 100%;
+}
+
+#delivery_button{
+  width: 100%;
+  margin-bottom: 2rem;
+  margin-top: 4rem;
+}
+
+.background_container{
+  padding: 0 1.6rem;
+}
+
+.with_bottom_margin{
+  margin-bottom: 2rem;
+}
+
+.with_vertical_margin{
+  margin: 1rem 0;
+}
+
+#requested_delivery{
+  margin-top: 1.6rem;
+}
+
+#requested_pickup{
+  margin-top: 0.5rem;
+}
+
+.grey_if_delivery{
+  padding: 1.6rem;
+}
+
+.grey_if_pickup{
+  padding: 1.6rem;
+}

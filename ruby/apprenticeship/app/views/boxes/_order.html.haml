@@ -1,39 +1,38 @@
-%section#order
-  Order
+%section.container#order_menu
   .row
-    .col-sm-7.col-sm-offset-1
-      %section#menu_details
-        %h3 Speisekarte
-        %br
-        %ul.nav.nav-pills.well
-          %li.active
-            %a{ href: '#pizza', data: { toggle: 'pill' } } Pizza
-          %li
-            %a{ href: '#main_course', data: { toggle: 'pill' } } Nudelgerichte
-          %li
-            %a{ href: '#salad', data: { toggle: 'pill' } } Salate
-          %li
-            %a{ href: '#dessert', data: { toggle: 'pill' } } Desserts
-          %li
-            %a{ href: '#drink', data: { toggle: 'pill' } } Getränke
-        .tab-content.well
-          %section.tab-pane.active#pizza
-            = render partial: 'shared/order_category', locals: { category: @categories[0], order_item: @order_item }
-          %section.tab-pane#main_course
-            = render partial: 'shared/order_category', locals: { category: @categories[1], order_item: @order_item }
-          %section.tab-pane#salad
-            = render partial: 'shared/order_category', locals: { category: @categories[2], order_item: @order_item }
-          %section.tab-pane#dessert
-            = render partial: 'shared/order_category', locals: { category: @categories[3], order_item: @order_item }
-          %section.tab-pane#drink
-            = render partial: 'shared/order_category', locals: { category: @categories[4], order_item: @order_item }
-    .col-sm-3
-      %section
-        %h3
-          Warenkorb
-          %span#cart_items_count
-            = "(#{@order.order_items.count})"
-        %br
-        %section.well
-          %section#cart_text
-            = render partial: 'order_items/cart_text', locals: { order: @order }
+    .col-md-10.col-md-offset-1
+      .row
+        .col-md-8
+          %section#menu_details
+            %br
+            %ul.nav.nav-pills.well
+              %li.active
+                %a{ href: '#pizza', data: { toggle: 'pill' } } Pizza
+              %li
+                %a{ href: '#main_course', data: { toggle: 'pill' } } Pasta
+              %li
+                %a{ href: '#salad', data: { toggle: 'pill' } } Salate
+              %li
+                %a{ href: '#dessert', data: { toggle: 'pill' } } Desserts
+              %li
+                %a{ href: '#drink', data: { toggle: 'pill' } } Getränke
+            .tab-content.well.less_margin
+              %section.tab-pane.active#pizza
+                = render partial: 'shared/order_category', locals: { category: @categories[0] }
+              %section.tab-pane#main_course
+                = render partial: 'shared/order_category', locals: { category: @categories[1] }
+              %section.tab-pane#salad
+                = render partial: 'shared/order_category', locals: { category: @categories[2] }
+              %section.tab-pane#dessert
+                = render partial: 'shared/order_category', locals: { category: @categories[3] }
+              %section.tab-pane#drink
+                = render partial: 'shared/drinks', locals: { groups: @grouped_drinks.values }
+
+          %div{class: 'modal', id: "show_order_modal", tabindex: '-1', role:'dialog', aria: {labelledby: 'myLargeModalLabel', hidden:'true' } }
+          .well.less_margin
+            = render partial: 'pages/additives'
+        .col-md-4
+          %section#cart
+            %section.well
+              %section#cart_text
+                = render partial: 'order_items/cart_text', locals: { order: @order, hour_type: @hour_type, delivery_values: @delivery_values }

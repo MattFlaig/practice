@@ -1,23 +1,105 @@
-- order.order_items.order(created_at: :asc).each do |item|
-  .row.cart_row
-    .col-sm-3
-      = "#{item.name}" + "(#{item.size})"
-    .col-sm-3
-      = select_tag :quantity, options_for_select((1..20).step(1).to_a.map{|s| ["#{s}x", s]}, selected: item.quantity), {class: 'cart_quantity', id: item.id}
-    .col-sm-4
-      = (item.subtotal_price.to_f / 100).to_s.concat(" €")
-    .col-sm-2.delete_item
-      = link_to order_item_path(item), method: :delete, remote: true, data: {confirm: 'Do you really want to delete this Item from your cart?'} do
-        %i.fa.fa-trash-o.btn.btn-danger.btn-xs
-%br
-%section#total_price
-  .row
-    .col-sm-6
-      %label Gesamtpreis:
-    .col-sm-6.text-right{ data: { total: true } }
-      = order.total_price.to_f / 100
-      €
-%br
-%section#order_button
-  .btn.btn-success.btn-lg.pull-right
-    Bestellen
+= bootstrap_nested_form_for current_order, url: { action: :update, controller: :orders }, data: { shadow_input: true } do |f|
+  %h4.cart_title
+    Warenkorb
+    %span#cart_items_count
+      = "(#{order.order_items.count})"
+  = render 'shared/messages'
+  %br
+  %h6.sub_heading
+    %b Ihre Auswahl
+  %hr
+  - if order.order_items.blank?
+    %p
+      Ihr Warenkorb ist zur Zeit leer.
+  - else
+    = f.fields_for :order_items do |oif|
+      - item = oif.object
+
+      .cart_row
+        .row
+          .col-sm-2.col-xs-2.align-field
+            = oif.text_field :quantity, hide_label: true, class: 'cart_quantity', data: { id: item.id }
+          .col-sm-7.col-xs-5.item_name
+            %h6
+              #{item.order_number} #{item.name}
+              %br
+              (#{item.size})
+          .col-sm-3.col-xs-5.text-right
+            = link_to order_item_path(item), method: :delete, remote: true, data: {confirm: 'Möchten Sie das Produkt wirklich aus dem Warenkorb löschen?' } do
+              %i.fa.fa-times.btn.btn-danger.btn-xs.align-button
+
+        - if item.extras.any?
+          .row
+            .col-sm-7.col-sm-offset-2
+              %h6= 'Extras: ' + item.extras.pluck(:name).join(", ")
+
+        .row
+          .col-sm-9.col-sm-offset-2
+            %h6
+              #{number_to_currency(item.total_price.to_f/100, locale: :eu, separator: '.')}
+              - if order.multiple_vats?
+                %sup.text-muted
+                  (#{item.vat/100} % MwSt.)
+        %hr
+    - if order.delivery_type == 'delivery'
+      .cart_row
+        .row
+          .col-sm-7.item_name.col-sm-offset-2
+            %h6
+              Lieferkosten
+        .row
+          .col-sm-9.col-sm-offset-2
+            %h6
+              2.00 €
+              %sup.text-muted
+                (19 % MwSt.)
+      %hr
+    %section#additional_info
+      - if current_order.discount != nil
+        .row
+          .col-sm-10.col-sm-offset-2
+            %h6.nowrap= current_order.discount.to_s + ' % Rabatt'
+        .row
+          .col-sm-9.col-sm-offset-2
+            %h6
+              #{number_to_currency((order.total_price(discount: false).to_f/100 * order.discount/100), locale: :eu, separator: '.')}
+              %sup.text-muted
+                (19 % MwSt.)
+      %hr
+      %br
+    %section#delivery_mode
+      %h6.sub_heading
+        %b Lieferung
+      %hr
+      .row
+        .col-sm-10.col-sm-offset-2
+          - Order.delivery_types.each do |delivery_type, _|
+            :ruby
+              label =
+                case delivery_type
+                when 'pickup' then 'Selbstabholer'
+                else 'Lieferservice'
+                end
+            = f.radio_button :delivery_type, delivery_type, label: label
+          %br
+          %h6= render partial: "shared/#{current_order.delivery_type}_hours", locals: { f: f, hour_type: hour_type, delivery_values: delivery_values }
+      %hr
+    %section{ id: 'total_price', data: { total: "#{order.total_price}" } }
+      %b
+        Summe:
+        = number_to_currency(order.total_price.to_f/100, locale: :eu, separator: '.')
+      %br
+      %sup.text-muted
+        - if order.multiple_vats?
+          (inkl. #{number_to_currency(order.vat/100.0, locale: :eu, separator: '.')} MwSt.)
+        - elsif !order.vat_list.blank?
+          (inkl. #{order.vat_list.keys.first/100} % MwSt.)
+    %section#order_button
+      .row
+        .col-sm-12
+          - if order.total_price < 1500
+            %button.btn.btn-danger{ disabled: true }
+              Mindestbestellwert ist 15.00 €
+          - else
+            %button.btn.btn-danger
+              Bestellen

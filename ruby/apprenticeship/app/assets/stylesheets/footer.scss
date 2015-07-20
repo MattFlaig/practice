@@ -1,1 +1,26 @@
 @import 'variables';
+
+
+#footer {
+  height: 8rem;
+  background-color: #fff;
+  bottom: 0;
+  width: 100%
+}
+
+#footer ul li a{
+  text-decoration: none;
+  color: #888;
+}
+
+#footer ul li a:hover, #footer ul li a:active{
+  color: #C13030;
+}
+
+#footer ul li{
+  list-style: none;
+  padding-top: 3rem;
+}
+
+
+

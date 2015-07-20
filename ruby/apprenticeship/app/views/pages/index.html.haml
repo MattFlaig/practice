@@ -1,7 +1,11 @@
-%section
+%a.jump-anchor#home_anchor
+%section#index{ data: { spy: 'scroll', target: '.navbar' } }
   = render partial: 'boxes/slider'
 %section.container
-  - %i(welcome address menu contact).each do |boxname|
-    %a.jump-anchor{ id: "#{boxname}_anchor" }
-      &nbsp;
-    = render partial: "boxes/#{boxname}"
+  - %i(welcome menu address contact).each do |boxname|
+    .row
+      .col-sm-offset-1.col-sm-10{ class: ('col-md-8 col-lg-7' if boxname == :menu) }
+        %a.jump-anchor{ id: "#{boxname}_anchor" }
+          &nbsp;
+        = render partial: "boxes/#{boxname}"
+    %hr

@@ -1,6 +1,9 @@
-$background-color: #fff;
+$background-color: #f9f9f9;
 $border-color: #ccc;
 $topline-color: #fff;
+$well-color: #fff;
+
+$font-family-base: Helvetica,Arial,sans-serif;
 
 @import 'bootstrap-sprockets';
 @import 'bootstrap/variables';

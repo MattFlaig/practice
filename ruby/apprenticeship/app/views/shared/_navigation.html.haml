@@ -1,37 +1,38 @@
 %section.navbar-fixed-top
   %section#topline
-    .container
+    .container.narrow
       .row
-        .col-sm-5.col-sm-offset-1
-          .row
-            .col-sm-1
-              %i.fa.fa-phone
-            .col-sm-11
-              030 / 983 282 81
-        .col-sm-5
-          .row
-            .col-sm-1
-              %i.fa.fa-home
-            .col-sm-11
-              Schönhauser Allee 156, 10435 Berlin
-  %section#navigation
-    %nav.navbar.navbar-default{ role: 'navigation' }
-      .container
-        .row
-          .col-sm-5.col-sm-offset-1
-            %section.navbar-header
-              %button.navbar-toggle
-                .collapsed{ type: 'button', data: { toggle: 'collapse', target: '#foody-navbar-collapse'  } }
-                  %span.sr-only Toggle navigation
-                  %span.icon-bar
-                  %span.icon-bar
-                  %span.icon-bar
-              = link_to 'Navigation', root_path, class: 'navbar-brand'
-          .col-sm-5
-            .collapse.navbar-collapse#foody-navbar-collapse
-              %ul.nav.navbar-nav
-                %li= link_to 'Welcome', "#{root_path}#welcome_anchor", class: 'nopadding'
-                %li= link_to 'Address', "#{root_path}#address_anchor"
-                %li= link_to 'Menu', "#{root_path}#menu_anchor"
-                %li= link_to 'Contact', "#{root_path}#contact_anchor"
-                %li= link_to 'Checkout', order_path
+        .col-sm-6
+          %i.fa.fa-phone.fa-fw
+          030 / 983 282 81
+        .col-sm-6.text-right.text-left-xs
+          %i.fa.fa-home.fa-fw
+          Schönhauser Allee 156, 10435 Berlin
+  %section#navigation.clearfix
+    %nav.navbar.navbar-custom{ role: 'navigation' }
+      .container.narrow
+        .navbar-header
+          %button.navbar-toggle.collapsed{ type: 'button', data: { toggle: 'collapse', target: '.navbar-collapse'  }  }
+            %span.sr-only Toggle navigation
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+          = link_to 'Pizza alla grande Berlino', root_path, class: 'navbar-brand'
+        .collapse.navbar-collapse
+          %ul.nav.navbar-nav.navbar-right{ style: 'min-width: 50%' }
+            - if current_page?(order_path)
+              %li= link_to 'Home', root_path
+              %li.active= link_to 'Bestellung', order_path
+            - elsif current_page?(imprint_path)
+              %li= link_to 'Home', root_path
+              %li.active= link_to 'Impressum', imprint_path
+            - elsif current_page?(order_finished_path)
+              %li= link_to 'Home', root_path
+              %li.active= link_to 'Bestellbestätigung', order_finished_path
+            - else
+              %li.active= link_to 'Home', '#home_anchor'
+              %li= link_to 'Speisekarte', "#menu_anchor"
+              %li= link_to 'Kontakt', "#contact_anchor"
+            %li.pull-right.pull-left-xs
+              %button.btn.btn-danger.nav-button.show_postal{ type: :button }
+                Bestellen

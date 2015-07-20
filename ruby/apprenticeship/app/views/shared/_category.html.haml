@@ -1,13 +1,27 @@
-%table.table.borderless
-  %thead
-    %tr
-      %th Nummer
-      %th Name
-      %th Beschreibung
-  %tbody
-    - unless category.nil?
-      - category.each do |food|
-        %tr
-          %td= food.order_number
-          %td= food.name
-          %td= food.description
+- unless category.nil?
+  - category.each do |food|
+    %br
+    .row
+      .col-md-4
+        .thumbnail
+          = image_tag "#{food.thumbnail.url(:thumb)}"
+      .col-md-8
+        .row
+          .col-md-3
+            %h4= food.order_number
+          .col-md-9
+            %h4= food.name
+        .row
+          .col-md-12
+            = food.description
+        %br
+        .row
+          .col-md-6
+            - food.prices.each do |price|
+              .row
+                .col-md-12.nowrap
+                  = number_to_currency(price.value.to_f/100, locale: :eu, separator: '.') + " (#{price.size})"
+          .col-md-6
+            = content_tag('button', type: 'button', class: 'btn btn-danger nav-button show_postal pull-right') do
+              = 'Bestellen'
+    = content_tag('hr') unless food == category.last

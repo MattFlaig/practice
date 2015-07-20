@@ -1,8 +1,5 @@
 @import 'variables';
 
-#address {
-  border-bottom: 1px solid $border-color;
-  padding-bottom: 5rem;
+#gmap_canvas {
+  min-height: 300px;
 }
-
-

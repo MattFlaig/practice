@@ -1,0 +1,9 @@
+.row
+  .col-sm-6
+    .fields
+      = f.fields_for :delivery_address do |iaf|
+        = iaf.hidden_field :id
+        = iaf.text_field :first_name, label: 'Vorname', hide_label: true, placeholder: 'Vorname'
+        = iaf.text_field :last_name, label: 'Nachname', hide_label: true, placeholder: 'Nachname'
+        = iaf.email_field :email, label: 'E-Mail', id: 'email', hide_label: true, placeholder: 'E-Mail'
+        = iaf.text_field :mobile, label: 'Telefon', id: 'mobile', hide_label: true, placeholder: 'Telefon'

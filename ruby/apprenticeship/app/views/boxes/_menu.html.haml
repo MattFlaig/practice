@@ -1,34 +1,23 @@
 %section#menu
-  Menu
-  %section
-    .row
-      .col-sm-10.col-sm-offset-1
-        / .col-sm-2
-        %h3.pull-left Speisekarte
-        / .col-sm-2
-        = link_to 'Bestellen', order_path, class: 'btn btn-lg btn-info pull-right'
-    %br
-    .row
-      .col-sm-10.col-sm-offset-1
-        %ul.nav.nav-pills.well
-          %li.active
-            %a{ href: '#pizza', data: { toggle: 'pill' } } Pizza
-          %li
-            %a{ href: '#main_course', data: { toggle: 'pill' } } Nudelgerichte
-          %li
-            %a{ href: '#salad', data: { toggle: 'pill' } } Salate
-          %li
-            %a{ href: '#dessert', data: { toggle: 'pill' } } Desserts
-          %li
-            %a{ href: '#drink', data: { toggle: 'pill' } } Getränke
-        .tab-content.well
-          %section.tab-pane.active#pizza
-            = render partial: 'shared/category', locals: { category: @categories[0] }
-          %section.tab-pane#main_course
-            = render partial: 'shared/category', locals: { category: @categories[1] }
-          %section.tab-pane#salad
-            = render partial: 'shared/category', locals: { category: @categories[2] }
-          %section.tab-pane#dessert
-            = render partial: 'shared/category', locals: { category: @categories[3] }
-          %section.tab-pane#drink
-            = render partial: 'shared/category', locals: { category: @categories[4] }
+  %ul.nav.nav-pills.well
+    %li.active
+      %a{ href: '#pizza', data: { toggle: 'pill' } } Pizza
+    %li
+      %a{ href: '#main_course', data: { toggle: 'pill' } } Pasta
+    %li
+      %a{ href: '#salad', data: { toggle: 'pill' } } Salate
+    %li
+      %a{ href: '#dessert', data: { toggle: 'pill' } } Desserts
+    %li
+      %a{ href: '#drink', data: { toggle: 'pill' } } Getränke
+  .tab-content.well.less_margin
+    %section.tab-pane.active#pizza
+      = render partial: 'shared/category', locals: { category: @categories[0] }
+    %section.tab-pane#main_course
+      = render partial: 'shared/category', locals: { category: @categories[1] }
+    %section.tab-pane#salad
+      = render partial: 'shared/category', locals: { category: @categories[2] }
+    %section.tab-pane#dessert
+      = render partial: 'shared/category', locals: { category: @categories[3] }
+    %section.tab-pane#drink
+      = render partial: 'shared/drink_menu', locals: { groups: @grouped_drinks.values }

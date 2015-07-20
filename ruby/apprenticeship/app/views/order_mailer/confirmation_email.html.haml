@@ -1,0 +1,48 @@
+.box
+  %h1.brand-color
+    %a{ href: 'https://www.pizzaallagrande.de' } Pizza alla Grande Berlino
+  %h2
+    Bestätigung der Bestellung ##{@order.id}
+  %hr.full.near
+  %p
+    Sehr geehrte/r #{@address.first_name} #{@address.last_name},
+  %p
+    vielen Dank für Ihre Bestellung vom #{l @order.submitted_at, format: '%d.%m.%Y'} um
+    #{l @order.submitted_at, format: '%H:%M'} Uhr bei Pizza alla Grande Berlino!
+  %p
+    Sie haben folgendes bestellt:
+  = render 'orders/order_details', order: @order
+
+  %hr
+  %p
+    - case @order.payment_type
+    - when 'cash'
+      %b Die Bestellung wird bar bezahlt
+    - else
+      Die Bezahlung ist schon mit #{@order.payment_type == 'cc' ? 'Kreditkarte' : 'Paypal'} bezahlt
+    - if @order.delivery_type == 'delivery'
+      und wird geliefert an:
+      %br
+      #{simple_format @address.mailing_address}
+    - else
+      %b und wird von Ihnen bei uns abgeholt:
+      %br
+      %br
+      Pizza alla Grande Berlino
+      %br
+      Schönhauser Allee 156
+      %br
+      10435 Berlin
+  %hr
+  %p
+    - if @order.delivery_type == 'delivery'
+      Sie erhalten in ca. 10 Minuten eine weitere E-Mail mit der voraussichtlichen Lieferzeit.
+    - else
+      Sie erhalten in ca. 10 Minuten eine weitere E-Mail mit der Uhrzeit, zu der die Bestellung abgeholt werden
+      kann.
+    Sollten Sie Fragen haben oder die Bestellung ändern wollen, dann kontaktieren Sie uns bitte direkt per Telefon
+    unter 030 983 28281.
+  %p
+    Wir danken für Ihr Vertrauen und wünschen schon jetzt einen guten Appetit!
+  %p
+    Das Pizza alla Grande Berlino Team

@@ -1,0 +1,16 @@
+= f.hidden_field :id
+= f.text_field :first_name, label: 'Vorname', hide_label: true, placeholder: 'Vorname'
+= f.text_field :last_name, label: 'Nachname', hide_label: true, placeholder: 'Nachname'
+= f.text_field :company, label: 'Firma', hide_label: true, placeholder: 'Firma'
+- if local_assigns[:with_contact]
+  = f.email_field :email, label: 'Email', id: 'email', hide_label: true, placeholder: 'E-Mail'
+  = f.text_field :mobile, label: 'Telefon', id: 'mobile', hide_label: true, placeholder: 'Telefon'
+- else
+  = f.static_control label: ' ', skip_label: true do
+    = ''
+  = f.static_control label: ' ', skip_label: true do
+    = ''
+= f.text_field :street, label: 'Straße und Hausnummer', hide_label: true, placeholder: 'Straße und Hausnummer'
+= f.text_field :postal, label: 'Postleitzahl', hide_label: true, placeholder: 'Postleitzahl'
+= f.text_field :city, label: 'Stadt', hide_label: true, placeholder: 'Stadt'
+= f.text_field :country, label: 'Land', hide_label: true, placeholder: 'Land'

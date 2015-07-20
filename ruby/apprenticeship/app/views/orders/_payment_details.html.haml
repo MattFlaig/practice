@@ -1,0 +1,21 @@
+%fieldset.credit_card
+%span.payment-errors
+%br
+.form-group
+  .row
+    .col-sm-4
+      %label.control-label{ for: 'credit-card-number' }Kartennummer
+      %input.form-control#credit-card-number{ data: { stripe: 'number' }, type: 'text' }
+    .col-sm-3
+      %label.control-label{ for: 'security-code' }Sicherheitscode
+      %input.form-control#security-code{ data: { stripe: 'cvc' }, type: 'text' }
+%br
+.form-group
+  %label.control-label Ablaufdatum
+  .row
+    .col-sm-4
+      = select_month(Time.zone.today, { add_month_numbers: true }, data: { stripe: 'exp-month' }, class: 'form-control')
+    .col-sm-3
+      = select_year(Time.zone.today.year,
+        { start_year: Time.zone.today.year, end_year: Time.zone.today.year + 8 },
+        data: { stripe: 'exp-year' }, class: 'form-control')

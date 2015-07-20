@@ -1,0 +1,79 @@
+.modal-dialog
+  .modal-content
+    = bootstrap_form_for order, url: { controller: 'orders', action: 'update' },
+      permitted_attributes: permitted_attributes,
+      data: { shadow_input: true } do |f|
+      .modal-header
+        %button.close{ type: 'button', aria: { label: 'Close' }, data: { dismiss: 'modal' } }
+          %span.red{ aria: { hidden: 'true' } } &times;
+        %h3.modal-title.red
+          %b Meine Bestellung
+      .modal-body
+        %h4.modal-title.red
+          %b Bestellposten
+        = render partial: 'order_details', locals: { order: order }
+        %hr
+        %h4.modal-title.red
+          - if order.delivery_type == 'delivery'
+            %b Adresse
+          - else
+            %b Kontakt
+        - if order.delivery_type == 'delivery'
+          = render partial: 'address_details', locals: { f: f }
+        - else
+          = render partial: 'pickup_address_details', locals: { f: f }
+        %hr
+        %h4.modal-title.red
+          %b Bezahlung
+        .row
+          .col-md-4
+            #payment_mode
+              - f.object.class.payment_types.each do |payment_type, _|
+                :ruby
+                  labl = case payment_type
+                         when 'paypal' then 'Mit Paypal'
+                         when 'cc' then 'Mit Kreditkarte'
+                         when 'cash' then 'Barzahlung'
+                         else payment_type
+                         end
+
+                  possible = f.object.possible_payment_types.include?(payment_type.to_sym)
+                  labl = ('<span class="text-muted" title="Aktuell leider nicht möglich">' + h(labl) + '</span>').html_safe unless possible
+
+                = f.radio_button :payment_type, payment_type, label: labl, disabled: !possible
+          .col-md-8
+            - if f.object.possible_payment_types.include?(:cash)
+              %div{ data: { show_on_cash: true } }
+                %p
+                  Bezahlung
+                  %b bar
+                  bei Erhalt der Bestellung
+                %i.fa.fa-home.fa-5x
+            - if f.object.possible_payment_types.include?(:cc)
+              %div{ data: { show_on_cc: true } }
+                %p
+                  Bezahlung mit Kreditkarte
+                %i.fa.fa-cc-visa.fa-5x
+                %i.fa.fa-cc-mastercard.fa-5x
+            - if f.object.possible_payment_types.include?(:paypal)
+              %div{ data: { show_on_paypal: true } }
+                %p
+                  Bezahlung mit Paypal
+                %i.fa.fa-cc-paypal.fa-5x
+        #payment_details
+          = render partial: 'payment_details', locals: { order: order }
+      .modal-footer
+        #submit_order
+          .row
+            .col-sm-12
+              %input{ type: :hidden, value: 1, name: :finish_order }
+              - if f.object.possible_payment_types.include?(:cash)
+                = f.button 'Zahlungspflichtig bestellen', class: 'btn btn-danger btn-lg ladda-button',
+                  data: { cash_button: true, style: 'expand-right' }
+              - if f.object.possible_payment_types.include?(:cc)
+                = f.button 'Mit Kreditkarte bestellen', class: 'btn btn-danger btn-lg ladda-button',
+                  data: { cc_button: true, amount: f.object.total_price, style: 'expand-right' }
+                %script{ src: 'https://checkout.stripe.com/checkout.js' }
+              - if f.object.possible_payment_types.include?(:paypal)
+                = f.button 'Mit Paypal bestellen', class: 'btn btn-danger btn-lg ladda-button',
+                  data: { paypal_button: true, style: 'expand-right', url: paypal_pay_url }

@@ -1,0 +1,60 @@
+.modal-dialog
+  .modal-content
+    = bootstrap_nested_form_for order, url: {controller: 'orders', action: 'update'}, data: { shadow_input: true } do |f|
+      .modal-header
+        %button{type: 'button', class: 'close', aria: { label:'Close' }, data: { dismiss:'modal'} }
+          %span.red{ aria: { hidden: 'true' } } &times;
+        %h3.modal-title.red
+          Bestellen
+      .modal-body
+        = f.hidden_field :delivery_type, value: ''
+        .modal_container.background_container
+          .row
+            .col-sm-6.col-xs-12.set_active.grey_if_delivery
+              .red.with_vertical_margin Bitte auswählen:
+              .text-center
+                %button.btn.btn-default.btn-lg{ type: 'button', id: 'pickup_button', data: { value: 'pickup'} } Selbstabholer 
+              .row
+                %br
+                .col-sm-12.col-xs-12
+                  Unsere Öffnungszeiten:
+                  %p 
+                    täglich 
+                    %b 12 - 15 Uhr 
+                    und 
+                    %b 18 - 22 Uhr
+                  %p
+                    Unser Lokal befindet sich in der Schönhauser Allee 156 (Nähe Kulturbrauerei).
+                    Parkmöglichkeiten sind vorhanden, Haltestellen der Trams M1 und M12 sowie der U2 Eberswalder Straße sind nur wenige Gehminuten entfernt.  
+              .row
+                .col-sm-12.col-xs-12
+                  #requested_pickup
+                    = render partial: 'shared/pickup_hours', locals: { f: f, hour_type: hour_type, delivery_values: delivery_values }
+            .col-sm-6.col-xs-12.set_active.grey_if_pickup
+              .text-center
+                %button.btn.btn-default.btn-lg{ type: 'button', id: 'delivery_button', data: { value: 'delivery'} } Lieferservice
+              .row
+                .col-sm-12.col-xs-12
+                  Unsere Lieferzeiten:
+                  %p 
+                    täglich 
+                    %b 18 - 22 Uhr
+                  %p Wir liefern innerhalb Berlins an folgende PLZ (bitte auswählen):
+                  .row
+                    .col-sm-12.col-xs-12
+                      = f.fields_for :delivery_address do |daf|
+                        = daf.select :postal do
+                          = content_tag(:option, '')
+                          - postals.each do |postal|
+                            = content_tag(:option, postal, value: postal )
+                  .row
+                    .col-sm-12.col-xs-12
+                      Die Zustellung Ihrer Ware per Lieferservice kostet 2 € extra.
+                  .row
+                    .col-sm-12.col-xs-12
+                      #requested_delivery
+                        = render partial: 'shared/delivery_hours', locals: { f: f, hour_type: hour_type,delivery_values: delivery_values }
+      .modal-footer
+        .row
+          .col-sm-12
+            = link_to 'Weiter zur Bestellung', order_path, class: 'btn btn-danger postal_button disabled', disabled: 'disabled'

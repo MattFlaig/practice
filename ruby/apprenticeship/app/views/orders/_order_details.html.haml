@@ -1,0 +1,62 @@
+%table.table
+  %thead
+    %th Nr.
+    %th Menge
+    %th Name
+    %th Preis
+  %tbody
+    - order.order_items.order(created_at: :asc).each do |item|
+      %tr
+        %td= item.order_number
+        %td= (item.quantity).to_s.concat(" x")
+        %td
+          = "#{item.name}" + " (#{item.size})"
+          - if item.extras.any?
+            .row
+              .col-sm-9
+                = 'mit Extras: ' + item.extras.map { |e| e.name }.join(", ")
+        %td.nowrap
+          #{number_to_currency(item.total_price.to_f/100, locale: :eu, separator: '.')}
+          - if order.multiple_vats?
+            .text-muted.small
+              (inkl. #{item.vat/100} % MwSt.)
+    %tr
+      %td
+      %td
+      %td
+        %b Warenwert:
+      %td
+        %b.nowrap= "#{number_to_currency((order.order_items.each.sum(&:total_price)).to_f/100, locale: :eu, separator: '.')}"
+        %p.text-muted.small
+          - if order.multiple_vats?
+            (inkl. #{number_to_currency(order.vat/100.0, locale: :eu, separator: '.')} MwSt.)
+          - else
+            (inkl. #{order.vat_list.keys.first/100} % MwSt.)
+    - if order.discount
+      %tr
+        %td
+        %td
+        %td
+          .red= 'abzgl. ' + order.discount.to_s + ' % Rabatt'
+        %td.nowrap.red= "- #{number_to_currency((order.order_items.each.sum(&:total_price) * order.discount/100).to_f/100, locale: :eu, separator: '.')}"
+    - if order.delivery_type != 'pickup'
+      %tr
+        %td
+        %td
+        %td zzgl. Lieferkosten
+        %td.nowrap
+          2.00 €
+          .text-muted.small
+            (inkl. 19 % MwSt.)
+    %tr
+      %td
+      %td
+      %td
+        %b Summe:
+      %td
+        %b.nowrap= " #{number_to_currency(order.total_price.to_f/100, locale: :eu, separator: '.')}"
+        %p.text-muted.small
+          - if order.multiple_vats?
+            (inkl. #{number_to_currency(order.vat/100.0, locale: :eu, separator: '.')} MwSt.)
+          - else
+            (inkl. #{order.vat_list.keys.first/100} % MwSt.)

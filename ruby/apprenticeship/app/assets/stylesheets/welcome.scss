@@ -1,21 +1,5 @@
 @import 'variables';
 
-#welcome {
-  border-bottom: 1px solid $border-color;
-  // height: 40rem;
-  padding-bottom: 5rem;
-}
-
-article {
-  font-size: 14px;
-
-  h3 {
-    font-size: 20px;
-    margin-bottom: 10px;
-  }
-
-  p,
-  img {
-    line-height: 25px;
-  }
+i {
+  color: #C13030;
 }

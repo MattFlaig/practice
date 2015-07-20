@@ -2,10 +2,56 @@
 
 body {
   background-color: $background-color;
-  padding-top: 4rem;
+  margin-top: 17rem;
+  //padding-top: 6rem;
+}
+
+.nowrap {
+  white-space: nowrap;
 }
 
 .jump-anchor {
   position: relative;
-  top: -7rem;
+  top: -15rem;
+}
+
+.well {
+  background: $well-color;
+  border: none;
+  box-shadow: none;
+}
+
+a, a:hover, a:focus {
+  color: #C13030;
+}
+
+.nav > li > a:hover, .nav > li > a:focus {
+  background-color: $background-color;
+}
+
+#index {
+  margin-top: -4rem;
+  margin-bottom: 6rem;
+}
+
+.btn-danger{
+  background-color: #C13030;
+  border-color:#C13030;
+}
+
+.less_margin{
+  margin-top: 3rem;
+}
+
+.radio {
+  label {
+    line-height: 1.7em;
+  }
+}
+
+.thumbnail {
+  height: auto;
+  width: auto;
+  max-height: 18rem;
+  max-width: 18rem;
 }

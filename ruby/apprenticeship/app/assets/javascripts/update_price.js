@@ -1,53 +1,54 @@
-var find_unit_price = function($form){
-  var price =
-    $form.find('[name="price_id"]:checked').data('price-value');
-  if (price === undefined){
-    var unsized_price = $form.find('[data-subtotal]').text();
-    return unsized_price * 100;
+var find_unit_price = function($form) {
+  $form = $form.closest('form');
+  $price_input = $form.find('[name="price_id"]');
+  if($price_input.is('select')) {
+    return parseInt($price_input.find('option:selected').data('unit-price'));
   } else {
-    return price;
+    return parseInt($price_input.data('unit-price'));
   }
 };
 
 var find_quantity = function($form){
-  return $form.find('[name="order_item[quantity]"]').val();
+  $form = $form.closest('form');
+  return parseInt($form.find('[name="order_item[quantity]"]').val());
 };
 
-
-var calculate_subtotal = function($form, price, quantity){
-  var $subtotal_price = $form.find('[data-subtotal]');
-
-  $subtotal_price.text(price * quantity / 100 + " €");
+var find_extras = function($form) {
+  $form = $form.closest('form');
+  return $form.find('input:checkbox:checked').map(function(){
+    return $(this).data('extra-price');
+  }).get();
 };
 
-var render_cart_text = function(e, data){
-  $('#cart_items_count').text('(' + data.order_items_count + ')');
-  $('#cart_text').html(data.cart);
+var find_display_price = function($form) {
+  $form = $form.closest('form');
+  return $form.find('.display_price');
+}
+
+var format_currency = function(cents) {
+  return (cents / 100).toFixed(2) + ' €';
 };
 
+var calculate_extras_total = function($form) {
+  $form = $form.closest('form');
+  var price = 0;
+  var extras = find_extras($form);
+  for (var index in extras) {
+    price += parseInt(extras[index]);
+  }
+  return price;
+};
 
-$(document).ready(function(){
-  $('.new_order_item').on( 'change', function(e) {
-    var price = find_unit_price($(this));
-    var quantity = find_quantity($(this));
-    calculate_subtotal($(this), price, quantity);
-  });
+var recalculate_subtotal = function($form) {
+  $form = $form.closest('form');
+  var unit_price = find_unit_price($form);
+  var quantity = find_quantity($form);
+  var extras_price = calculate_extras_total($form);
+  find_display_price($form).text(format_currency(quantity * (unit_price + extras_price)));
+};
 
-  $('.new_order_item').on( 'ajax:success', function(e, data) {
-    render_cart_text(e, data);
-
-  });
-
-  $('#cart_text').on( 'ajax:success', '.delete_item', function(e, data) {
-    render_cart_text(e, data);
-  });
-
-  $('#cart_text').on('change', '.cart_quantity', function() {
-    $.ajax({url: 'order_items/' + this.id,
-      method: 'PUT',
-      data: 'quantity=' + this.value +'&id=' + this.id, 
-      dataType: 'script'
-    })
+$(function() {
+  $('#order').on('change', '[name="order_item[quantity]"], select[name="price_id"], [name="extras[extra_ids][]"]' , function(e) {
+    recalculate_subtotal($(this));
   });
 });
-
