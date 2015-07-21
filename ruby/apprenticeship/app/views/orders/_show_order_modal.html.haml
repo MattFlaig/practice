@@ -1,6 +1,8 @@
 .modal-dialog
   .modal-content
-    = bootstrap_form_for order, url: { controller: 'orders', action: 'update' },
+    = bootstrap_form_for order, layout: :horizontal,
+      label_col: 'col-sm-4', control_col: 'col-sm-8',
+      url: { controller: 'orders', action: 'update' },
       permitted_attributes: permitted_attributes,
       data: { shadow_input: true } do |f|
       .modal-header
@@ -9,8 +11,6 @@
         %h3.modal-title.red
           %b Meine Bestellung
       .modal-body
-        %h4.modal-title.red
-          %b Bestellposten
         = render partial: 'order_details', locals: { order: order }
         %hr
         %h4.modal-title.red
@@ -18,10 +18,11 @@
             %b Adresse
           - else
             %b Kontakt
-        - if order.delivery_type == 'delivery'
-          = render partial: 'address_details', locals: { f: f }
-        - else
-          = render partial: 'pickup_address_details', locals: { f: f }
+        .hide_horizontal_labels
+          - if order.delivery_type == 'delivery'
+            = render partial: 'address_details', locals: { f: f }
+          - else
+            = render partial: 'pickup_address_details', locals: { f: f }
         %hr
         %h4.modal-title.red
           %b Bezahlung
@@ -38,7 +39,9 @@
                          end
 
                   possible = f.object.possible_payment_types.include?(payment_type.to_sym)
-                  labl = ('<span class="text-muted" title="Aktuell leider nicht möglich">' + h(labl) + '</span>').html_safe unless possible
+                  labl =
+                    ('<span class="text-muted" title="Aktuell leider nicht möglich">' + h(labl) + '</span>')
+                    .html_safe unless possible
 
                 = f.radio_button :payment_type, payment_type, label: labl, disabled: !possible
           .col-md-8
@@ -62,6 +65,17 @@
                 %i.fa.fa-cc-paypal.fa-5x
         #payment_details
           = render partial: 'payment_details', locals: { order: order }
+        %hr
+        %h4.modal-title.red
+          %b Sonstiges
+        = render partial: 'shared/delivery_hours_select',
+          locals: { f: f, hour_type: hour_type, delivery_values: delivery_values,
+          label: order.delivery_type == 'delivery' ? 'Lieferung um ca.' : 'Abholung der Bestellung um ca.' }
+        = f.text_area :customer_comment, rows: '6', label: 'Möchten Sie uns etwas zu Ihrer Bestellung mitteilen?'
+        %p
+          Nach dem Abschicken der Bestellung erhalten Sie eine Bestätigungs-E-Mail und kurz danach eine weitere E-Mail
+          mit dem genaueren Zeitpunkt, zu dem die Bestellung
+          #{order.delivery_type == 'delivery' ? 'geliefert wird' : 'abholbereit ist'}.
       .modal-footer
         #submit_order
           .row

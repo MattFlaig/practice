@@ -167,7 +167,7 @@ var disable_delivery_radio = function(hour){
     var $pickup_radio = $('#order').find('.radio #order_delivery_type_pickup');
     $delivery_radio.addClass('disabled');
     $delivery_radio.attr('disabled','disabled');
-    $pickup_radio.attr('checked', 'checked');   
+    $pickup_radio.attr('checked', 'checked');
   }
 }
 
@@ -190,28 +190,22 @@ $(document).ready(function(){
     var $check = $('#show_postal_modal').find('.fa-check');
     if($(this).val() != ''){
       enable_postal_button();
-    } 
+    }
     else{
       disable_postal_button();
     }
   });
 
-  $('#show_postal_modal').on('change', 'select[id="order_requested_delivery_at"]', function(){
-    $(this).trigger('change');
-  });
-
-  //$('#show_postal_modal').on('click', '#pickup_button', function(){ 
-  //  var hour = current_hour();
-  //  if(hour > 11 && hour < 15 ){
-  //    enable_postal_button();
-  //  }
+  //$('#show_postal_modal').on('click', '.postal_button', function(){
+  //  enable_delivery_time();
+  //  enable_pickup_time();
   //});
 
   $('#order').ready(function(){
     var hour = current_hour();
     disable_delivery_radio(hour);
   });
-  
+
 });
 
 

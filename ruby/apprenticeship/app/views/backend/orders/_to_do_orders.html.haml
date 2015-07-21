@@ -1,0 +1,39 @@
+#to_do_orders
+  %h2
+    Bestellungen in Arbeit (#{orders.count})
+  - unless orders.any?
+    Gerade nichts zu tun
+    %hr
+  - orders.each do |order|
+    = form_for order, url: backend_order_path(order), data: { shadow_input: true } do |f|
+      %p
+        \##{order.order_number} vom #{l order.submitted_at}
+      .row
+        .col-sm-10
+          .row
+            .col-sm-4
+              #{simple_format(order.customer_info)}
+            .col-sm-4
+              %b
+                #{simple_format(order.order_items_info)}
+            .col-sm-4
+              #{simple_format(order.transaction_info)}
+        .col-sm-2
+          Deadline
+          %p
+            %b= l order.delivery_at
+          %p
+            = f.button :complete!, type: :button, value: 1,
+              class: 'btn btn-success ladda-button',
+              data: { style: 'expand-left' },
+              autocomplete: :off,
+              name: f.object_name + '[complete!]' do
+              Erledigt!
+          %p
+            = f.button :cancel!, type: :button, value: 1,
+              class: 'btn btn-danger ladda-button',
+              data: { style: 'expand-left' },
+              autocomplete: :off,
+              name: f.object_name + '[cancel!]' do
+              Stornieren
+      %hr

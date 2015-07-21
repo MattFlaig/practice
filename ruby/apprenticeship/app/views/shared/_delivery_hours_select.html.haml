@@ -1,0 +1,9 @@
+= f.select :requested_delivery_at, nil, skip_label: local_assigns[:skip_label], label: local_assigns[:label] do
+  = delivery_values[local_assigns[:delivery_type] || f.object.delivery_type.to_sym].each do |val|
+    = val.each do |(start, ending)|
+      - if start.nil?
+        %option{ value: nil, selected: f.object.requested_delivery_at.nil? }
+          So schnell wie möglich
+      - else
+        %option{ value: start, selected: start == f.object.requested_delivery_at }
+          #{start.strftime('%H:%M')} - #{ending.strftime('%H:%M')} Uhr

@@ -1,0 +1,7 @@
+.container
+  .row
+    .col-sm-12
+      .well{ data: { get_by_json_interval: true } }
+        = render 'submitted_orders', orders: @submitted_orders
+        = render 'to_do_orders', orders: @to_do_orders
+        = render 'recent_orders', orders: @recent_orders

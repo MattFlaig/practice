@@ -11,16 +11,12 @@
 
 /*CART*/
 
-#cart{
-  margin-top: 4rem;
-}
-
 .cart_title{
   font-weight: bold;
 }
 
 .sub_heading{
-  margin-bottom: -1.5rem; 
+  margin-bottom: -1.5rem;
 }
 
 .cart_quantity{
@@ -42,9 +38,11 @@
   margin-top: 0.8rem;
 }
 
-.fa-times{
+.fa-times, .fa-arrow-right{
   color: white;
 }
+
+
 
 
 
@@ -156,7 +154,7 @@ ul.extras_list li {
 /*ORDER MODALS*/
 
 #delivery_address {
-  margin-top: 7.1rem;
+  margin-top: 8.7rem;
 }
 
 #invoice_address {

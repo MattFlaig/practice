@@ -1,0 +1,36 @@
+#recent_orders
+  %h2
+    Abgeschlossene Bestellungen (#{orders.count})
+  - unless orders.any?
+    Noch keine abgeschlossenen Bestellungen
+    %hr
+  - orders.each do |order|
+    %p
+      \##{order.order_number} vom #{l order.submitted_at}
+    .row
+      .col-sm-10
+        .row
+          .col-sm-4
+            #{simple_format(order.customer_info)}
+          .col-sm-4
+            #{simple_format(order.order_items_info)}
+          .col-sm-4
+            #{simple_format(order.transaction_info)}
+      .col-sm-2
+        - case order.status
+        - when 'cancelled'
+          %p.text-danger
+            Storniert
+            %span.nowrap
+              (#{l order.cancelled_at})
+        - when 'completed'
+          %p.text-success
+            Erledigt
+            %span.nowrap
+              (#{l order.completed_at})
+        - else
+          %p.text-info
+            Deadline war
+            %span.nowrap
+              #{l order.delivery_at}
+    %hr

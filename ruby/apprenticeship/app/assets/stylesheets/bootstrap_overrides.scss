@@ -1,0 +1,10 @@
+.hide_horizontal_labels {
+  .control-label {
+    display: none;
+
+    + div {
+      width: 100% !important;
+    }
+  }
+
+}

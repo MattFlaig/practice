@@ -3,8 +3,8 @@ class Address < ActiveRecord::Base
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :email, format: { with: /[^@\s\.]+\@[^@\s\.]+\.[^@\s\.]+/ }, allow_nil: true
-  validates :street, presence: true
-  validates :postal, presence: true
+  validates :street, presence: true, unless: Proc.new { |c| c.order.try(:delivery_type) == 'pickup' }
+  validates :postal, presence: true, unless: Proc.new { |c| c.order.try(:delivery_type) == 'pickup' }
   validates :city, presence: true
   validates :country, presence: true
 

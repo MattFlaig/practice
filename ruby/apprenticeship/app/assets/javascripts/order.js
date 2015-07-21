@@ -4,11 +4,6 @@ var render_modal = function(data){
     $('#show_order_modal').trigger('st:created');
     $('#show_order_modal').modal('show');
   }
-  else if(data.show_pickup_order){
-    $('#show_order_modal').html(data.show_pickup_order);
-    $('#show_order_modal').trigger('st:created');
-    $('#show_order_modal').modal('show');
-  }
 };
 
 var render_toggle_extras = function(data){
@@ -90,6 +85,7 @@ var set_extras_warning = function($form, extras_number){
     $warning.text('');
   }
 }
+
 
 $(document).ready(function(){
   $('#order').on('change', 'input[name="extras[extra_ids][]"]', function(){

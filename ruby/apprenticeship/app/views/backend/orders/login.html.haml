@@ -1,0 +1,10 @@
+.container
+  .row
+    .col-sm-12
+      .well
+        .row
+          .col-sm-6
+            = bootstrap_form_for :login, url: backend_orders_login_path, method: :post, layout: :horizontal do |f|
+              = f.password_field :login
+              .text-right
+                = f.submit 'Einloggen'

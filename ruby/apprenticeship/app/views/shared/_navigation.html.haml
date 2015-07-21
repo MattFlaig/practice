@@ -33,6 +33,7 @@
               %li.active= link_to 'Home', '#home_anchor'
               %li= link_to 'Speisekarte', "#menu_anchor"
               %li= link_to 'Kontakt', "#contact_anchor"
-            %li.pull-right.pull-left-xs
-              %button.btn.btn-danger.nav-button.show_postal{ type: :button }
-                Bestellen
+            - unless current_page?(order_path)
+              %li.pull-right
+                %button.btn.btn-danger.nav-button.show_postal{ type: :button }
+                  Bestellen

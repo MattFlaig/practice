@@ -47,29 +47,28 @@ class ApplicationController < ActionController::Base
     hours.each { |k,v| return k if v.include?(current_hour) }
   end
 
-  def find_delivery_hours(hour_type)
-    time = Time.zone.now.strftime('%H.%M')
-    hours = []
-    ['12.00', '12.30', '13.00',
-     '13.30', '14.00', '14.30',
-     '15.00', '18.00', '18.30',
-     '19.00', '19.30', '20.00',
-     '20.30', '21.00', '21.30',
-     '22.00'
-    ].map { |h| hours << h if h.to_f > time.to_f + 1 }
-    #hours.each { |i| i.gsub!(".", ":") }
-    hours
+  def find_delivery_hours
+    {
+      delivery: [18..22],
+      pickup: [12..15, 18..22]
+    }
   end
 
-  def format_hours(delivery_hours)
-    formatted_hours = []
-    delivery_hours.each do |dh|
-      hour = dh[0..1].to_i
-      minute = dh[3..4].to_i
-      formatted_hours << Time.new(Time.now.year, Time.now.month, Time.now.day, hour, minute)
+  def format_hours
+    find_delivery_hours.each_with_object({}) do |(which, times), hours|
+      hours[which] = []
+      times.each do |range|
+        hours[which] << []
+        hours[which].last << nil if range.include?(Time.zone.now.hour + 1)
+        range_array = range.step(0.5).to_a
+        range_array.each_with_index do |hour, i|
+          next if i == range_array.size - 1 || Time.zone.now.hour > hour
+          hours[which].last << [
+            Time.zone.now.change(hour: hour, min: (hour % 1) * 60),
+            Time.zone.now.change(hour: range_array[i + 1], min: (range_array[i + 1] % 1) * 60)
+          ]
+        end
+      end
     end
-    #binding.pry
-    formatted_hours
   end
-
 end

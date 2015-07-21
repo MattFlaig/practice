@@ -1,14 +1,17 @@
-%section#contact.well
-  .row
-    .col-sm-6
-      %form
-        .form-group
-          %label{ for: 'name' } Name
-          %input.form-control{ type: 'text', id: 'name' }
-        .form-group
-          %label{ for: 'email' } Email
-          %input.form-control{ type: 'email', id: 'email' }
-        .form-group
-          %label{ for: 'message' } Nachricht
-          %textarea.form-control{ rows: '6', maxlength: '500' }
-        %button.btn.btn-default.pull-right{ type: 'submit' } Senden
+%section#contact
+  .well
+    %h3
+      %b Feedback
+  .well
+    #feedback
+      .row
+        .col-sm-6
+          %h4
+            %b Möchten Sie eine Nachricht hinterlassen?
+          %p Ganz gleich, ob Anregungen, Wünsche oder Kritik, wir freuen uns über Ihr Feedback!
+        .col-sm-6
+          = bootstrap_form_tag url:'pages/contact', remote: true do |f|
+            = f.text_field :name, hide_label: true, placeholder: 'Name', required: true
+            = f.email_field :email, hide_label: true, placeholder: 'E-Mail-Adresse', required: true
+            = f.text_area :message, hide_label: true, placeholder: 'Ihre Nachricht', rows: '6', required: true
+            = f.submit 'Senden', class: 'btn btn-danger pull-right'

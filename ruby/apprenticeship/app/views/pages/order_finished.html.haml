@@ -1,21 +1,23 @@
-%section.container#order_finished.well
-  .row
-    .col-sm-6
-      %h3 Vielen Dank für Ihre Bestellung!
-      %p
-        Eine Bestätigung Ihrer Bestellung wurde an "#{@order.delivery_address.email}"
-        gesendet. Ihre Bestellnummer lautet
-        %b ##{@order.order_number}.
-      %p
-        In der Regel erhalten Sie innerhalb der nächsten zehn Minuten eine weitere E-Mail, in
-        der wir Ihnen die #{@order.delivery_type == 'delivery' ? 'Lieferzeit' : 'Aboholzeit'}
-        bestätigen. Sollten Sie nach 20 Minuten keine weitere E-Mail erhalten,
-        so kontaktieren Sie uns bitte unbedingt unter 030 / 983 28281 mit Ihrer
-        Bestellnummer ##{@order.order_number}.
-      %p
-        Wir wünschen einen guten Appetit.
-      = link_to 'Zurück zur Hauptseite.', root_path
-    .col-sm-6
-      #finish_order_image
-        .thumbnail
-          = image_tag 'cartons.JPG'
+%section.container#order_finished
+  .col-sm-offset-1.col-sm-10
+    .well
+      .row
+        .col-sm-6
+          %h3 Vielen Dank für Ihre Bestellung!
+          %p
+            Eine Bestätigung Ihrer Bestellung wurde an "#{@order.delivery_address.email}"
+            gesendet. Ihre Bestellnummer lautet
+            %b ##{@order.order_number}.
+          %p
+            In der Regel erhalten Sie innerhalb der nächsten zehn Minuten eine weitere E-Mail, in
+            der wir Ihnen die #{@order.delivery_type == 'delivery' ? 'Lieferzeit' : 'Aboholzeit'}
+            bestätigen. Sollten Sie nach 20 Minuten keine weitere E-Mail erhalten,
+            so kontaktieren Sie uns bitte unbedingt unter 030 / 983 28281 mit Ihrer
+            Bestellnummer ##{@order.order_number}.
+          %p
+            Wir wünschen einen guten Appetit.
+          = link_to 'Zurück zur Hauptseite.', root_path
+        .col-sm-6
+          #finish_order_image
+            .thumbnail
+              = image_tag 'cartons.JPG'

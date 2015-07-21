@@ -1,4 +1,6 @@
 class Order < ActiveRecord::Base
+  include Rails.application.routes.url_helpers
+
   enum status: {
     booking: 0,
     submitted: 1,
@@ -20,11 +22,17 @@ class Order < ActiveRecord::Base
   }
 
   validates :status, presence: true
-  validates :total, presence: true, if: proc { status != 'booking' }
-  validates :order_number, presence: true, if: proc { status != 'booking' }
-  validates :invoice_number, presence: true, if: (proc do
-    status != 'booking' && status != 'submitted'
-  end)
+  validates :completed_at, presence: true, if: proc { status == 'completed' }
+
+  with_options if: proc { !%w(booking cancelled).include?(status) } do |o|
+    o.validates :total, presence: true
+    o.validates :order_number, presence: true
+  end
+
+  with_options if: proc { !%w(booking submitted cancelled).include?(status) } do |o|
+    o.validates :invoice_number, presence: true
+    o.validates :delivery_at, presence: true
+  end
 
   has_many :order_items, inverse_of: :order
 
@@ -92,8 +100,14 @@ class Order < ActiveRecord::Base
     (total_price(discount: false) * (discount.to_i / 100.0)).round
   end
 
-  def delivery_at
-    confirmed_at + delivery_time.minutes
+  before_validation do
+    next unless new_record? || delivery_time_changed?
+    self.delivery_at =
+      if !delivery_time || !confirmed_at
+        nil
+      else
+        confirmed_at + delivery_time.minutes
+      end
   end
 
   def possible_payment_types
@@ -115,7 +129,7 @@ class Order < ActiveRecord::Base
       total: total_price,
       status: 'submitted',
       submitted_at: Time.zone.now,
-      order_number: Order.maximum(:order_number).to_i + 1
+      order_number: Order.maximum(:order_number).to_i + 1 # for the whole order, not for a single food (maybe change name later)
     )
 
     save!
@@ -127,6 +141,24 @@ class Order < ActiveRecord::Base
     OrderMailer.confirmation_email(self).deliver_later
     XmppHelper.send_message xmpp_text
     OpenOrderAnnoyerJob.set(wait: OpenOrderAnnoyerJob.repeat_in).perform_later(self)
+  end
+
+  def complete!(arg)
+    return unless arg && status != 'completed'
+    assign_attributes(
+      completed_at: Time.zone.now,
+      status: :completed
+    )
+    save!
+  end
+
+  def cancel!(arg)
+    return unless arg && status != 'cancelled'
+    assign_attributes(
+      cancelled_at: Time.zone.now,
+      status: :cancelled
+    )
+    save!
   end
 
   def confirm!(minutes)
@@ -151,17 +183,29 @@ class Order < ActiveRecord::Base
     OrderMailer.acceptance_email(self).deliver_later
   end
 
-  def xmpp_body
+  def customer_info
     <<-EOF
 #{delivery_address.mailing_address}
 #{delivery_address.email}
 #{delivery_address.mobile}
+    EOF
+  end
 
-#{xmpp_order_item_array.join("\n")}
+  def order_items_info
+    xmpp_order_item_array.join("\n")
+  end
 
+  def transaction_info
+    <<-EOF
 Zustellung: #{delivery_type}
 Bezahlung: #{payment_type}
 Total: #{(total / 100.0).to_s.gsub(/\.[0-9]$/, '\00')} €
+    EOF
+  end
+
+  def xmpp_body
+    <<-EOF
+#{xmpp_order_item_array.join("\n")}
 EOF
   end
 
@@ -172,8 +216,7 @@ Bestellung vom #{submitted_at.strftime '%d.%m.%Y, %H:%H'} Uhr
 
 #{xmpp_body}
 
-Bitte antworte mit '!ack ##{order_number}' und der Lieferzeit in Minuten, z.B.:
-'!ack ##{order_number} 50' für 50 Minuten
+Bestellungen verwalten: #{backend_url}
     EOF
   end
 
@@ -184,12 +227,15 @@ Neue Bestellung ##{order_number}
 
 #{xmpp_body}
 
-Bitte antworte mit '!ack ##{order_number}' und der Lieferzeit in Minuten, z.B.:
-'!ack ##{order_number} 50' für 50 Minuten
+Bestellungen verwalten: #{backend_url}
     EOF
   end
 
   private
+
+  def backend_url
+    backend_orders_submitted_url login: :PizzaG8
+  end
 
   def destroy_invoice_address?
     invoice_address_same_as_delivery == 1 && invoice_address.is_a?(InvoiceAddress)
@@ -218,5 +264,4 @@ Bitte antworte mit '!ack ##{order_number}' und der Lieferzeit in Minuten, z.B.:
       ordered.push ''
     end
   end
-
 end

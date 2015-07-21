@@ -6,7 +6,12 @@ class OrdersController < ApplicationController
   def show
     order = current_order
     session[:order_id] ||= order.id
-    render_response(order: order)
+    hour_type = current_hour_type(Time.zone.now.hour)
+    delivery_values = format_hours
+    #binding.pry
+    render_response(order: { order: order,
+                             hour_type: hour_type,
+                             delivery_values: delivery_values })
   end
 
   def update
@@ -17,11 +22,10 @@ class OrdersController < ApplicationController
       order.assign_attributes(order_params)
       order.save!(validate: false)
       hour_type = current_hour_type(Time.zone.now.hour)
-      delivery_hours = find_delivery_hours(hour_type)
-      delivery_values = format_hours(delivery_hours)
+      delivery_values = format_hours
       render_response(cart: { order: order,
-                            hour_type: hour_type,
-                            delivery_values: delivery_values })
+                              hour_type: hour_type,
+                              delivery_values: delivery_values })
 
     end
   end
@@ -75,6 +79,8 @@ class OrdersController < ApplicationController
       :delivery_type,
       :payment_type,
       :invoice_address_same_as_delivery,
+      :requested_delivery_at,
+      :customer_comment,
       order_items_attributes: [
         :id,
         :quantity,
@@ -111,7 +117,9 @@ class OrdersController < ApplicationController
     {
       show_order: render_to_string(
         partial: 'show_order_modal',
-        locals: { order: show_order },
+        locals: { order: show_order[:order],
+                  hour_type: show_order[:hour_type],
+                  delivery_values: show_order[:delivery_values] },
         formats: [:html]
       )
     }

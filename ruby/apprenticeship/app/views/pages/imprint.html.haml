@@ -1,59 +1,60 @@
 %section.container#imprint
-  %div{ class: 'modal', id: "show_postal_modal", tabindex: '-1', role:'dialog', aria: {labelledby: 'myLargeModalLabel', hidden:'true' } }
-  .well
-    .row
-      .col-sm-5.col-sm-offset-1
-        -# .row
-        -#   .col-sm-9.col-sm-offset-1
-        -#     %b Anbieter
-        %h3
-          Pizza alla grande Berlino
-        %p
-          Inh. André Sadikaj
-          %br
-          Schönhauser Allee 156
-          %br
-          10435 Berlin
-          %br
-          Telefon: 030 / 983 28281
-          %br
-          E-Mail: andre@pizzaallagrande.de
-          %br
-          Steuernummer: 31/502/00565
-        -# %br
-        -# %br
-        -# .row
-        -#   .col-sm-9.col-sm-offset-1
-        -#     %b Programmierung und Design
-        -# .row
-        -#   .col-sm-9.col-sm-offset-1
-        -#     Stellenticket GmbH
-        -# .row
-        -#   .col-sm-9.col-sm-offset-1
-        -#     vertreten durch die Geschäftsführer: Christoph Nefzger und Markus Doits
-        -# .row
-        -#   .col-sm-9.col-sm-offset-1
-        -#     Oderberger Str. 56
-        -# .row
-        -#   .col-sm-9.col-sm-offset-1
-        -#     10435 Berlin
-        -# .row
-        -#   .col-sm-9.col-sm-offset-1
-        -#     Tel.: 030 / 577074480
-        -# .row
-        -#   .col-sm-9.col-sm-offset-1
-        -#     E-Mail: info@stellenticket.de
-        -# .row
-        -#   .col-sm-9.col-sm-offset-1
-        -#     Web: www.stellenticket.de
-        -# .row
-        -#   .col-sm-9.col-sm-offset-1
-        -#     Registergericht: Amtsgericht Charlottenburg (Berlin) HRB 121809 B
-        -# .row
-        -#   .col-sm-9.col-sm-offset-1
-        -#     Umsatzsteueridentifikationsnummer (USt-IdNr.): DE268748270
-        -#
-      .col-sm-5
-        #imprint_image
-          .thumbnail
-            = image_tag 'cartons.JPG'
+  .col-sm-offset-1.col-sm-10
+    .well
+      %h3
+        %b Impressum
+    %div{ class: 'modal', id: "show_postal_modal", tabindex: '-1', role:'dialog', aria: {labelledby: 'myLargeModalLabel', hidden:'true' } }
+    .well
+      .row
+        .col-sm-7
+          %h3
+            Pizza alla grande Berlino
+          %p
+            Inh. André Sadikaj
+            %br
+            Schönhauser Allee 156
+            %br
+            10435 Berlin
+            %br
+            Telefon: 030 / 983 28281
+            %br
+            E-Mail: andre@pizzaallagrande.de
+            %br
+            Steuernummer: 31/502/00565
+            -# %br
+            -# %br
+            -# .row
+            -#   .col-sm-9.col-sm-offset-1
+            -#     %b Programmierung und Design
+            -# .row
+            -#   .col-sm-9.col-sm-offset-1
+            -#     Stellenticket GmbH
+            -# .row
+            -#   .col-sm-9.col-sm-offset-1
+            -#     vertreten durch die Geschäftsführer: Christoph Nefzger und Markus Doits
+            -# .row
+            -#   .col-sm-9.col-sm-offset-1
+            -#     Oderberger Str. 56
+            -# .row
+            -#   .col-sm-9.col-sm-offset-1
+            -#     10435 Berlin
+            -# .row
+            -#   .col-sm-9.col-sm-offset-1
+            -#     Tel.: 030 / 577074480
+            -# .row
+            -#   .col-sm-9.col-sm-offset-1
+            -#     E-Mail: info@stellenticket.de
+            -# .row
+            -#   .col-sm-9.col-sm-offset-1
+            -#     Web: www.stellenticket.de
+            -# .row
+            -#   .col-sm-9.col-sm-offset-1
+            -#     Registergericht: Amtsgericht Charlottenburg (Berlin) HRB 121809 B
+            -# .row
+            -#   .col-sm-9.col-sm-offset-1
+            -#     Umsatzsteueridentifikationsnummer (USt-IdNr.): DE268748270
+            -#
+        .col-sm-5
+          #imprint_image
+            .thumbnail
+              = image_tag 'cartons.JPG'

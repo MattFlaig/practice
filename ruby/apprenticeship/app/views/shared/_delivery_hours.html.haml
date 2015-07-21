@@ -1,6 +1,2 @@
-Wann möchten Sie Ihre Lieferung erhalten (bitte auswählen) ?
-= f.select :requested_delivery_at do
-  = content_tag(:option, 'So schnell wie möglich', value: nil) if hour_type == 'both'
-  = delivery_values.each_with_index do |val, index|
-    - if (val.hour >= 18 && val.strftime('%H:%M') != '18:00')
-      = content_tag(:option, val.strftime('%H:%M') + ' - ' + delivery_values[index+1].strftime('%H:%M'), value: delivery_values[index]) unless val == delivery_values.last 
+- local_assigns[:label] ||= "Wann möchten Sie Ihre Lieferung #{(local_assigns[:delivery_type] || f.object.delivery_type.to_sym) == :delivery ? 'erhalten' : 'abholen'}?"
+= render 'shared/delivery_hours_select', local_assigns

@@ -5,16 +5,21 @@ class PagesController < ApplicationController
     @grouped_drinks = split_into_groups(@foods)
   end
 
+  def contact
+    ContactMailer.contact_email(params[:name],
+                                params[:message],
+                                params[:email]).deliver_later
+    render nothing: true
+  end
+
   def order
-    #check_opening_hours
     @foods = Food.all.includes(:prices)
     @order = current_order
     set_discount(@order)
     @categories = food_categories(@foods)
     @grouped_drinks = split_into_groups(@foods)
     @hour_type = current_hour_type(Time.zone.now.hour)
-    @delivery_hours = find_delivery_hours(@hour_type)
-    @delivery_values = format_hours(@delivery_hours)
+    @delivery_values = format_hours
   end
 
   def toggle_extras
@@ -35,8 +40,7 @@ class PagesController < ApplicationController
       session[:order_id] = order.id
     end
     hour_type = current_hour_type(Time.zone.now.hour)
-    delivery_hours = find_delivery_hours(hour_type)
-    delivery_values = format_hours(delivery_hours)
+    delivery_values = format_hours
     postals = [10119, 10178, 10405,
              10407, 10409, 10435,
              10437, 10439, 13086,
@@ -52,8 +56,12 @@ class PagesController < ApplicationController
   end
 
   def order_finished
-    @order = Order.find(session[:finished_order_id])
-    render 'pages/order_finished'
+    unless session[:finished_order_id].nil?
+      @order = Order.find(session[:finished_order_id])
+      render 'pages/order_finished'
+    else
+      redirect_to root_path
+    end
   end
 
 
@@ -62,12 +70,6 @@ class PagesController < ApplicationController
   def set_discount(order)
     order.discount = discount_value('start')
     order.save!(validate: false)
-  end
-
-  def check_opening_hours
-    current_hour = Time.zone.now.hour.to_i
-    hour_type = current_hour_type(current_hour)
-    redirect_to root_path if hour_type == 'no_order'
   end
 
   def toggle_extras_json(toggle_extras)

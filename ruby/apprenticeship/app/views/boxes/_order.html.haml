@@ -1,6 +1,9 @@
 %section.container#order_menu
   .row
     .col-md-10.col-md-offset-1
+      .well
+        %h3
+          %b BESTELLUNG
       .row
         .col-md-8
           %section#menu_details
@@ -35,4 +38,4 @@
           %section#cart
             %section.well
               %section#cart_text
-                = render partial: 'order_items/cart_text', locals: { order: @order, hour_type: @hour_type, delivery_values: @delivery_values }
+                = render partial: 'order_items/cart_text', locals: { hour_type: @hour_type, delivery_values: @delivery_values }
