@@ -1,8 +1,14 @@
-#recent_orders
+#recent_orders.clearfix
   %h2
-    Abgeschlossene Bestellungen (#{orders.count})
+    Abgeschlossene Bestellungen (#{orders.count} am
+    %select{ name: :recent_date, autocomplete: :off, data: { change_get: true, change_ajax: true } }
+      - (0..30).each do |days|
+        - t = Time.zone.today - days.days
+        %option{ value: t, selected: (params[:recent_date].try(:to_date) == t) }
+          = l t
+    )
   - unless orders.any?
-    Noch keine abgeschlossenen Bestellungen
+    Keine abgeschlossenen Bestellungen
     %hr
   - orders.each do |order|
     %p
@@ -11,11 +17,14 @@
       .col-sm-10
         .row
           .col-sm-4
-            #{simple_format(order.customer_info)}
+            = simple_format(order.customer_info)
           .col-sm-4
-            #{simple_format(order.order_items_info)}
+            = simple_format(order.order_items_info)
+            - unless order.customer_comment.blank?
+              Nachricht vom Kunden:
+              = simple_format(order.customer_comment)
           .col-sm-4
-            #{simple_format(order.transaction_info)}
+            = simple_format(order.transaction_info)
       .col-sm-2
         - case order.status
         - when 'cancelled'
@@ -34,3 +43,18 @@
             %span.nowrap
               #{l order.delivery_at}
     %hr
+  - successfull_orders = orders.not_cancelled
+  %ul.list-unstyled.pull-right
+    %li
+      Erfolgreiche Bestellungen: #{successfull_orders.count}&nbsp;
+      %span.pull-right (#{number_to_currency successfull_orders.to_a.sum(&:total) / 100.0})
+    %li
+      \- davon bar bezahlt: #{successfull_orders.cash.count}&nbsp;
+      %span.pull-right (#{number_to_currency successfull_orders.cash.to_a.sum(&:total) / 100.0})
+    %li
+      \- davon online bezahlt: #{successfull_orders.online_payment.count}&nbsp;
+      %span.pull-right (#{number_to_currency successfull_orders.online_payment.to_a.sum(&:total) / 100.0})
+    %li
+      \- davon geliefert: #{successfull_orders.delivery.count}&nbsp;
+    %li
+      \- davon selbst abgeholt: #{successfull_orders.pickup.count}&nbsp;

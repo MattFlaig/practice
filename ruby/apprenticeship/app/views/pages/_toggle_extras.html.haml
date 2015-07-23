@@ -1,12 +1,16 @@
-%br
 .row
-  .col-md-12.col-sm-12.col-xs-12
-    .row
-      .col-sm-5
-        %b.extras_message Bitte auswählen (0 / 5):
-      .col-sm-7
-        %b.extras_warning.red
-    %ul.extras_list
-      = collection_check_boxes :extras, :extra_ids, food.extras.for_size(price.size), :id, :name do |cb|
-        %li= cb.label(class: 'checkbox inline') { cb.check_box(class: 'checkbox', checked: chosen_extras && chosen_extras.include?(cb.object) || nil, data: { extra_price: "#{cb.object.extra_price(price)}"}) + cb.text + " (#{number_to_currency(cb.object.extra_price(price).to_f/100, locale: :eu, separator: '.') })" }
-%br
+  .col-sm-6
+    %p
+      %b Extras
+      (je #{number_to_currency(food.extras.for_size(price.size).first.extra_price(price) / 100.0, unit: '€')})
+  .col-sm-6.text-right
+    %b.text-alert.hidden.extras_warning
+      Maximal 5 Extras
+%ul.extras_list.list-unstyled
+  = collection_check_boxes :extras, :extra_ids, food.extras.for_size(price.size), :id, :name do |cb|
+    %li.nowrap
+      .checkbox
+        = cb.label for: nil do
+          = cb.check_box checked: chosen_extras && chosen_extras.include?(cb.object),
+            data: { extra_price: "#{cb.object.extra_price(price)}" }
+          = cb.text

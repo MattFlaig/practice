@@ -1,6 +1,11 @@
 = f.select :requested_delivery_at, nil, skip_label: local_assigns[:skip_label], label: local_assigns[:label] do
-  = delivery_values[local_assigns[:delivery_type] || f.object.delivery_type.to_sym].each do |val|
-    = val.each do |(start, ending)|
+  - delivery_type = local_assigns[:delivery_type] || f.object.delivery_type.to_sym
+  - delivery_values = delivery_values[delivery_type]
+  - if delivery_values.flatten.blank?
+    %option
+      Heute nicht mehr möglich
+  - delivery_values.each do |val|
+    - val.each do |(start, ending)|
       - if start.nil?
         %option{ value: nil, selected: f.object.requested_delivery_at.nil? }
           So schnell wie möglich

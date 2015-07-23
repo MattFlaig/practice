@@ -2,19 +2,16 @@
   - category.each do |food|
     %br
     .row
-      .col-md-4
+      .col-md-3
         .thumbnail
           = image_tag "#{food.thumbnail.url(:thumb)}"
-      .col-md-8
-        .row
-          .col-md-3
-            %h4= food.order_number
-          .col-md-9
-            %h4= food.name
-        .row
-          .col-md-12
-            = food.description
-        %br
+      .col-md-9
+        %h4
+          = food.order_number
+          %b
+            = food.name
+        %p
+          = food.description
         .row
           .col-md-6
             - food.prices.each do |price|
@@ -22,6 +19,6 @@
                 .col-md-12.nowrap
                   = number_to_currency(price.value.to_f/100, locale: :eu, separator: '.') + " (#{price.size})"
           .col-md-6
-            = content_tag('button', type: 'button', class: 'btn btn-danger nav-button show_postal pull-right') do
+            = content_tag('button', type: 'button', class: 'btn btn-danger nav-button show_postal pull-right' ) do
               = 'Bestellen'
     = content_tag('hr') unless food == category.last

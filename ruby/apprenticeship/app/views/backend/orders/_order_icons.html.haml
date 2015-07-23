@@ -1,0 +1,10 @@
+- if order.requested_delivery_at
+  %i.fa.fa-clock-o.fa-3x
+- if order.delivery_type == 'delivery'
+  %i.fa.fa-truck.fa-3x
+- else
+  %i.fa.fa-user.fa-3x.text-muted
+- if order.payment_type == 'cash'
+  %i.fa.fa-money.fa-3x
+- else
+  %i.fa.fa-cc-visa.fa-3x.text-muted

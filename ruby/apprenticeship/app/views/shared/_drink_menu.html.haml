@@ -2,25 +2,20 @@
   - groups.each do |drinks|
     %br
     .row
-      .col-md-4
+      .col-md-3
         .thumbnail
           = image_tag "#{drinks.first.thumbnail.url(:thumb)}"
-      .col-md-8
-        .row
-          .col-md-12
-            %h4= drinks.first.group
-        %br
-        .row
-          .col-md-12
-            Sorten:
-            - drinks.each do |drink|
-              = drink.name.split(' ')[1..-2].join(' ') + ',' unless drink == drinks.last
-              = drink.name.split(' ')[1..-2].join(' ') if drink == drinks.last
-        %br
+      .col-md-9
+        %h4
+          %b= drinks.first.group
+        %p
+          Sorten:
+          - drinks.each do |drink|
+            = drink.name + ',' unless drink == drinks.last
+            = drink.name if drink == drinks.last
         .row
           .col-md-6
-            .display_price
-              = number_to_currency(drinks.first.prices.first.value.to_f/100, locale: :eu, separator: '.')
+            = number_to_currency(drinks.first.prices.first.value.to_f/100, locale: :eu, separator: '.')
           .col-md-6
             = content_tag('button', type: 'button', class: 'btn btn-danger nav-button show_postal pull-right') do
               = 'Bestellen'

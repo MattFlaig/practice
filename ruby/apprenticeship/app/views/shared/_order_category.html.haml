@@ -2,37 +2,35 @@
   - category.each do |food|
     %br
     .row
-      .col-sm-4.col-xs-12
+      .col-sm-3.col-xs-12
         .thumbnail
           = image_tag "#{food.thumbnail.url(:thumb)}"
-      .col-sm-8.col-xs-12
-        = form_tag '/order_items', remote: true, class: 'new_order_item', data: { id: "#{food.id}" } do
-          .row
-            .col-md-2
-              %h4= food.order_number
-            .col-md-10
-              %h4= food.name
+      .col-sm-9.col-xs-12
+        = form_tag '/order_items', autocomplete: :off, remote: true, class: 'new_order_item', data: { id: "#{food.id}" } do
+          %h4
+            = food.order_number
+            %b
+              = food.name
           .row
             .col-md-12
-              = food.description
-          %br
-          .row
-            - if food.extras.any?
-              .col-lg-4.col-md-6.col-sm-6.col-xs-6
-                %button{type: 'button', class: 'btn btn-default show_extras', name: 'show_extras', data: { id: food.id} }
-                  Extras
-                  %i.fa.fa-caret-down
-            .col-lg-4.col-md-6.col-sm-6.col-xs-6
+              - cont = [food.description]
               - if food.prices.length > 1
-                %select{ class: 'form-control', name:'price_id' }
-                  - food.prices.each do |price|
-                    = content_tag(:option, price.size, value: price.id, data: {unit_price: price.value} )
-              - else
-                %input{ type: :hidden, name: :price_id,
-                value: food.prices.first.id, data: { unit_price: food.prices.first.value } }
-            .col-lg-4.col-md-6.col-sm-6.col-xs-6
-          %br
-          %div{ id: "toggle_extras_#{ food.id }" }
+                - cap = capture do
+                  - food.prices.each_with_index do |price, i|
+                    %a.label.label-danger{ href: '#', class: (:hidden if i != 0), data: { toggle_price: food.id, price: { id: price.id, value: price.value }.to_json } }<>
+                      = price.size
+                - cont.push cap.html_safe
+              - if food.extras.any?
+                - cap = capture do
+                  %a.label.label-danger{ href: '#', data: { show_extras: food.id } }<>
+                    %span.text
+                      ohne Extras
+                    %i.fa.fa-caret-down
+                    %i.fa.fa-caret-up
+                - cont.push cap.html_safe
+              %p.food_description= cont.join(' ').html_safe
+              %input{ type: :hidden, name: :price_id, value: food.prices.first.id, data: { unit_price: food.prices.first.value } }
+              .collapse{ id: "toggle_extras_#{ food.id }" }
           .row
             .col-lg-4.col-md-6.col-sm-6.col-xs-6
               .display_price
@@ -40,7 +38,7 @@
             .col-lg-4.col-md-6.col-sm-6.col-xs-6
               .change_quantity{ data: { plus_minus_input: true } }<
                 = submit_tag "-", type: 'button', class: 'btn btn-default flattened'
-                = text_field_tag 'order_item[quantity]', 'order_item[quantity]', class: 'form-control flattened', readonly: 'readonly',value: 1
+                = text_field_tag 'order_item[quantity]', 'order_item[quantity]', class: 'form-control form-control-center flattened', readonly: 'readonly',value: 1
                 = submit_tag "+", type: 'button', class: 'btn btn-default flattened slim_margin'
             .col-lg-4.col-md-6.col-sm-6.col-xs-6.pull-right
               %button{type:'submit', class: 'btn btn-xs btn-danger add_to_cart'}

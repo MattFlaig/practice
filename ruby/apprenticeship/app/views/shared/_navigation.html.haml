@@ -18,7 +18,7 @@
             %span.icon-bar
             %span.icon-bar
           = link_to 'Pizza alla grande Berlino', root_path, class: 'navbar-brand'
-        .collapse.navbar-collapse
+        .collapse.navbar-collapse#top-navigation
           %ul.nav.navbar-nav.navbar-right{ style: 'min-width: 50%' }
             - if current_page?(order_path)
               %li= link_to 'Home', root_path
@@ -35,5 +35,5 @@
               %li= link_to 'Kontakt', "#contact_anchor"
             - unless current_page?(order_path)
               %li.pull-right
-                %button.btn.btn-danger.nav-button.show_postal{ type: :button }
-                  Bestellen
+                = content_tag('button', type: 'button', class: 'btn btn-danger nav-button show_postal pull-right' ) do
+                  = 'Bestellen'

@@ -2,6 +2,8 @@ register_plugin 'ladda-shadow', {
   tag: '.ladda-button'
   handler: (args) ->
     $button = $(@)
+    return if $(@).is('[type="submit"]')
+
     $button.on 'click', -> $button.addClass 'disabled'
 
     to = null

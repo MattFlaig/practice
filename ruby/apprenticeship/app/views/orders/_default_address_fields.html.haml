@@ -10,7 +10,14 @@
     = ''
   = f.static_control label: ' ', skip_label: true do
     = ''
-= f.text_field :street, label: 'Straße und Hausnummer', hide_label: true, placeholder: 'Straße und Hausnummer'
-= f.text_field :postal, label: 'Postleitzahl', hide_label: true, placeholder: 'Postleitzahl'
+= f.text_field :street,
+  label: 'Straße und Hausnummer', hide_label: true, placeholder: 'Straße und Hausnummer', required: true
+- if local_assigns[:postal_select]
+  = f.select :postal, nil, { skip_label: true }, required: true do
+    = content_tag(:option, '')
+    - find_delivery_postals.each do |postal|
+      = content_tag(:option, postal, value: postal, selected: postal.to_i == f.object.postal.to_i)
+- else
+  = f.text_field :postal, label: 'Postleitzahl', hide_label: true, placeholder: 'Postleitzahl', required: true
 = f.text_field :city, label: 'Stadt', hide_label: true, placeholder: 'Stadt'
 = f.text_field :country, label: 'Land', hide_label: true, placeholder: 'Land'

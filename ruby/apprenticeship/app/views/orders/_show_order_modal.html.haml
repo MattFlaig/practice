@@ -20,9 +20,9 @@
             %b Kontakt
         .hide_horizontal_labels
           - if order.delivery_type == 'delivery'
-            = render partial: 'address_details', locals: { f: f }
+            = render 'address_details', f: f, postal_select: true
           - else
-            = render partial: 'pickup_address_details', locals: { f: f }
+            = render 'pickup_address_details', f: f
         %hr
         %h4.modal-title.red
           %b Bezahlung
@@ -70,7 +70,7 @@
           %b Sonstiges
         = render partial: 'shared/delivery_hours_select',
           locals: { f: f, hour_type: hour_type, delivery_values: delivery_values,
-          label: order.delivery_type == 'delivery' ? 'Lieferung um ca.' : 'Abholung der Bestellung um ca.' }
+          label: order.delivery_type == 'delivery' ? 'Lieferung um ca.' : 'Abholung um ca.' }
         = f.text_area :customer_comment, rows: '6', label: 'Möchten Sie uns etwas zu Ihrer Bestellung mitteilen?'
         %p
           Nach dem Abschicken der Bestellung erhalten Sie eine Bestätigungs-E-Mail und kurz danach eine weitere E-Mail

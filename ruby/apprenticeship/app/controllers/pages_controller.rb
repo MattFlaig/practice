@@ -13,9 +13,12 @@ class PagesController < ApplicationController
   end
 
   def order
+    unless orders_open?
+      flash[:modal_info] = 'Online-Bestellung ist heute schon geschlossen.'
+      redirect_to root_path
+    end
     @foods = Food.all.includes(:prices)
     @order = current_order
-    set_discount(@order)
     @categories = food_categories(@foods)
     @grouped_drinks = split_into_groups(@foods)
     @hour_type = current_hour_type(Time.zone.now.hour)
@@ -41,11 +44,7 @@ class PagesController < ApplicationController
     end
     hour_type = current_hour_type(Time.zone.now.hour)
     delivery_values = format_hours
-    postals = [10119, 10178, 10405,
-             10407, 10409, 10435,
-             10437, 10439, 13086,
-             13357, 13359]
-    render_response(show_postal: { postals: postals,
+    render_response(show_postal: { postals: find_delivery_postals,
                                    order: order,
                                    hour_type: hour_type,
                                    delivery_values: delivery_values })
@@ -56,21 +55,15 @@ class PagesController < ApplicationController
   end
 
   def order_finished
-    unless session[:finished_order_id].nil?
+    if session[:finished_order_id].nil?
+      redirect_to root_path
+    else
       @order = Order.find(session[:finished_order_id])
       render 'pages/order_finished'
-    else
-      redirect_to root_path
     end
   end
 
-
   private
-
-  def set_discount(order)
-    order.discount = discount_value('start')
-    order.save!(validate: false)
-  end
 
   def toggle_extras_json(toggle_extras)
     {
@@ -94,10 +87,9 @@ class PagesController < ApplicationController
                   hour_type: show_postal[:hour_type],
                   delivery_values: show_postal[:delivery_values] },
         formats: [:html]
-      )
+      ), orders_open: orders_open?
     }
   end
-
 
   def render_response(toggle_extras: false, show_postal: false)
     json = {}

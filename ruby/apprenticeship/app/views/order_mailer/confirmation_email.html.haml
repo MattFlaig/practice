@@ -1,14 +1,14 @@
 .box
   %h1.brand-color
-    %a{ href: 'https://www.pizzaallagrande.de' } Pizza alla Grande Berlino
+    %a{ href: 'https://www.pizzaallagrande.de' } Pizza alla grande Berlino
   %h2
-    Bestätigung der Bestellung ##{@order.id}
+    Bestätigung der Bestellung ##{@order.order_number}
   %hr.full.near
   %p
     Sehr geehrte/r #{@address.first_name} #{@address.last_name},
   %p
     vielen Dank für Ihre Bestellung vom #{l @order.submitted_at, format: '%d.%m.%Y'} um
-    #{l @order.submitted_at, format: '%H:%M'} Uhr bei Pizza alla Grande Berlino!
+    #{l @order.submitted_at, format: '%H:%M'} Uhr bei Pizza alla grande Berlino!
   %p
     Sie haben folgendes bestellt:
   = render 'orders/order_details', order: @order
@@ -28,12 +28,17 @@
       %b und wird von Ihnen bei uns abgeholt:
       %br
       %br
-      Pizza alla Grande Berlino
+      Pizza alla grande Berlino
       %br
       Schönhauser Allee 156
       %br
       10435 Berlin
   %hr
+  - unless @order.customer_comment.blank?
+    %p
+      Ihre Nachricht an uns:
+    = simple_format @order.customer_comment
+    %hr
   %p
     - if @order.delivery_type == 'delivery'
       Sie erhalten in ca. 10 Minuten eine weitere E-Mail mit der voraussichtlichen Lieferzeit.
@@ -45,4 +50,4 @@
   %p
     Wir danken für Ihr Vertrauen und wünschen schon jetzt einen guten Appetit!
   %p
-    Das Pizza alla Grande Berlino Team
+    Das Pizza alla grande Berlino Team

@@ -6,54 +6,52 @@
           %span.red{ aria: { hidden: 'true' } } &times;
         %h3.modal-title.red
           Bestellen
-      .modal-body
+      .modal-body.grey_if_no_order
+        .col-xs-offset-2.col-xs-8#orders_closed
+          %h4.red
+            %b Der Bestell-Service bleibt heute geschlossen.
         = f.hidden_field :delivery_type, value: ''
         .modal_container.background_container
+          .red Bitte auswählen:
           .row
             .col-sm-6.col-xs-12.set_active.grey_if_delivery
-              .red.with_vertical_margin Bitte auswählen:
-              .text-center
+              %p.text-center
                 %button.btn.btn-default.btn-lg{ type: 'button', id: 'pickup_button', data: { value: 'pickup'} } Selbstabholer
-              .row
-                %br
-                .col-sm-12.col-xs-12
+              .postal_modal_content
+                %p
                   Unsere Öffnungszeiten:
-                  %p
-                    täglich
-                    %b 12 - 15 Uhr
-                    und
-                    %b 18 - 22 Uhr
-                  %p
-                    Unser Lokal befindet sich in der Schönhauser Allee 156 (Nähe Kulturbrauerei).
-                    Parkmöglichkeiten sind vorhanden, Haltestellen der Trams M1 und M12 sowie der U2 Eberswalder Straße sind nur wenige Gehminuten entfernt.
+                %p
+                  täglich
+                  %b 12 - 15 Uhr
+                  und
+                  %b 18 - 22 Uhr
+                %p
+                  Unser Lokal befindet sich in der Schönhauser Allee 156 (Nähe Kulturbrauerei).
+                  Parkmöglichkeiten sind vorhanden, Haltestellen der Trams M1 und M12 sowie der U2 Eberswalder Straße sind nur wenige Gehminuten entfernt.
               .row
                 .col-sm-12.col-xs-12
                   #requested_pickup
                     = render partial: 'shared/delivery_hours', locals: { f: f, hour_type: hour_type, delivery_values: delivery_values, delivery_type: :pickup }
             .col-sm-6.col-xs-12.set_active.grey_if_pickup
-              .text-center
+              %p.text-center
                 %button.btn.btn-default.btn-lg{ type: 'button', id: 'delivery_button', data: { value: 'delivery'} } Lieferservice
+              .postal_modal_content
+                %p Unsere Lieferzeiten:
+                %p
+                  täglich
+                  %b 18 - 22 Uhr
+                %p Wir liefern innerhalb Berlins an folgende PLZ (bitte auswählen):
+                %p
+                  = f.fields_for :delivery_address do |daf|
+                    = daf.select :postal, nil, skip_label: true do
+                      = content_tag(:option, '')
+                      - postals.each do |postal|
+                        = content_tag(:option, postal, value: postal )
+                %p Die Lieferkosten betragen 2 €.
               .row
                 .col-sm-12.col-xs-12
-                  Unsere Lieferzeiten:
-                  %p
-                    täglich
-                    %b 18 - 22 Uhr
-                  %p Wir liefern innerhalb Berlins an folgende PLZ (bitte auswählen):
-                  .row
-                    .col-sm-12.col-xs-12
-                      = f.fields_for :delivery_address do |daf|
-                        = daf.select :postal, nil, skip_label: true do
-                          = content_tag(:option, '')
-                          - postals.each do |postal|
-                            = content_tag(:option, postal, value: postal )
-                  .row
-                    .col-sm-12.col-xs-12
-                      Die Zustellung Ihrer Ware per Lieferservice kostet 2 € extra.
-                  .row
-                    .col-sm-12.col-xs-12
-                      #requested_delivery
-                        = render partial: 'shared/delivery_hours', locals: { f: f, hour_type: hour_type,delivery_values: delivery_values, delivery_type: :delivery }
+                  #requested_delivery
+                    = render partial: 'shared/delivery_hours', locals: { f: f, hour_type: hour_type,delivery_values: delivery_values, delivery_type: :delivery }
       .modal-footer
         .row
           .col-sm-12

@@ -79,7 +79,7 @@ prawn_document margin: [1.25.in, 2.cm, 1.25.in, 2.cm] do |pdf|
 
   pdf.pad sizes[:normal] do
     pdf.text <<-EOF.strip_heredoc.gsub("\n", ' ')
-    Basierend auf Ihrer Bestellung vom #{l @order.submitted_at, format: '%d.%m.%Y %H:%M'} Uhr
+    Basierend auf Ihrer Bestellung ##{@order.order_number} vom #{l @order.submitted_at, format: '%d.%m.%Y %H:%M'} Uhr
     stellen wir in Rechnung:
     EOF
   end

@@ -4,7 +4,7 @@
       %b Lieferadresse
     .fields#delivery_address
       = f.fields_for :delivery_address do |daf|
-        = render 'default_address_fields', f: daf, with_contact: true
+        = render 'default_address_fields', f: daf, with_contact: true, postal_select: true
   .col-sm-6
     %h5
       %b Rechnungsadresse

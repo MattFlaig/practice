@@ -12,12 +12,19 @@
         .col-sm-10
           .row
             .col-sm-4
-              #{simple_format(order.customer_info)}
+              .row
+                .col-sm-4
+                  = render 'order_icons', order: order
+                .col-sm-8
+                  = simple_format(order.customer_info)
             .col-sm-4
-              %b
-                #{simple_format(order.order_items_info)}
+              %b= simple_format(order.order_items_info)
+              - unless order.customer_comment.blank?
+                Nachricht vom Kunden:
+                .text-danger
+                  = simple_format(order.customer_comment)
             .col-sm-4
-              #{simple_format(order.transaction_info)}
+              = simple_format(order.transaction_info)
         .col-sm-2
           Deadline
           %p

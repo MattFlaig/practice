@@ -1,8 +1,8 @@
 .box
   %h1.brand-color
-    %a{ href: 'https://www.pizzaallagrande.de' } Pizza alla Grande Berlino
+    %a{ href: 'https://www.pizzaallagrande.de' } Pizza alla grande Berlino
   %h2
-    Rechnung und Lieferzeit für Ihre Bestellung ##{@order.id}
+    Rechnung und Lieferzeit für Ihre Bestellung ##{@order.order_number}
   %hr.full.near
   %p
     Sehr geehrte/r #{@address.first_name} #{@address.last_name},
@@ -20,12 +20,12 @@
       %b
         ca. #{@order.delivery_time} Minuten abholbereit (um ca. #{l @order.delivery_at, format: '%H:%M'} Uhr).
     %p
-      Wir geben unser Bestes, dass die Bestellung zu diesem Zeipunkt abholbereit ist, bitten aber um Ihr Verständnis,
-      falls Sie doch einmal etwas warten müssen. Wir geben unser Bestes, dass Ihre Bestellung pünktlich abholbereit ist.
+      Bitte beachten Sie, dass dies eine ungefähre Angabe ist und sie je Auslastung und unvorhergesehenen Umständen
+      variieren kann. Wir geben unser Bestes, die Bestellung pünktlich abholbereit ist!
   %p
     Im Anhang finden Sie zudem Ihre Rechnung.
     - if @order.payment_type == 'cash'
-      Bitte beachten Sie, dass die Bestellung noch
-      %b bar zu bezahlen ist.
+      Die Bestellung ist noch
+      %b bar zu bezahlen.
   %p
-    Das Pizza alla Grande Berlino Team
+    Das Pizza alla grande Berlino Team

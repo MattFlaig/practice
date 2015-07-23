@@ -1,4 +1,6 @@
-= bootstrap_nested_form_for current_order, url: { action: :update, controller: :orders }, data: { shadow_input: true } do |f|
+= bootstrap_nested_form_for current_order, url: { action: :update, controller: :orders },
+  autocomplete: :off,
+  data: { shadow_input: true } do |f|
   %h4.cart_title
     Warenkorb
     %span#cart_items_count
@@ -18,7 +20,7 @@
       .cart_row
         .row
           .col-sm-2.col-xs-2.align-field
-            = oif.text_field :quantity, hide_label: true, class: 'cart_quantity', data: { id: item.id }
+            = oif.text_field :quantity, hide_label: true, class: 'form-control-center cart_quantity', data: { id: item.id }
           .col-sm-7.col-xs-5.item_name
             %h6
               #{item.order_number} #{item.name}
@@ -72,7 +74,7 @@
         %b Lieferung
       %hr
       .row
-        .col-sm-10.col-sm-offset-2
+        .col-sm-12
           - Order.delivery_types.each do |delivery_type, _|
             :ruby
               label =
@@ -81,26 +83,27 @@
                 else 'Lieferservice'
                 end
             = f.radio_button :delivery_type, delivery_type, label: label
-          %br
-          %h6= render partial: 'shared/delivery_hours', locals: { f: f, hour_type: hour_type, delivery_values: delivery_values }
+          = render partial: 'shared/delivery_hours', locals: { f: f, hour_type: hour_type, delivery_values: delivery_values }
       %hr
     %section{ id: 'total_price', data: { total: "#{current_order.total_price}" } }
-      %b
-        Summe:
-        = number_to_currency(current_order.total_price.to_f/100, locale: :eu, separator: '.')
-      %br
-      %sup.text-muted
-        - if current_order.multiple_vats?
-          (inkl. #{number_to_currency(current_order.vat/100.0, locale: :eu, separator: '.')} MwSt.)
-        - elsif !current_order.vat_list.blank?
-          (inkl. #{current_order.vat_list.keys.first/100} % MwSt.)
-    %section#order_button
       .row
-        .col-sm-12
-          - if current_order.total_price < 1500
+        .col-md-6
+          %b.nowrap
+            Summe:
+            = number_to_currency(current_order.total_price.to_f/100, locale: :eu, separator: '.')
+          %br
+          %sup.text-muted
+            - if current_order.multiple_vats?
+              (inkl. #{number_to_currency(current_order.vat/100.0, locale: :eu, separator: '.')} MwSt.)
+            - elsif !current_order.vat_list.blank?
+              (inkl. #{current_order.vat_list.keys.first/100} % MwSt.)
+        - if current_order.total_price < 1500
+          .col-md-12.text-center
             %button.btn.btn-danger{ disabled: true }
               Mindestbestellwert ist 15.00 €
-          - else
-            %button.btn.btn-danger
-              Bestellen
-              %i.fa.fa-arrow-right
+        - else
+          .col-md-6
+            %section#order_button
+              %button.btn.btn-danger
+                Bestellen
+                %i.fa.fa-arrow-right

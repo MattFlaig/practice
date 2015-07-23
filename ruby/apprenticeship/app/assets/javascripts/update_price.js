@@ -48,7 +48,7 @@ var recalculate_subtotal = function($form) {
 };
 
 $(function() {
-  $('#order').on('change', '[name="order_item[quantity]"], select[name="price_id"], [name="extras[extra_ids][]"]' , function(e) {
+  $('#order').on('change', '[name="order_item[quantity]"], [name="price_id"], [name="extras[extra_ids][]"]' , function(e) {
     recalculate_subtotal($(this));
   });
 });

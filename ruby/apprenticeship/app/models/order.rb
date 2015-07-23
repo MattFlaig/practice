@@ -43,9 +43,12 @@ class Order < ActiveRecord::Base
   accepts_nested_attributes_for :delivery_address
   accepts_nested_attributes_for :invoice_address
 
+  scope :not_cancelled, -> { where('orders.status != :c', c: Order.statuses['cancelled']) }
+  scope :online_payment, -> { where('orders.payment_type != :cash', cash: Order.payment_types['cash']) }
+
   before_create do
-    delivery_address || build_delivery_address
     invoice_address || build_invoice_address
+    delivery_address || build_delivery_address
 
     delivery_address.country ||= 'Deutschland'
     delivery_address.city ||= 'Berlin'
@@ -106,14 +109,20 @@ class Order < ActiveRecord::Base
       if !delivery_time || !confirmed_at
         nil
       else
-        confirmed_at + delivery_time.minutes
+        t = confirmed_at + delivery_time.minutes
+        begin
+          t.change(min: (t.min + 4).round(-1))
+        rescue ArgumentError
+          t.change(min: 0, hour: t.hour + 1)
+        end
+        t
       end
   end
 
   def possible_payment_types
     %i(cash).tap do |pt|
-      pt.push :cc if Rails.application.secrets.stripe
-      pt.push :paypal if Rails.application.secrets.paypal
+      pt.push :cc if Rails.application.secrets.stripe && !Rails.env.production?
+      pt.push :paypal if Rails.application.secrets.paypal && !Rails.env.production?
     end
   end
 
@@ -197,8 +206,9 @@ class Order < ActiveRecord::Base
 
   def transaction_info
     <<-EOF
-Zustellung: #{delivery_type}
-Bezahlung: #{payment_type}
+Fertig zu: #{requested_delivery_at ? '' : 'So schnell wie möglich'}
+Zustellung: #{delivery_type == 'delivery' ? 'Lieferung' : 'Abholung'}
+Bezahlung: #{payment_type == 'cash' ? 'Bar' : 'Online'}
 Total: #{(total / 100.0).to_s.gsub(/\.[0-9]$/, '\00')} €
     EOF
   end

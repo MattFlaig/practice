@@ -3,7 +3,8 @@ register_plugin 'food-morph', {
   handler: (args) ->
 
     $(@).on 'submit', ->
-      $(@).css 'z-index', 999
+      $transform = $(@).closest('div').prev('div')
+      $transform.css 'z-index', 999
       $append = $('#cart')
       has_input = $('#delivery_mode').length > 0
       $placeholder = $('<div>')
@@ -13,7 +14,7 @@ register_plugin 'food-morph', {
       }
       $placeholder.height 100
       $append.after $placeholder
-      ramjet.transform $(@).get(0), $placeholder.get(0),
+      ramjet.transform $transform.get(0), $placeholder.get(0),
         done: ->
           $placeholder.remove()
 }

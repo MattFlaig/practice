@@ -1,19 +1,4 @@
-class Backend::OrdersController < ApplicationController
-  before_action :check_access, except: %i(login validate_login)
-
-  def login
-    redirect_to backend_orders_submitted_path if access_allowed?
-  end
-
-  def validate_login
-    check_and_login('PizzaGrande2', params[:login].try(:[], :login))
-    if access_allowed?
-      redirect_to backend_orders_submitted_path
-    else
-      redirect_to backend_orders_login_path
-    end
-  end
-
+class Backend::OrdersController < Backend::BackendController
   def submitted
     respond_to do |format|
       format.html do
@@ -74,8 +59,10 @@ class Backend::OrdersController < ApplicationController
   end
 
   def recent_orders
+    date = params[:recent_date].try(:to_date) || Time.zone.today
     Order.includes(*order_includes)
       .where('orders.status = 2 and delivery_at < NOW() - INTERVAL \'60 min\' or orders.status > 2')
+      .where('orders.submitted_at::date = :date', date: date)
       .order(submitted_at: :desc)
   end
 
@@ -97,18 +84,5 @@ class Backend::OrdersController < ApplicationController
     render(json: order_types.each_with_object({}) do |type, object|
       object.deep_merge! send("#{type}_json")
     end)
-  end
-
-  def check_and_login(correct, pw)
-    session[:backend_access] = pw if correct == pw
-  end
-
-  def access_allowed?
-    session[:backend_access].present?
-  end
-
-  def check_access
-    check_and_login('PizzaG8', params[:login])
-    redirect_to backend_orders_login_path unless access_allowed?
   end
 end

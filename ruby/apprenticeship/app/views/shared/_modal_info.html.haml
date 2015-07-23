@@ -1,0 +1,11 @@
+- if flash[:modal_info]
+  .modal#page_load_modal
+    .modal-dialog
+      .modal-content
+        .modal-header
+          %h4.modal-title
+            Information
+        .modal-body
+          %p= flash[:modal_info]
+        .modal-footer
+          %button.btn.btn-default.btn-danger{ data: { dismiss: :modal } } Schließen

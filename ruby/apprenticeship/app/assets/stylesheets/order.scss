@@ -58,14 +58,6 @@
   max-width: 10rem;
 }
 
-.thumbnail {
-  img {
-    width: auto;
-    height: 100%;
-  }
-  overflow: hidden;
-}
-
 #order_button {
   margin-bottom: 5rem;
 }
@@ -74,19 +66,42 @@ label {
   font-weight: normal !important;
 }
 
-ul.extras_list {
-  list-style: none;
+.food_description {
+  min-height: 2.9em;
+
+  .label {
+    display: inline-block;
+    position: relative;
+    top: -.3em;
+    .fa {
+      color: #fff;
+    }
+  }
 }
 
-ul.extras_list li {
-  display:inline-block;
-  margin: -0.7rem;
-  width: 18rem;
-  font-size: 1.1rem;
+.extras_warning {
+  color: #C13030;
 }
 
-.extras_message, .extras_warning {
-  font-size: 1.3rem;
+[data-show-extras-done] {
+  &.open {
+    .fa-caret-up {
+      display: inline;
+    }
+    .fa-caret-down {
+      display: none;
+    }
+  }
+  .fa-caret-up {
+    display: none;
+  }
+}
+
+.extras_list {
+  column-count: 2;
+  .checkbox {
+    margin: 0 0 .5rem 0;
+  }
 }
 
 .move_to_cart, .show_extras {
@@ -109,8 +124,9 @@ ul.extras_list li {
   margin-right: 0.2rem;
 }
 
-.form-control{
-  padding-right: 0;
+.form-control-center {
+  padding: 0;
+  text-align: center;
 }
 
 .new_order_item h4{

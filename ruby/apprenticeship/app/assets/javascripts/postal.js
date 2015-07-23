@@ -21,17 +21,21 @@ var show_postal_request = function(){
       url: '/pages/show_postal',
       method: 'POST',
       data: {
+        orders_open: $(this).orders_open
       },
       success: function(data) {
         render_postal(data);
         set_elements();
+        if (data.orders_open === false){
+          disable_if_closed();
+        }
       }
     });
   });
 }
 
 var set_elements = function(){
-  $('#show_postal_modal').on('click', '#pickup_button', function(){ 
+  $('#show_postal_modal').on('click', '#pickup_button', function(){
     set_pickup_button();
     unset_delivery_button();
     disable_postal();
@@ -43,7 +47,7 @@ var set_elements = function(){
     set_to_grey('.grey_if_pickup');
     unset_grey('.grey_if_delivery');
   });
-  $('#show_postal_modal').on('click', '#delivery_button', function(){ 
+  $('#show_postal_modal').on('click', '#delivery_button', function(){
     set_delivery_button();
     unset_pickup_button();
     enable_postal();
@@ -55,6 +59,16 @@ var set_elements = function(){
     set_to_grey('.grey_if_delivery');
     unset_grey('.grey_if_pickup');
   });
+}
+
+var disable_if_closed = function(){
+  disable_delivery_button();
+  disable_pickup_button();
+  disable_postal();
+  disable_pickup_time();
+  disable_delivery_time();
+  set_to_grey('.grey_if_no_order');
+  $('#orders_closed').show();
 }
 
 var disable_delivery_button = function(){
@@ -173,17 +187,7 @@ var disable_delivery_radio = function(hour){
 
 
 $(document).ready(function(){
-  $('#index').ready(function(){
-    show_postal_request();
-  });
-
-  $('#impressum').ready(function(){
-    show_postal_request();
-  });
-
-  $('#order_finished').ready(function(){
-    show_postal_request();
-  });
+  show_postal_request();
 
 
   $('#show_postal_modal').on('change','select[id="order_delivery_address_attributes_postal"]', function(){

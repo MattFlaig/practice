@@ -22,12 +22,29 @@
 
 #delivery_button{
   width: 100%;
-  margin-bottom: 2rem;
-  margin-top: 4rem;
+}
+
+.postal_modal_content {
+  min-height: 15em;
+}
+
+#orders_closed{
+  margin-top: 16rem;
+  max-width: 40rem;
+  max-height: 25rem;
+  border: 2px solid #C13030;
+  border-radius: 5%;
+  padding: 2.5rem;
+  display: none;
+  background: white;
+  z-index: 99;
+  position: absolute;
 }
 
 .background_container{
-  padding: 0 1.6rem;
+  z-index: 1;
+  position: relative;
+  padding: 1.6rem 1.6rem 0 1.6rem;
 }
 
 .with_bottom_margin{
@@ -36,14 +53,6 @@
 
 .with_vertical_margin{
   margin: 1rem 0;
-}
-
-#requested_delivery{
-  margin-top: 1.6rem;
-}
-
-#requested_pickup{
-  margin-top: 0.5rem;
 }
 
 .grey_if_delivery{

@@ -1,26 +1,22 @@
-%section.carousel.slide#foody-carousel{ data: { ride: 'carousel' } }
+.carousel.slide#foody-carousel{ data: { ride: 'carousel' } }
   %ol.carousel-indicators
-    %li{ data: { target: '#foody-carousel', slide_to: '0', class: 'active' } }
+    %li.active{ data: { target: '#foody-carousel', slide_to: '0' } }
     %li{ data: { target: '#foody-carousel', slide_to: '1' } }
     %li{ data: { target: '#foody-carousel', slide_to: '2' } }
     %li{ data: { target: '#foody-carousel', slide_to: '3' } }
     /%li{ data: { target: '#foody-carousel', slide_to: '4' } }
-    /%li{ data: { target: '#foody-carousel', slide_to: '5' } }
 
-
-  %section.carousel-inner{ role: 'listbox' }
-    %section.item.active
-      = image_tag 'slider_2a.JPG'
-    %section.item
-      = image_tag 'slider_3.JPG'
-    %section.item
+  .carousel-inner{ role: 'listbox' }
+    .item.active
       = image_tag 'slider_1.JPG'
-    %section.item
+    .item
+      = image_tag 'slider_2.JPG'
+    /.item
+    /  = image_tag 'slider_3.JPG'
+    .item
       = image_tag 'slider_4.JPG'
-    /%section.item
-    /  = image_tag 'slider_5.JPG'
-    /%section.item
-    /  = image_tag 'slider_6.JPG'
+    .item
+      = image_tag 'slider_5.JPG'
   %a.left.carousel-control{ href: '#foody-carousel', role: 'button', data: { slide: 'prev' } }
     %span.glyphicon.glyphicon-chevron-left{ aria_hidden: 'true' }
     %span.sr-only
