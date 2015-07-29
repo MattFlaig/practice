@@ -82,12 +82,13 @@
             .col-sm-12
               %input{ type: :hidden, value: 1, name: :finish_order }
               - if f.object.possible_payment_types.include?(:cash)
-                = f.button 'Zahlungspflichtig bestellen', class: 'btn btn-danger btn-lg ladda-button',
+                = f.button 'Zahlungspflichtig bestellen', class: 'btn btn-primary btn-lg ladda-button',
                   data: { cash_button: true, style: 'expand-right' }
               - if f.object.possible_payment_types.include?(:cc)
-                = f.button 'Mit Kreditkarte bestellen', class: 'btn btn-danger btn-lg ladda-button',
-                  data: { cc_button: true, amount: f.object.total_price, style: 'expand-right' }
+                = f.button 'Mit Kreditkarte bestellen', class: 'btn btn-primary btn-lg ladda-button',
+                  data: { cc_button: true, amount: f.object.total_price, style: 'expand-right',
+                  key: Rails.application.secrets.stripe.try(:[], 'publishable_key') }
                 %script{ src: 'https://checkout.stripe.com/checkout.js' }
               - if f.object.possible_payment_types.include?(:paypal)
-                = f.button 'Mit Paypal bestellen', class: 'btn btn-danger btn-lg ladda-button',
+                = f.button 'Mit Paypal bestellen', class: 'btn btn-primary btn-lg ladda-button',
                   data: { paypal_button: true, style: 'expand-right', url: paypal_pay_url }

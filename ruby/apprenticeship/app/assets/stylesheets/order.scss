@@ -85,14 +85,14 @@ label {
 
 [data-show-extras-done] {
   &.open {
-    .fa-caret-up {
+    .fa-chevron-circle-up {
       display: inline;
     }
-    .fa-caret-down {
+    .fa-chevron-circle-down {
       display: none;
     }
   }
-  .fa-caret-up {
+  .fa-chevron-circle-up {
     display: none;
   }
 }
@@ -201,4 +201,8 @@ label {
   .form-control {
     border-color: #f00;
   }
+}
+
+.pickup_contact{
+  margin-top: 7.8rem;
 }

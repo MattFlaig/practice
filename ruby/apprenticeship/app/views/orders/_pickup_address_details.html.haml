@@ -1,5 +1,5 @@
 .row
-  .col-sm-6
+  .col-sm-6.pickup_contact
     .fields
       = f.fields_for :delivery_address do |iaf|
         = iaf.hidden_field :id
@@ -7,3 +7,10 @@
         = iaf.text_field :last_name, label: 'Nachname', hide_label: true, placeholder: 'Nachname'
         = iaf.email_field :email, label: 'E-Mail', id: 'email', hide_label: true, placeholder: 'E-Mail'
         = iaf.text_field :mobile, label: 'Telefon', id: 'mobile', hide_label: true, placeholder: 'Telefon'
+  .col-sm-6
+    #toggle_invoice_address
+      - ['Keine Rechnung benötigt', 'Rechnung benötigt'].each do |radio|
+        = f.radio_button :no_invoice_requested, (radio == 'Keine Rechnung benötigt' ? 1 : 0), label: radio, checked: radio == 'Keine Rechnung benötigt'
+    .fields#invoice_address
+      = f.fields_for :invoice_address do |iaf|
+        = render 'default_address_fields', f: iaf, without_space: true

@@ -26,14 +26,21 @@
             - elsif current_page?(imprint_path)
               %li= link_to 'Home', root_path
               %li.active= link_to 'Impressum', imprint_path
+            - elsif current_page?(privacy_path)
+              %li= link_to 'Home', root_path
+              %li.active= link_to 'Datenschutzerklärung', privacy_path
             - elsif current_page?(order_finished_path)
               %li= link_to 'Home', root_path
               %li.active= link_to 'Bestellbestätigung', order_finished_path
-            - else
+            - elsif current_page?(root_path)
               %li.active= link_to 'Home', '#home_anchor'
               %li= link_to 'Speisekarte', "#menu_anchor"
               %li= link_to 'Kontakt', "#contact_anchor"
+            - else
+              %li.active= link_to 'Home', root_path
+              %li= link_to 'Speisekarte', root_path + '#menu_anchor'
+              %li= link_to 'Kontakt', root_path + '#contact_anchor'
             - unless current_page?(order_path)
               %li.pull-right
-                = content_tag('button', type: 'button', class: 'btn btn-danger nav-button show_postal pull-right' ) do
+                = content_tag('button', type: 'button', class: 'btn btn-primary nav-button show_postal pull-right' ) do
                   = 'Bestellen'

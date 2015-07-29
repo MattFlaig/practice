@@ -1,0 +1,6 @@
+- if current_page?(order_path)
+  #discount_message.stick_to_nav
+    = render 'shared/discount_text'
+- else
+  #discount_message
+    = render 'shared/discount_text', link: true

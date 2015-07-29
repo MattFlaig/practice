@@ -1,0 +1,9 @@
+.container
+  .row
+    .col-lg-10.col-lg-offset-1
+      %h4
+        - if local_assigns[:link]
+          %a.show_postal{ href: '#' }
+            %b Zum Start der neuen Website: 10% Rabatt bei Online-Bestellung!
+        - else
+          %b Zum Start der neuen Website: 10% Rabatt bei Online-Bestellung!

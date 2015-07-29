@@ -42,6 +42,10 @@
             Deadline war
             %span.nowrap
               #{l order.delivery_at}
+
+        %a{ href: backend_invoice_path(order) }
+          %i.fa.fa-file-pdf-o.fa-fw
+          Rechnung
     %hr
   - successfull_orders = orders.not_cancelled
   %ul.list-unstyled.pull-right

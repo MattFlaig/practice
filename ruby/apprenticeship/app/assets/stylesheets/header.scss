@@ -103,5 +103,14 @@
     position: absolute;
     right: 0;
   }
+
+  #discount_message{
+    margin-top: 4rem;
+  }
+
+  #discount_message.stick_to_nav{
+    margin-top: -12.7rem;
+    padding-top: 0.5rem;
+  }
 }
 

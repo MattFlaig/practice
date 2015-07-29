@@ -56,9 +56,10 @@ class ApplicationController < ActionController::Base
               'only_pickup' => (12..15).to_a,
               'both' => (18..21).to_a
             }
-    hours.each { |k,v| return k if v.include?(current_hour) }
+    hours.each { |k, v| return k if v.include?(current_hour) }
   end
 
+  # rubocop:disable Style/NumericLiterals
   def find_delivery_postals
     [10119, 10178, 10405,
      10407, 10409, 10435,
@@ -68,13 +69,25 @@ class ApplicationController < ActionController::Base
 
   def find_delivery_hours
     {
-      delivery: [18..22],
-      pickup: [12..15, 18..22]
+      monday: { delivery: [18..22],
+                pickup: [12..15, 18..22] },
+      tuesday: { delivery: [18..22],
+                 pickup: [12..15, 18..22] },
+      wednesday: { delivery: [18..22],
+                   pickup: [12..15, 18..22] },
+      thursday: { delivery: [18..22],
+                  pickup: [12..15, 18..22] },
+      friday: { delivery: [18..22],
+                pickup: [18..22] },
+      saturday: { delivery: [18..22],
+                  pickup: [18..22] },
+      sunday: { delivery: [18..22],
+                pickup: [18..22] }
     }
   end
 
   def format_hours
-    find_delivery_hours.each_with_object({}) do |(which, times), hours|
+    find_delivery_hours[Time.zone.now.strftime('%A').downcase.to_sym].each_with_object({}) do |(which, times), hours|
       hours[which] = []
       times.each do |range|
         hours[which] << []

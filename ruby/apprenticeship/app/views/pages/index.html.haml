@@ -1,5 +1,6 @@
 %a.jump-anchor#home_anchor
 %section#index.clearfix{ data: { spy: 'scroll', target: '.navbar' } }
+  = render partial: 'shared/discount'
   = render partial: 'boxes/slider'
 %section.container
   - %i(welcome menu address contact).each do |boxname|

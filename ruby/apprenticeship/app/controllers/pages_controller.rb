@@ -51,8 +51,14 @@ class PagesController < ApplicationController
   end
 
   def imprint
-    render 'imprint'
   end
+
+  def privacy
+  end
+
+  #def agb
+  #  render 'agb'
+  #end
 
   def order_finished
     if session[:finished_order_id].nil?
@@ -90,6 +96,7 @@ class PagesController < ApplicationController
       ), orders_open: orders_open?
     }
   end
+
 
   def render_response(toggle_extras: false, show_postal: false)
     json = {}

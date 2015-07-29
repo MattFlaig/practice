@@ -1,5 +1,6 @@
 class Order < ActiveRecord::Base
   include Rails.application.routes.url_helpers
+  include ActionView::Helpers::NumberHelper
 
   enum status: {
     booking: 0,
@@ -43,8 +44,11 @@ class Order < ActiveRecord::Base
   accepts_nested_attributes_for :delivery_address
   accepts_nested_attributes_for :invoice_address
 
+  scope :invoiced, -> { where('orders.invoice_number is not null') }
   scope :not_cancelled, -> { where('orders.status != :c', c: Order.statuses['cancelled']) }
-  scope :online_payment, -> { where('orders.payment_type != :cash', cash: Order.payment_types['cash']) }
+  scope :online_payment, lambda {
+    where('orders.payment_type != :cash', cash: Order.payment_types['cash'])
+  }
 
   before_create do
     invoice_address || build_invoice_address
@@ -121,8 +125,8 @@ class Order < ActiveRecord::Base
 
   def possible_payment_types
     %i(cash).tap do |pt|
-      pt.push :cc if Rails.application.secrets.stripe && !Rails.env.production?
-      pt.push :paypal if Rails.application.secrets.paypal && !Rails.env.production?
+      pt.push :cc if Rails.application.secrets.stripe
+      pt.push :paypal if Rails.application.secrets.paypal
     end
   end
 
@@ -138,7 +142,8 @@ class Order < ActiveRecord::Base
       total: total_price,
       status: 'submitted',
       submitted_at: Time.zone.now,
-      order_number: Order.maximum(:order_number).to_i + 1 # for the whole order, not for a single food (maybe change name later)
+      # for the whole order, not for a single food (maybe change name later)
+      order_number: Order.maximum(:order_number).to_i + 1
     )
 
     save!
@@ -149,6 +154,7 @@ class Order < ActiveRecord::Base
   def after_finish
     OrderMailer.confirmation_email(self).deliver_later
     XmppHelper.send_message xmpp_text
+    PrinterHelper.send_message print_info
     OpenOrderAnnoyerJob.set(wait: OpenOrderAnnoyerJob.repeat_in).perform_later(self)
   end
 
@@ -180,7 +186,7 @@ class Order < ActiveRecord::Base
       confirmed_at: Time.zone.now,
       delivery_time: minutes.to_i,
       status: 'confirmed',
-      invoice_number: Order.maximum(:invoice_number).to_i + 1
+      invoice_number: next_invoice_number
     )
 
     save!
@@ -190,6 +196,21 @@ class Order < ActiveRecord::Base
 
   def after_confirm
     OrderMailer.acceptance_email(self).deliver_later
+  end
+
+  def print_info
+    <<-EOF
+Neue Bestellung ##{order_number}
+
+#{customer_info}
+
+#{order_items_info}
+
+Fertigstellung: #{requested_delivery_at ? requested_delivery_at.strftime('%d.%m.%Y %H:%M Uhr') : 'So schnell wie möglich'}
+Bezahlung: #{payment_type == 'cash' ? 'Bar' : 'Online'}
+Zustellung: #{delivery_type == 'delivery' ? 'Lieferung' : 'Abholung'}
+Total: #{(total / 100.0).to_s.gsub(/\.[0-9]$/, '\00')} EURO
+EOF
   end
 
   def customer_info
@@ -209,6 +230,8 @@ class Order < ActiveRecord::Base
 Fertig zu: #{requested_delivery_at ? '' : 'So schnell wie möglich'}
 Zustellung: #{delivery_type == 'delivery' ? 'Lieferung' : 'Abholung'}
 Bezahlung: #{payment_type == 'cash' ? 'Bar' : 'Online'}
+Lieferkosten: #{delivery_type == 'delivery' ? '2,00 €' : '0,00 €'}
+Rabatt: #{discount} %
 Total: #{(total / 100.0).to_s.gsub(/\.[0-9]$/, '\00')} €
     EOF
   end
@@ -268,10 +291,29 @@ Bestellungen verwalten: #{backend_url}
 
   def xmpp_order_item_array
     order_items.each_with_object([]).with_index do |(order_item, ordered), index|
-      ordered.push "#{index + 1}: #{order_item.quantity} x #{order_item.name}"
-      next unless order_item.extras.any?
-      ordered.push 'Extras: ' + order_item.extras.map(&:name).join(', ')
+      ordered.push(
+        "#{index + 1}: #{order_item.quantity} x #{order_item.order_number} #{order_item.size}"
+      )
+      ordered.push order_item.name
+      ordered.push number_to_currency(order_item.total_price / 100.0, locale: :eu)
+      if order_item.extras.any?
+        ordered.push 'Extras: ' + order_item.extras.map(&:name).join(', ')
+      end
       ordered.push ''
     end
+  end
+
+  delegate :next_invoice_number, to: :class
+  def self.next_invoice_number
+    # invoice numbers: W2015-0001
+    last = Order.invoiced.last.try(:invoice_number) || "#{Time.zone.today.year}-0000"
+    year = last[1..4].to_i
+    if year < Time.zone.today.year
+      year = Time.zone.today.year
+      number = '0001'
+    else
+      number = (last[6..-1].to_i + 1).to_s.rjust(4, '0')
+    end
+    "W#{year}-#{number}"
   end
 end

@@ -1,0 +1,21 @@
+#discount_message {
+  background-color: #C13030;
+  color: white;
+  height: auto;
+  width: 100%;
+
+  > .container {
+    position: relative;
+    top: .1em;
+  }
+
+  a {
+    color: #fff;
+    text-decoration: none;
+  }
+}
+
+.stick_to_nav {
+  margin-bottom: 5rem;
+  margin-top: -7rem;
+}

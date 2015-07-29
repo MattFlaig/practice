@@ -17,7 +17,7 @@ $(document).ready(function(){
 
   var $toggle_invoice = null;
   $('#order').on(
-    'change', '[name="order[invoice_address_same_as_delivery]"]', function() {
+    'change', '#toggle_invoice_address input:radio', function() {
       $toggle = $('#toggle_invoice_address');
 
       if(!$toggle_invoice || $toggle_invoice.length == 0) {
@@ -33,6 +33,7 @@ $(document).ready(function(){
   $(document).on('shown.bs.modal', function() {
     $toggle_invoice = null;
     $('[name="order[invoice_address_same_as_delivery]"]:checked').trigger('change');
+    $('[name="order[no_invoice_requested]"]:checked').trigger('change');
   });
 
   $('#order').on('click', '#order_button button', function(e) {

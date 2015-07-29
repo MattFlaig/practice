@@ -2,6 +2,17 @@
   .row
     .col-sm-12
       .well{ data: { get_by_json_interval: true } }
+        .button.clearfix
+          %form.pull-right{ action: backend_xmpp_ping_path, method: :post, autocomplete: :off, data: { shadow_input: true } }
+            %p.text-right
+              %button.btn.ladda-button{ name: :ping, type: :button, data: { style: 'expand-left', ladda_shadow: { renable: true }.to_json } }
+                iPad-Ping
+          .spacer.pull-right
+            &nbsp;
+          %form.pull-right{ action: backend_printer_ping_path, method: :post, autocomplete: :off, data: { shadow_input: true } }
+            %p.text-right
+              %button.btn.ladda-button{ name: :ping, type: :button, data: { style: 'expand-left', ladda_shadow: { renable: true }.to_json } }
+                Drucker-Ping
         = render 'submitted_orders', orders: @submitted_orders
         = render 'to_do_orders', orders: @to_do_orders
         = render 'recent_orders', orders: @recent_orders

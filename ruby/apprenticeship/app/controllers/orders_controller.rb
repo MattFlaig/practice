@@ -51,8 +51,8 @@ class OrdersController < ApplicationController
       paypal_attributes[:payment_request],
       confirm_paypal_url,
       order_url,
-      no_shipping: false, # if you want to disable shipping information
-      allow_note: false, # if you want to disable notes
+      no_shipping: true, # if you want to disable shipping information
+      allow_note: true, # if you want to disable notes
       pay_on_paypal: true # if you don't plan on showing your own confirmation step
     )
 
@@ -79,6 +79,7 @@ class OrdersController < ApplicationController
       :delivery_type,
       :payment_type,
       :invoice_address_same_as_delivery,
+      :no_invoice_requested,
       :requested_delivery_at,
       :customer_comment,
       order_items_attributes: [
@@ -170,7 +171,7 @@ class OrdersController < ApplicationController
 
     payment_request = Paypal::Payment::Request.new(
       currency_code: :EUR,
-      description:   'Bestellung bei Pizza alla Grande',
+      description:   'Bestellung bei Pizza alla grande Berlino',
       quantity:      1,
       amount:        order.total_price.to_f / 100.0
     )

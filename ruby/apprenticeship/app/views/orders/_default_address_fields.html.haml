@@ -6,10 +6,11 @@
   = f.email_field :email, label: 'Email', id: 'email', hide_label: true, placeholder: 'E-Mail'
   = f.text_field :mobile, label: 'Telefon', id: 'mobile', hide_label: true, placeholder: 'Telefon'
 - else
-  = f.static_control label: ' ', skip_label: true do
-    = ''
-  = f.static_control label: ' ', skip_label: true do
-    = ''
+  - unless local_assigns[:without_space]
+    = f.static_control label: ' ', skip_label: true do
+      = ''
+    = f.static_control label: ' ', skip_label: true do
+      = ''
 = f.text_field :street,
   label: 'Straße und Hausnummer', hide_label: true, placeholder: 'Straße und Hausnummer', required: true
 - if local_assigns[:postal_select]

@@ -19,6 +19,6 @@
                 .col-md-12.nowrap
                   = number_to_currency(price.value.to_f/100, locale: :eu, separator: '.') + " (#{price.size})"
           .col-md-6
-            = content_tag('button', type: 'button', class: 'btn btn-danger nav-button show_postal pull-right' ) do
+            = content_tag('button', type: 'button', class: 'btn btn-primary nav-button show_postal pull-right' ) do
               = 'Bestellen'
     = content_tag('hr') unless food == category.last

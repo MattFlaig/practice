@@ -22,10 +22,11 @@
     %p
       Bitte beachten Sie, dass dies eine ungefähre Angabe ist und sie je Auslastung und unvorhergesehenen Umständen
       variieren kann. Wir geben unser Bestes, die Bestellung pünktlich abholbereit ist!
-  %p
-    Im Anhang finden Sie zudem Ihre Rechnung.
-    - if @order.payment_type == 'cash'
-      Die Bestellung ist noch
-      %b bar zu bezahlen.
+  - unless @order.no_invoice_requested == 1
+    %p
+      Im Anhang finden Sie zudem Ihre Rechnung.
+      - if @order.payment_type == 'cash'
+        Die Bestellung ist noch
+        %b bar zu bezahlen.
   %p
     Das Pizza alla grande Berlino Team

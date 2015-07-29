@@ -1,3 +1,4 @@
+= render partial: 'shared/discount'
 %section.container#order_menu
   .row
     .col-md-10.col-md-offset-1
@@ -7,30 +8,7 @@
       .row
         .col-md-8
           %section#menu_details
-            %br
-            %ul.nav.nav-pills.well
-              %li.active
-                %a{ href: '#pizza', data: { toggle: 'pill' } } Pizza
-              %li
-                %a{ href: '#main_course', data: { toggle: 'pill' } } Pasta
-              %li
-                %a{ href: '#salad', data: { toggle: 'pill' } } Salate
-              %li
-                %a{ href: '#dessert', data: { toggle: 'pill' } } Desserts
-              %li
-                %a{ href: '#drink', data: { toggle: 'pill' } } Getränke
-            .tab-content.well.less_margin
-              %section.tab-pane.active#pizza
-                = render partial: 'shared/order_category', locals: { category: @categories[0] }
-              %section.tab-pane#main_course
-                = render partial: 'shared/order_category', locals: { category: @categories[1] }
-              %section.tab-pane#salad
-                = render partial: 'shared/order_category', locals: { category: @categories[2] }
-              %section.tab-pane#dessert
-                = render partial: 'shared/order_category', locals: { category: @categories[3] }
-              %section.tab-pane#drink
-                = render partial: 'shared/drinks', locals: { groups: @grouped_drinks.values }
-
+            = render partial: 'shared/order_pills'
           %div{class: 'modal', id: "show_order_modal", tabindex: '-1', role:'dialog', aria: {labelledby: 'myLargeModalLabel', hidden:'true' } }
           .well.less_margin
             = render partial: 'pages/additives'

@@ -28,7 +28,7 @@
               (#{item.size})
           .col-sm-3.col-xs-5.text-right
             = link_to order_item_path(item), method: :delete, remote: true, data: {confirm: 'Möchten Sie das Produkt wirklich aus dem Warenkorb löschen?' } do
-              %i.fa.fa-times.btn.btn-danger.btn-xs.align-button
+              %i.fa.fa-times.btn.btn-primary.btn-xs.align-button
 
         - if item.extras.any?
           .row
@@ -57,7 +57,7 @@
                 (19 % MwSt.)
       %hr
     %section#additional_info
-      - if current_order.discount != nil
+      - if current_order.discount
         .row
           .col-sm-10.col-sm-offset-2
             %h6.nowrap= current_order.discount.to_s + ' % Rabatt'
@@ -65,8 +65,6 @@
           .col-sm-9.col-sm-offset-2
             %h6
               #{number_to_currency((current_order.total_price(discount: false).to_f/100 * current_order.discount/100), locale: :eu, separator: '.')}
-              %sup.text-muted
-                (19 % MwSt.)
       %hr
       %br
     %section#delivery_mode
@@ -99,11 +97,11 @@
               (inkl. #{current_order.vat_list.keys.first/100} % MwSt.)
         - if current_order.total_price < 1500
           .col-md-12.text-center
-            %button.btn.btn-danger{ disabled: true }
+            %button.btn.btn-primary{ disabled: true }
               Mindestbestellwert ist 15.00 €
         - else
           .col-md-6
             %section#order_button
-              %button.btn.btn-danger
+              %button.btn.btn-primary
                 Bestellen
                 %i.fa.fa-arrow-right

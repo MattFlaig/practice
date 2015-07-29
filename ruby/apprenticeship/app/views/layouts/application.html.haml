@@ -3,7 +3,7 @@
   %head
     %meta{ charset: 'utf-8' }
     %meta{ name: 'viewport', content: 'width=device-width, initial-scale=1.0' }
-    %title Foody
+    %title Pizza alla grande Berlino - Berlins größte Pizza
     = stylesheet_link_tag 'application'
     = javascript_include_tag 'application'
     = csrf_meta_tags
@@ -16,3 +16,4 @@
       = render partial: 'shared/footer'
     .modal#show_postal_modal{ tabindex: '-1', role: 'dialog', aria: { hidden: 'true' } }
     = render 'shared/modal_info'
+    = piwik_tracking_tag

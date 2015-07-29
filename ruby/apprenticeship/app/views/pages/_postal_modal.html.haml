@@ -9,7 +9,7 @@
       .modal-body.grey_if_no_order
         .col-xs-offset-2.col-xs-8#orders_closed
           %h4.red
-            %b Der Bestell-Service bleibt heute geschlossen.
+            %b Online-Bestellung aktuell geschlossen.
         = f.hidden_field :delivery_type, value: ''
         .modal_container.background_container
           .red Bitte auswählen:
@@ -21,13 +21,15 @@
                 %p
                   Unsere Öffnungszeiten:
                 %p
-                  täglich
+                  Mo - Fr
                   %b 12 - 15 Uhr
                   und
                   %b 18 - 22 Uhr
                 %p
-                  Unser Lokal befindet sich in der Schönhauser Allee 156 (Nähe Kulturbrauerei).
-                  Parkmöglichkeiten sind vorhanden, Haltestellen der Trams M1 und M12 sowie der U2 Eberswalder Straße sind nur wenige Gehminuten entfernt.
+                  Sa - So
+                  %b 18 - 22 Uhr
+                %p
+                  Unser Lokal befindet sich in der Schönhauser Allee 156 (U2 Eberswalder Straße, Tram M1, M12) in unmittelbarer Nähe zur Kulturbrauerei.
               .row
                 .col-sm-12.col-xs-12
                   #requested_pickup
@@ -55,4 +57,4 @@
       .modal-footer
         .row
           .col-sm-12
-            = link_to 'Weiter zur Bestellung', order_path, class: 'btn btn-danger postal_button disabled', disabled: 'disabled'
+            = link_to 'Weiter zur Bestellung', order_path, class: 'btn btn-primary postal_button disabled', disabled: 'disabled'

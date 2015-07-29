@@ -44,7 +44,7 @@ register_plugin 'cc-button', {
       done = false
 
       stripe = StripeCheckout.configure {
-        key: 'pk_test_dRRpAHqlGxBqRhEplQodiSEa'
+        key: $(@).data('key')
         image: '/img/documentation/checkout/marketplace.png'
         token: (token) ->
           $hidden = $('<input type="hidden" name="stripeToken">')
