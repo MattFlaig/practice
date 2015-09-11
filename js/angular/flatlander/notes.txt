@@ -1,0 +1,19 @@
+1)Formatting with filters
+{{data* | filter:options}}
+
+date: {{ '1388123412323' | date: 'MM/dd/yyyy @ h:mma'}}
+uppercase: {{'octagon gem' | uppercase}}
+limitTo: {{'My Description' | limitTo:8}}
+orderBy: <li ng-repeat="product in store.products | orderBy: '-price'" (by descending price)
+
+
+
+2)Images
+In gems array of hashes:
+
+images: [{
+  full: 'image-name'.jpg,
+  thumb: 'thumb-name.jpg'
+}]
+
+in html: <img ng-src="{{product.images[0].full}}"/>

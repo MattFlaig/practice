@@ -9,9 +9,24 @@
 	    <div class="product row" ng-hide='store.product.soldOut' ng-repeat='product in store.products'>
 	        <h3>
 	        	{{store.product.name}}
-	        	<em class="pull-right">{{store.product.price}}</em>
+	        	<em class="pull-right">{{store.product.price | currency }}</em>
 	        </h3>
 	        <button ng-show='store.product.canPurchase'>Add to cart</button>
+	        <div class="gallery">
+              <img ng-src="{{product.images[0]}}" />
+            </div>
+            <section ng-controller="PanelController as panel">
+              <ul class="nav nav-pills">
+                <li ng-class="{ active: panel.isSelected(1)}"><a href ng-click="panel.selectTab(1)">Description</a></li>
+                <li ng-class="{ active: panel.isSelected(2)}"><a href ng-click="panel.selectTab(2)">Specifications</a></li>
+                <li ng-class="{ active: panel.isSelected(3)}"><a href ng-click="panel.selectTab(3)">Reviews</a></li>
+              </ul>
+              <div class="panel" ng-show="tab === 1">
+                <h4>Description </h4>
+                <p>{{product.description}}</p>
+              </div>
+            </section>
 	    </div>
     </body>
 </html>
+
