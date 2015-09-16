@@ -5,14 +5,33 @@
     this.products = gems;
   });
 
-  app.controller('PanelController', function(){
+  app.controller('TabController', function(){
     this.tab = 1;
 
-    this.selectTab = function(setTab) {
-      this.tab = setTab;
+    this.setTab = function(tab){
+      this.tab = tab;
     };
-    this.isSelected = function(checkTab){
-      return this.tab === checkTab;
+
+    this.isSet = function(tab){
+      return (this.tab === tab);
+    };
+  });
+
+  app.controller('GalleryController', function(){
+    this.current = 0;
+
+    this.setCurrent = function(index){
+      this.current = index;
+    };
+  });
+
+  app.controller('ReviewController', function() {
+    this.review = {};
+
+    this.addReview = function(product) {
+      product.reviews.push(this.review);
+
+      this.review = {};
     };
   });
 
@@ -51,7 +70,7 @@
       images: [
         "images/gem-01.gif",
         "images/gem-03.gif",
-        "images/gem-04.gif"
+        "images/gem-04.gif",
       ],
       reviews: [{
         stars: 3,
@@ -75,7 +94,7 @@
       images: [
         "images/gem-06.gif",
         "images/gem-07.gif",
-        "images/gem-10.gif"
+        "images/gem-08.gif"
       ],
       reviews: [{
         stars: 1,

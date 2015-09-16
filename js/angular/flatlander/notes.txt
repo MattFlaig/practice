@@ -17,3 +17,11 @@ images: [{
 }]
 
 in html: <img ng-src="{{product.images[0].full}}"/>
+
+
+3)Binding examples
+Checkbox:
+<input ng-model="review.terms" type="checkbox" /> I agree to the terms
+
+Radio Button:
+<input ng-model="review.color" type="radio" value="red" /> Red
