@@ -7,11 +7,33 @@ var view = function(){
 
 	var _load_event_handler = function(){
 		$('#calculator').on('click', '.calc', function(){
-			console.log($(this).attr('name'));
-			var input = $(this).attr('name');
+			var new_input = $(this).attr('name');
+			var last_input = model.get_last_input().trim();
 			var old_input = $('#calc_input').val();
-			$('#calc_input').val(old_input + input);
+			var nums = model.get_nums();
+
+			if(new_input == '.'){
+              $("[name='.']").removeClass('calc');
+			}
+			else{
+				if(nums.indexOf(new_input) >= 0){
+					$('#calc_input').val(old_input + new_input);
+				}
+				else{
+					if(nums.indexOf(last_input) >= 0){
+						$('#calc_input').val(old_input + new_input);
+					}
+					$("[name='.']").addClass('calc');
+				}
+			}
+
+			model.set_last_input(new_input);
 		})
+
+		$('#calculator').on('click', '#C', function(){
+			$('#calc_input').val('');
+		})
+
 	}
 
 	var _load_calculator = function(){
