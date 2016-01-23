@@ -3,10 +3,11 @@ var view = function(){
 	var _setup = function(){
 		view.load_calculator();
 		view.load_event_handler();
+		view.load_digital_nums();
 	}
 
 	var _load_event_handler = function(){
-		$('#calculator').on('click', '.calc', function(){
+		/*$('#calculator').on('click', '.calc', function(){
 			var new_input = $(this).attr('name');
 			var last_input = model.get_last_input().trim();
 			var old_input = $('#calc_input').val();
@@ -32,7 +33,14 @@ var view = function(){
 
 		$('#calculator').on('click', '#C', function(){
 			$('#calc_input').val('');
-		})
+		})*/
+
+	}
+
+	var _load_digital_nums = function(){
+		html = "<div class='digital_num'><div class='num1'></div><div class='num2'></div><div class='num3'></div>" +
+		"<div class='num4'></div><div class='num5'></div><div class='num6'></div><div class='num7'></div></div>";
+		$('#calc_input').html(html);
 
 	}
 
@@ -48,9 +56,7 @@ var view = function(){
 	}
 
 	var _build_first_row = function(){
-		return "<row>" +
-                "<input type='text' class='col-sm-12' id='calc_input' name='calc_input' readonly/>" +
-                "</row>";
+		return "<row><div class='col-sm-12' id='calc_input' name='calc_input'> </div></row>";
 	}
 
 	var _build_main_rows = function(rows){
@@ -81,8 +87,30 @@ var view = function(){
 		build_main_rows : _build_main_rows,
 		build_last_row : _build_last_row,
 		load_calculator : _load_calculator,
-		load_event_handler : _load_event_handler
+		load_event_handler : _load_event_handler,
+		load_digital_nums : _load_digital_nums
 	}
 
 	
 }();
+
+
+
+/* map:
+[
+  [0],[0],[1],
+     ,[0],,
+  [0],[0],[1]
+], 37
+
+{ 0 : '123567',
+  1 : '37',
+  2 : '23456',
+  4 : '1347',
+  5 : '12467',
+  6 : '124567',
+  7 : '237',
+  8 : '1234567',
+  9 : '123467'}
+
+  */

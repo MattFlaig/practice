@@ -1,7 +1,5 @@
 @import url(http://fonts.googleapis.com/css?family=Orbitron);
 
-
-
 #calculator {
 	margin-top: 5rem;
 	border-radius:10px;
@@ -20,15 +18,92 @@
 	font-weight: bold;
 	color: lime;
 	background: black;
+	margin: 1rem;
+	width: 6.2rem;
+	border-bottom: 0.5rem lime solid;
 }
 #calc_input {
-	padding: 0.5rem;
+	height: 6.2rem;
+	padding: 1rem;
 	margin-bottom: 4rem;
-	font-family: 'Orbitron', sans-serif;
-	font-size: 2rem;
-	font-weight: bold;
+	/*font-family: 'Orbitron', sans-serif;
+	font-size: 3rem;
+	font-weight: bold;*/
 	background: lime;
 	border: 1px solid lime;
 	border-radius:10px;
-	color: black;
+	/*color: black;*/
+}
+
+.digital_num{
+	margin-top: -0.5rem;
+	height: 5rem;
+	width: 3rem;
+	float: right;
+	position: relative;
+}
+.num1{ 
+	float: left;
+	border-radius: 30%;
+	margin-top: 0.4rem;
+	width: 0.4rem;
+	height: 2rem;
+	background: black;
+}
+.num2{
+	float: top;
+	border-radius: 30%;
+	width: 90%;
+	height: 0.4rem;
+	background: black;
+	margin-left: 0.2rem;
+	margin-right: 0.2rem;
+}
+.num3{
+	margin-left: 2.7rem;
+	border-radius: 30%;
+	width: 0.4rem;
+	height: 2rem;
+	background: black;
+}
+.num4{
+	border-radius: 30%;
+	width: 90%;
+	height: 0.4rem;
+	background: black;
+	margin-left: 0.2rem;
+	margin-right: 0.2rem;
+	margin-top: -0.1rem;
+}
+.num5{
+	position: absolute;
+	bottom: 0;
+	float: left;
+	margin-bottom: 0.4rem;
+	border-radius: 30%;
+	margin-top: 2rem;
+	width: 0.4rem;
+	height: 2rem;
+	background: black;
+}
+.num6{
+	position: absolute;
+	bottom: 0;
+	margin-bottom: 0.4rem;
+	margin-left: 2.7rem;
+	border-radius: 30%;
+	margin-top: 2rem;
+	width: 0.4rem;
+	height: 2rem;
+	background: black;
+}
+.num7{ 
+	position: absolute;
+	bottom: 0;
+	border-radius: 30%;
+	width: 90%;
+	height: 0.4rem;
+	background: black;
+	margin-left: 0.2rem;
+	margin-right: 0.2rem;
 }
