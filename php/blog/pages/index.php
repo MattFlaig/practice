@@ -4,9 +4,13 @@
 
         <?php
 
-            include("../database.php");
+            include("../init.php");
 
-            $result = fetch_posts();
+            $postsController = $container->make('postsController');
+            $postsController->index();
+
+            /*$postsRepository = $container->make('postsRepository');
+            $result = $postsRepository->fetchPosts();*/
 
 
         ?>
@@ -14,8 +18,8 @@
         <ul>
             <?php foreach ($result AS $row): ?>
                 <li>
-                    <a href="post.php?title=<?php echo $row["title"]; ?>">
-                        <?php echo $row["title"]; ?>
+                    <a href="post.php?id=<?php echo $row->id; ?>">
+                        <?php echo $row->title; ?>
                     </a>
                 </li>
             <?php endforeach; ?>

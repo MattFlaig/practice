@@ -4,14 +4,16 @@
 
         <?php
 
-            include("../database.php");
+            include("../init.php");
 
-            $title = $_GET['title'];
-            $post = fetch_post($title);
+            $postsRepository = $container->make('postsRepository');
+
+            $id = $_GET['id'];
+            $post = $postsRepository->fetchPost($id);
 
         ?>
-        <h3><?php echo $post["title"]; ?></h3>
-        <p><?php echo $post["content"]; ?></p>
+        <h3><?php echo $post['title']; ?></h3>
+        <p><?php echo nl2br($post['content']); ?></p>
 
 
     </body>

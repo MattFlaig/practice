@@ -2,20 +2,13 @@
 
     $pdo = new PDO(
         'mysql:host=localhost;
-        dbname=blog',
-        'root', ''
+        dbname=blog;
+        charset=utf8',
+        'blog',
+        '2VUtDpnudh82YNmC'
     );
 
-    function fetch_posts()
-    {
-        global $pdo;
-        return $pdo->query("SELECT * FROM `posts`");
-    };
+    $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 
-    function fetch_post($title)
-    {
-        global $pdo;
-        $q = $pdo->query("SELECT * FROM `posts` WHERE title='{$title}'");
-        return $q->fetch();
-    };
+    
 ?>
