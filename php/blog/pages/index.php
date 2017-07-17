@@ -7,22 +7,9 @@
             include("../init.php");
 
             $postsController = $container->make('postsController');
+            /*var_dump($postsController);*/
             $postsController->index();
 
-            /*$postsRepository = $container->make('postsRepository');
-            $result = $postsRepository->fetchPosts();*/
-
-
         ?>
-
-        <ul>
-            <?php foreach ($result AS $row): ?>
-                <li>
-                    <a href="post.php?id=<?php echo $row->id; ?>">
-                        <?php echo $row->title; ?>
-                    </a>
-                </li>
-            <?php endforeach; ?>
-        </ul>
     </body>
 </html>
